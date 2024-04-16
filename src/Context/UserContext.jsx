@@ -16,12 +16,14 @@ import {
   orderBy,
   getDocs,
   or,
+  arrayRemove,
 } from "firebase/firestore";
 
 const UserContext = createContext({
   updateUser: async () => {},
   createWorkout: async () => {}, 
   afficherWokoutDetails: async () => {},
+  supprimerEntrainement: async () => {},
 
   user: null,
   _v: 0,
@@ -45,56 +47,74 @@ export function UserProvider({ children }) {
     return new Date().getTime().toString();
   };
 
-const createWorkout = async (workoutName, selectedExercises) => {
+  const createWorkout = async (workoutName, selectedExercises) => {
     const uuid = user.uid;
     const workoutId = genererId();
     const useDocRef = doc(db, "users", uuid);
 
     await setDoc(
-        useDocRef,
-        {
-            workout: arrayUnion({
-                id: workoutId,
-                name: workoutName,
-            }),
-        },
-        { merge: true }
+      useDocRef,
+      {
+        workout: arrayUnion({
+          id: workoutId,
+          name: workoutName,
+        }),
+      },
+      { merge: true }
     );
 
     const workoutDocRef = doc(db, "workouts", workoutId);
     await setDoc(workoutDocRef, {  
-        uuid: workoutId,
-        name: workoutName,
-        user: uuid,
-        exercices: selectedExercises,
+      uuid: workoutId,
+      name: workoutName,
+      user: uuid,
+      exercices: selectedExercises,
     });
 
-    // Après avoir ajouté le nouvel entraînement, mettez à jour automatiquement les détails de l'entraînement
-    await afficherWokoutDetails();
-};
+    onSnapshot(useDocRef, (doc) => {
+      setUserInfos(doc.data());
+    }
+    );
+  };
 
-
-
-
-const afficherWokoutDetails = async () => {
-  const uuid = user.uid;
-  const workoutsRef = collection(db, "workouts");
-  const userWorkoutsQuery = query(
-    workoutsRef,
-    where("user", "==", uuid)
-  );
-
-  const querySnapshot = await getDocs(userWorkoutsQuery);
-  const workouts = [];
-
-  querySnapshot.forEach((doc) => {
-    workouts.push({ id: doc.id, ...doc.data() });
-  });
+  const supprimerEntrainement = async (workoutId) => {
+    const uuid = user.uid;
   
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+  
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const updatedWorkouts = userData.workout.filter(item => item.id !== workoutId);
+  
+      await updateDoc(userDocRef, {
+        workout: updatedWorkouts,
+      });
+  
+      const workoutDocRef = doc(db, "workouts", workoutId);
+      await deleteDoc(workoutDocRef);
+  
+      await afficherWokoutDetails();
+    }
+  };
 
-  return workouts;
-};
+  const afficherWokoutDetails = async () => {
+    const uuid = user.uid;
+    const workoutsRef = collection(db, "workouts");
+    const userWorkoutsQuery = query(
+      workoutsRef,
+      where("user", "==", uuid)
+    );
 
+    const querySnapshot = await getDocs(userWorkoutsQuery);
+    const workouts = [];
+
+    querySnapshot.forEach((doc) => {
+      workouts.push({ id: doc.id, ...doc.data() });
+    });
+
+    return workouts;
+  };
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -107,8 +127,7 @@ const afficherWokoutDetails = async () => {
 
         onSnapshot(docRef, (doc) => {
           setUserInfos(doc.data());
-        }
-        );
+        });
        
       } else {
         try {
@@ -119,7 +138,6 @@ const afficherWokoutDetails = async () => {
             workout: [],
           });
 
-          //   createListePistesForUser(uuid);
         } catch (error) {
           console.error("Error creating user document:", error);
         }
@@ -137,6 +155,7 @@ const afficherWokoutDetails = async () => {
         user: userInfos,
         createWorkout,
         afficherWokoutDetails,
+        supprimerEntrainement,
       }}
     >
       {children}

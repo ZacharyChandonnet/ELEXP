@@ -12,8 +12,7 @@
 
 
 html{
-  max-width: 1600px;
   margin: 0 auto;
-  width: calc(100vw - 4rem);
+  width: calc(100vw - 12rem);
   font-family: 'Roboto', sans-serif;
 }

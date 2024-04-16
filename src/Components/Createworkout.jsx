@@ -5,11 +5,16 @@ import ChoixExercices from '../Data/Exercices.json';
 const Createworkout = () => {
     const [workoutName, setWorkoutName] = useState('');
     const [selectedExercises, setSelectedExercises] = useState([]);
-
-    const { createWorkout } = useUser();
+    const [isClicked, setIsClicked] = useState(false);
+    const { createWorkout  } = useUser();
    
     const handleCreateWorkout = () => {
         createWorkout(workoutName, selectedExercises);
+        setWorkoutName('');
+    }
+
+    const handleToggle = () => {
+        setIsClicked(!isClicked);
     }
 
     const toggleExercise = (exerciseName) => {
@@ -22,11 +27,14 @@ const Createworkout = () => {
 
     return(
         <div>
-            <h1>Créer un entrainement</h1>
-            <div className='flex'>
+           <h2 className='font-titre uppercase'>Créer un entrainement</h2>
+            <div className='grid grid-cols-3 gap-2'>
             <div>
+                <label htmlFor="jambes">
+                    Jambes
+                </label>
                 {ChoixExercices.exercices.jambes.map((exercise) => (
-                    <label key={exercise.id}>
+                    <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
@@ -39,8 +47,9 @@ const Createworkout = () => {
 
             </div>
                 <div>
+                   <label htmlFor="dos"> Dos</label>
                 {ChoixExercices.exercices.dos.map((exercise) => (
-                    <label key={exercise.id}>
+                    <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
@@ -52,8 +61,9 @@ const Createworkout = () => {
                 ))}
 </div>
 <div>
+                <label htmlFor="triceps"> Triceps</label>   
                 {ChoixExercices.exercices.triceps.map((exercise) => (
-                    <label key={exercise.id}>
+                     <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
@@ -65,10 +75,11 @@ const Createworkout = () => {
                 ))}
 </div>
 <div>
+                <label htmlFor="biceps"> Biceps</label>
 
 
                 {ChoixExercices.exercices.biceps.map((exercise) => (
-                    <label key={exercise.id}>
+                     <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
@@ -80,10 +91,10 @@ const Createworkout = () => {
                 ))}
                 </div>
                 <div>
-
+                <label htmlFor="pec"> Pectoraux</label>
 
                 {ChoixExercices.exercices.pec.map((exercise) => (
-                    <label key={exercise.id}>
+                     <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
@@ -95,9 +106,10 @@ const Createworkout = () => {
                 ))}
                 </div>
                 <div>
+                <label htmlFor="epaules"> Épaules</label>
 
                 {ChoixExercices.exercices.epaules.map((exercise) => (
-                    <label key={exercise.id}>
+                    <label key={exercise.id} className='flex items-center'>
                         <input
                             type="checkbox"
                             value={exercise.name}
