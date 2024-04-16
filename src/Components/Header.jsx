@@ -3,6 +3,7 @@ import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const { user } = useUser();
@@ -13,8 +14,18 @@ const Header = () => {
     setIsClicked(!isClicked);
   };
 
+  const headerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 1 } },
+  };
+
   return (
-    <header className="flex justify-between pt-8">
+    <motion.header
+      className="flex justify-between pt-8"
+      variants={headerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       <div>
         <Link to="/">ELEXP</Link>
       </div>
@@ -54,7 +65,7 @@ const Header = () => {
           </div>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 };
 

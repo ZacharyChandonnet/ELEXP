@@ -1,6 +1,6 @@
 {
     "exercices": {
-      "jambes": [
+      "Jambes": [
         {"id": 1, "name": "Squats"},
         {"id": 2, "name": "Fentes"},
         {"id": 3, "name": "Soulevé de terre"},
@@ -16,7 +16,7 @@
         {"id": 13, "name": "Leg curl assis"},
         {"id": 14, "name": "Les adducteurs à la machine"}
       ],
-      "dos": [
+      "Dos": [
         {"id": 15, "name": "Tirage verticaux à la poulie haute"},
         {"id": 16, "name": "Tirage horizontaux à la poulie basse"},
         {"id": 17, "name": "Tirage bûcheron"},
@@ -25,7 +25,7 @@
         {"id": 20, "name": "Tractions"},
         {"id": 21, "name": "Haussements d’épaules"}
       ],
-      "pec": [
+      "Pec": [
         {"id": 22, "name": "Développé couché"},
         {"id": 23, "name": "Développé incliné"},
         {"id": 24, "name": "Développé décliné"},
@@ -37,7 +37,7 @@
         {"id": 30, "name": "Pull-over"},
         {"id": 31, "name": "Dips"}
       ],
-      "epaules": [
+      "Épaules": [
         {"id": 32, "name": "Développé militaire"},
         {"id": 33, "name": "Elevation latérale"},
         {"id": 34, "name": "Elevation frontale"},
@@ -48,7 +48,7 @@
         {"id": 39, "name": "Développé nuque"},
         {"id": 40, "name": "Développé derrière la nuque"}
       ],
-      "biceps": [
+      "Biceps": [
         {"id": 41, "name": "Curl barre"},
         {"id": 42, "name": "Curl haltères"},
         {"id": 43, "name": "Curl marteau"},
@@ -56,7 +56,7 @@
         {"id": 45, "name": "Curl prise marteau"},
         {"id": 46, "name": "Curl à la poulie basse"}
       ],
-      "triceps": [
+      "Triceps": [
         {"id": 47, "name": "Dips"},
         {"id": 48, "name": "Développé couché prise serrée"},
         {"id": 49, "name": "Barre au front"},
