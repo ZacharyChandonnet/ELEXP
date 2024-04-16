@@ -3,8 +3,17 @@
 @tailwind utilities;
 
 
-@font-face {
+@font-face 
+{
     font-family: 'ClashDisplay';
     src: url('./assets//fonts/ClashDisplay-Bold.ttf');
     font-weight: bold;
-  }
+}
+
+
+html{
+  max-width: 1600px;
+  margin: 0 auto;
+  width: calc(100vw - 4rem);
+  font-family: 'Roboto', sans-serif;
+}

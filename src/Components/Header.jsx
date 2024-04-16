@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className="flex justify-between">
+    <header className="flex justify-between pt-8">
       <div>
         <Link to="/">ELEXP</Link>
       </div>
