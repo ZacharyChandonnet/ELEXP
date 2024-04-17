@@ -47,11 +47,11 @@ const Header = () => {
             name: "Tendances",
             title: "Tendances",
           },
-          {
-            url: "/forum",
-            name: "Forum",
-            title: "Forum",
-          },
+          // {
+          //   url: "/forum",
+          //   name: "Forum",
+          //   title: "Forum",
+          // },
         ]}
       />
 

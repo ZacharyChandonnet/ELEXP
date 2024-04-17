@@ -25,12 +25,12 @@ const ListeEntrainements = () => {
   return (
     <section>
       <div>
+        <h2 className="font-titre uppercase">Mes entrainements</h2>
         {workouts && workouts.length === 0 ? (
           <p>Vous n'avez pas encore d'entrainements</p>
         ) : (
           workouts.map((workout) => (
             <div key={workout.id}>
-              <h2 className="font-titre uppercase">Créer un entrainement</h2>
               <p>{workout.name}</p>
               <ul>
                 {workout.exercices.map((exercise, index) => (

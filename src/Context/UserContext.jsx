@@ -24,7 +24,9 @@ const UserContext = createContext({
   createWorkout: async () => {}, 
   afficherWokoutDetails: async () => {},
   supprimerEntrainement: async () => {},
-
+  afficherExperience: async () => {},
+  ajouterWorkoutFini: async () => {},
+  afficherWorkoutFini: async () => {},
   user: null,
   _v: 0,
 });
@@ -40,9 +42,6 @@ const useUser = () => {
 export function UserProvider({ children }) {
   const { user } = useAuth();
   const [userInfos, setUserInfos] = useState(null);
-  
-  
-
   const genererId = () => {
     return new Date().getTime().toString();
   };
@@ -106,7 +105,7 @@ export function UserProvider({ children }) {
       where("user", "==", uuid)
     );
 
-    const querySnapshot = await getDocs(userWorkoutsQuery);
+    const querySnapshot = await getDocs(userWorkoutsQuery); 
     const workouts = [];
 
     querySnapshot.forEach((doc) => {
@@ -115,6 +114,69 @@ export function UserProvider({ children }) {
 
     return workouts;
   };
+
+  const afficherExperience = (callback) => {
+    const uuid = user.uid;
+    const docRef = doc(db, "users", uuid);
+
+    const unsubscribe = onSnapshot(docRef, (doc) => {
+        const experience = doc.data().experience;
+        callback(experience);
+    });
+
+    return unsubscribe;
+};
+
+const ajouterWorkoutFini = async (workoutId) => { 
+  const uuid = user.uid;
+  const userDocRef = doc(db, "users", uuid);
+  const userDocSnap = await getDoc(userDocRef);
+
+  const workoutDocRef = doc(db, "workouts", workoutId);
+  const workoutDocSnap = await getDoc(workoutDocRef);
+
+  if (workoutDocSnap.exists()) {
+      const workoutData = workoutDocSnap.data();
+      const experienceToAdd = workoutData.exercices.length * 10;
+
+      await updateDoc(userDocRef, {
+          experience: userDocSnap.data().experience + experienceToAdd,
+      });
+  }
+
+  if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const updatedHistory = userData.history;
+      updatedHistory.push(workoutId);
+
+      await updateDoc(userDocRef, {
+          history: updatedHistory,
+      });
+  }
+  
+};
+
+const afficherWorkoutFini = async () => {
+  const uuid = user.uid;
+  const userDocRef = doc(db, "users", uuid);
+  const userDocSnap = await getDoc(userDocRef);
+
+  if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const history = [];
+
+      for (const workoutId of userData.history) {
+          const workoutDocRef = doc(db, "workouts", workoutId);
+          const workoutDocSnap = await getDoc(workoutDocRef);
+
+          if (workoutDocSnap.exists()) {
+              history.push({ id: workoutDocSnap.id, ...workoutDocSnap.data() });
+          }
+      }
+
+      return history;
+  }
+};
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -136,6 +198,8 @@ export function UserProvider({ children }) {
             uuid: user.uid,
             name: user.displayName,
             workout: [],
+            experience: 0,
+            history: [], 
           });
 
         } catch (error) {
@@ -156,6 +220,9 @@ export function UserProvider({ children }) {
         createWorkout,
         afficherWokoutDetails,
         supprimerEntrainement,
+        afficherExperience,
+        ajouterWorkoutFini,
+        afficherWorkoutFini,
       }}
     >
       {children}

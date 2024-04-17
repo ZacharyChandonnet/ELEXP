@@ -11,9 +11,10 @@ import Layout from "./Components/Layout";
 import Accueil from "./Components/Accueil";
 import Tendances from "./Components/Tendances";
 import Profil from "./Components/Profil";
-import Forum from "./Components/Forum";
+// import Forum from "./Components/Forum";
 import Entrainements from "./Components/Entrainements";
 import Propos from "./Components/Propos";
+import DetailsTendance from "./Components/DetailsTendance";
 
 
 function App() {
@@ -52,9 +53,13 @@ function App() {
           element: <Tendances />,
         },
         {
-          path: "forum",
-          element: <Forum />,
+          path: "tendances/:id",
+          element: <DetailsTendance />,
         },
+        // {
+        //   path: "forum",
+        //   element: <Forum />,
+        // },
         {
           path: "profil",
           element: <Profil />,

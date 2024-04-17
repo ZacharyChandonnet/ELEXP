@@ -1,0 +1,80 @@
+[
+  {
+      "id": 1,
+      "title": "Push",
+      "description": "Exercices ciblant les mouvements de poussée tels que la poitrine, les épaules et les triceps.",
+      "image": "push_image.jpg",
+      "workouts": [
+          {
+              "id": 1,
+              "name": "Développé couché",
+              "sets": 4,
+              "reps": 8
+          },
+          {
+              "id": 2,
+              "name": "Développé militaire",
+              "sets": 3,
+              "reps": 10
+          },
+          {
+              "id": 3,
+              "name": "Dips pour les triceps",
+              "sets": 3,
+              "reps": 12
+          }
+      ]
+  },
+  {
+      "id": 2,
+      "title": "Pull",
+      "description": "Exercices ciblant les mouvements de traction tels que le dos et les biceps.",
+      "image": "pull_image.jpg",
+      "workouts": [
+          {
+              "id": 1,
+              "name": "Traction à la barre fixe",
+              "sets": 4,
+              "reps": 8
+          },
+          {
+              "id": 2,
+              "name": "Rowing barre",
+              "sets": 3,
+              "reps": 10
+          },
+          {
+              "id": 3,
+              "name": "Curls biceps",
+              "sets": 3,
+              "reps": 12
+          }
+      ]
+  },
+  {
+      "id": 3,
+      "title": "Legs",
+      "description": "Exercices ciblant les muscles des jambes tels que les quadriceps, les ischio-jambiers et les mollets.",
+      "image": "legs_image.jpg",
+      "workouts": [
+          {
+              "id": 1,
+              "name": "Squats",
+              "sets": 4,
+              "reps": 8
+          },
+          {
+              "id": 2,
+              "name": "Soulevé de terre",
+              "sets": 3,
+              "reps": 10
+          },
+          {
+              "id": 3,
+              "name": "Presse à jambes",
+              "sets": 3,
+              "reps": 12
+          }
+      ]
+  }
+]

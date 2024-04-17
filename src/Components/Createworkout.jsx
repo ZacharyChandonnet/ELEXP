@@ -29,10 +29,10 @@ const Createworkout = () => {
     }
 
     return(
-        <div className="p-4">
-            <h2 className='font-titre text-2xl uppercase mb-4'>Créer un entraînement</h2>
+        <div>
+            <h2 className='font-titre uppercase'>Créer un entraînement</h2>
 
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid grid-cols-1'>
                 {Object.entries(ChoixExercices.exercices).map(([muscleGroup, exercises]) => (
                     <div key={muscleGroup}>
                         <h3 className="text-xl font-semibold mb-2">{muscleGroup}</h3>
@@ -47,6 +47,7 @@ const Createworkout = () => {
                                 >
                                     {exercises.map((exercise) => (
                                         <label key={exercise.id} className='flex items-center'>
+                                            {exercise.name}
                                             <input
                                                 type="checkbox"
                                                 value={exercise.name}
@@ -54,13 +55,12 @@ const Createworkout = () => {
                                                 onChange={() => toggleExercise(muscleGroup, exercise.name)}
                                                 className="mr-2"
                                             />
-                                            {exercise.name}
                                         </label>
                                     ))}
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                        <button onClick={() => togglePopup(muscleGroup)} className="mt-2">{openPopup === muscleGroup ? 'Fermer' : 'Voir les exercices'}</button>
+                        <button onClick={() => togglePopup(muscleGroup)} >{openPopup === muscleGroup ? 'Fermer' : 'Voir les exercices'}</button>
                     </div>
                 ))}
             </div>
