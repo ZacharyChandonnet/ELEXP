@@ -43,7 +43,7 @@ const Profil = () => {
             <div>
                 <h2 className="font-titre uppercase">Profil</h2>
                 <p>Expérience: {currentExperience}</p>
-
+                
 
                 <div>
                     <h3 className="font-titre uppercase">Mes workouts</h3>

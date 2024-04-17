@@ -21,7 +21,7 @@ import {
 
 const UserContext = createContext({
   updateUser: async () => {},
-  createWorkout: async () => {}, 
+  createWorkout: async () => {},
   afficherWokoutDetails: async () => {},
   supprimerEntrainement: async () => {},
   afficherExperience: async () => {},
@@ -42,6 +42,8 @@ const useUser = () => {
 export function UserProvider({ children }) {
   const { user } = useAuth();
   const [userInfos, setUserInfos] = useState(null);
+  const [lastWorkoutTime, setLastWorkoutTime] = useState(null);
+
   const genererId = () => {
     return new Date().getTime().toString();
   };
@@ -63,7 +65,7 @@ export function UserProvider({ children }) {
     );
 
     const workoutDocRef = doc(db, "workouts", workoutId);
-    await setDoc(workoutDocRef, {  
+    await setDoc(workoutDocRef, {
       uuid: workoutId,
       name: workoutName,
       user: uuid,
@@ -72,27 +74,28 @@ export function UserProvider({ children }) {
 
     onSnapshot(useDocRef, (doc) => {
       setUserInfos(doc.data());
-    }
-    );
+    });
   };
 
   const supprimerEntrainement = async (workoutId) => {
     const uuid = user.uid;
-  
+
     const userDocRef = doc(db, "users", uuid);
     const userDocSnap = await getDoc(userDocRef);
-  
+
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
-      const updatedWorkouts = userData.workout.filter(item => item.id !== workoutId);
-  
+      const updatedWorkouts = userData.workout.filter(
+        (item) => item.id !== workoutId
+      );
+
       await updateDoc(userDocRef, {
         workout: updatedWorkouts,
       });
-  
+
       const workoutDocRef = doc(db, "workouts", workoutId);
       await deleteDoc(workoutDocRef);
-  
+
       await afficherWokoutDetails();
     }
   };
@@ -100,12 +103,9 @@ export function UserProvider({ children }) {
   const afficherWokoutDetails = async () => {
     const uuid = user.uid;
     const workoutsRef = collection(db, "workouts");
-    const userWorkoutsQuery = query(
-      workoutsRef,
-      where("user", "==", uuid)
-    );
+    const userWorkoutsQuery = query(workoutsRef, where("user", "==", uuid));
 
-    const querySnapshot = await getDocs(userWorkoutsQuery); 
+    const querySnapshot = await getDocs(userWorkoutsQuery);
     const workouts = [];
 
     querySnapshot.forEach((doc) => {
@@ -120,63 +120,84 @@ export function UserProvider({ children }) {
     const docRef = doc(db, "users", uuid);
 
     const unsubscribe = onSnapshot(docRef, (doc) => {
-        const experience = doc.data().experience;
-        callback(experience);
+      const experience = doc.data().experience;
+      callback(experience);
     });
 
     return unsubscribe;
-};
+  };
 
-const ajouterWorkoutFini = async (workoutId) => { 
-  const uuid = user.uid;
-  const userDocRef = doc(db, "users", uuid);
-  const userDocSnap = await getDoc(userDocRef);
+  const ajouterWorkoutFini = async (workoutId) => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
 
-  const workoutDocRef = doc(db, "workouts", workoutId);
-  const workoutDocSnap = await getDoc(workoutDocRef);
+    const currentTime = new Date().getTime();
+    const lastWorkoutTime = userDocSnap.data().cooldown || 0;
+    const cooldownTime =  60 * 1000; // 1 minute
 
-  if (workoutDocSnap.exists()) {
-      const workoutData = workoutDocSnap.data();
-      const experienceToAdd = workoutData.exercices.length * 10;
+    if (currentTime - lastWorkoutTime >= cooldownTime) {
+      const workoutDocRef = doc(db, "workouts", workoutId);
+      const workoutDocSnap = await getDoc(workoutDocRef);
 
-      await updateDoc(userDocRef, {
+      if (workoutDocSnap.exists()) {
+        const workoutData = workoutDocSnap.data();
+        const experienceToAdd = workoutData.exercices.length * 10;
+
+        await updateDoc(userDocRef, {
           experience: userDocSnap.data().experience + experienceToAdd,
-      });
-  }
+          cooldown: currentTime // Mettre à jour la date de cooldown
+        });
 
-  if (userDocSnap.exists()) {
-      const userData = userDocSnap.data();
-      const updatedHistory = userData.history;
-      updatedHistory.push(workoutId);
-
-      await updateDoc(userDocRef, {
+        const updatedHistory = [...userDocSnap.data().history, workoutId];
+        await updateDoc(userDocRef, {
           history: updatedHistory,
-      });
-  }
-  
-};
+        });
+      }
+    } else {
+      console.log("Le cooldown n'est pas encore écoulé.");
+      // Gérer le cas où le cooldown n'est pas encore écoulé
+    }
+  };
 
-const afficherWorkoutFini = async () => {
-  const uuid = user.uid;
-  const userDocRef = doc(db, "users", uuid);
-  const userDocSnap = await getDoc(userDocRef);
+  useEffect(() => {
+    const fetchLastWorkoutTime = async () => {
+      const uuid = user.uid;
+      const userDocRef = doc(db, "users", uuid);
+      const userDocSnap = await getDoc(userDocRef);
 
-  if (userDocSnap.exists()) {
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        if (userData.lastWorkoutTime) {
+          setLastWorkoutTime(userData.lastWorkoutTime.toDate().getTime());
+        }
+      }
+    };
+
+    fetchLastWorkoutTime();
+  }, []);
+
+  const afficherWorkoutFini = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
       const history = [];
 
       for (const workoutId of userData.history) {
-          const workoutDocRef = doc(db, "workouts", workoutId);
-          const workoutDocSnap = await getDoc(workoutDocRef);
+        const workoutDocRef = doc(db, "workouts", workoutId);
+        const workoutDocSnap = await getDoc(workoutDocRef);
 
-          if (workoutDocSnap.exists()) {
-              history.push({ id: workoutDocSnap.id, ...workoutDocSnap.data() });
-          }
+        if (workoutDocSnap.exists()) {
+          history.push({ id: workoutDocSnap.id, ...workoutDocSnap.data() });
+        }
       }
 
       return history;
-  }
-};
+    }
+  };
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -190,7 +211,6 @@ const afficherWorkoutFini = async () => {
         onSnapshot(docRef, (doc) => {
           setUserInfos(doc.data());
         });
-       
       } else {
         try {
           await setDoc(docRef, {
@@ -199,9 +219,9 @@ const afficherWorkoutFini = async () => {
             name: user.displayName,
             workout: [],
             experience: 0,
-            history: [], 
+            history: [],
+            cooldown: 0,
           });
-
         } catch (error) {
           console.error("Error creating user document:", error);
         }
