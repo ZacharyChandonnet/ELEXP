@@ -9,6 +9,14 @@ export default {
       fontFamily: {
         'titre': "ClashDisplay",
       },
+     
+        colors: {
+         
+            'dark': '#0D0D0D',
+          
+        
+        },
+      
     },
   },
   plugins: [],
