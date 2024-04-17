@@ -48,13 +48,13 @@ const Createworkout = () => {
     }
 
     return(
-        <div>
+        <div className='pt-12 pb-12'>
 
-            <h2 className='font-titre uppercase'>Créer un entraînement</h2>
-            <div className='grid grid-cols-1'>
+            <h2 className='font-titre uppercase pb-4'>Créer un entraînement</h2>
+            <div className='grid grid-cols-1 '>
                 {Object.entries(ChoixExercices.exercices).map(([muscleGroup, exercises]) => (
-                    <div className='flex items-center border-b-2 border-dark pb-2 cursor-pointer' key={muscleGroup}>
-                        <h3 className="text-xl font-semibold mb-2">{muscleGroup}</h3>
+                    <div className=' grid grid-cols-1 items-center border-b-2 border-dark pb-2 cursor-pointer pt-4' key={muscleGroup}>
+                        <h3 className="text-xl font-semibold">{muscleGroup}</h3>
                         <AnimatePresence>
                             {openPopup === muscleGroup && (
                                 <motion.div
@@ -79,13 +79,14 @@ const Createworkout = () => {
                                 </motion.div>
                             )}
                         </AnimatePresence>
-                        <button disabled={!isAbleToCreate} onClick={() => togglePopup(muscleGroup)} >{openPopup === muscleGroup ? <FaArrowTurnDown /> : <FaArrowTurnDown />}</button>
+                        <button className='ml-auto text-2xl pr-12' disabled={!isAbleToCreate} onClick={() => togglePopup(muscleGroup)} >{openPopup === muscleGroup ? <FaArrowTurnDown /> : <FaArrowTurnDown />}</button>
                     </div>
                 ))}
             </div>
+            <div className='flex justify-center'>
             <input type="text" placeholder="Nom de l'entraînement" value={workoutName} onChange={(e) => setWorkoutName(e.target.value)}  disabled={!isAbleToCreate} />
             <button onClick={handleCreateWorkout} disabled={!isAbleToCreate}>Créer l'entraînement</button>
-
+            </div>
             <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
         
 

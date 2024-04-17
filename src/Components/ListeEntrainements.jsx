@@ -25,7 +25,7 @@ const ListeEntrainements = () => {
   return (
     <section>
 
-<DailyQuest />
+    <DailyQuest />
 
       <div>
         <h2 className="font-titre uppercase">Mes entrainements</h2>

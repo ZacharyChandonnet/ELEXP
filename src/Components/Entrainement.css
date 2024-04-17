@@ -5,3 +5,11 @@
 .reverse-clip{
     clip-path: polygon(0% 0%, 75% 0%, 100% 100%, 25% 100%);
 }
+
+.para{
+    clip-path: polygon(75% 0%, 100% 50%, 75% 100%, 0% 100%, 25% 50%, 0% 0%);
+}
+
+.reverse-para{
+    clip-path: polygon(100% 0%, 75% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0%);
+}

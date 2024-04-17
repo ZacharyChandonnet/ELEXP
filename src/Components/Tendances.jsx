@@ -39,7 +39,7 @@ const Tendances = () => {
                     <div key={tendance.id} className="tendance-item mb-4">
                         <Link to=
                         {isAbleToAccess ? `/tendances/${tendance.id}  ` : '/tendances'} style={{ textDecoration: 'none' }}>
-                            <div className='pt-12 bg-dark text-white rounded-lg px-4'>
+                            <div className='pt-12 bg-dark text-white  px-4'>
                                 <div className='flex flex-col-reverse justify-between h-40 pb-6'>
                                     <div className="flex justify-between items-end">
                                         <h5 className='uppercase font-titre text-4xl'>{tendance.title}</h5>
@@ -72,7 +72,7 @@ const Tendances = () => {
                 
             </div>
 
-            <div className='bg-dark h-96 mt-12 mb-12 rounded-lg flex justify-center items-center'>
+            <div className='bg-dark h-96 mt-12 mb-12  flex justify-center items-center'>
             <h2 className='font-titre uppercase pt-12 pb-4 text-center text-white text-3xl lg:text-9xl'>TON CORPS <br /> TON TEMPLE</h2>
             </div>
 

@@ -2,12 +2,8 @@ const DailyQuest = () => {
 
 
     return(
-        <section>
+        <section className="pt-12 pb-12">
             <h2 className='font-titre uppercase'>Défi du jour</h2>
-
-            <div>
-
-                </div>
         </section>
     )
 }

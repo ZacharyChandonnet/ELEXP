@@ -40,7 +40,7 @@ const Connexion = () => {
 
     <div className="flex items-center" style={{ position: "relative", overflow: "hidden", height: "100vh"}}>
       <div
-        className="grid grid-cols-2 gap-12 bg-dark h-64 items-center p-4 lg:w-2/3 relative z-10 rounded-xl"
+        className="grid grid-cols-2 gap-12 bg-dark h-64 items-center p-4 lg:w-2/3 relative z-10 "
         style={{ position: "relative" }}
       >
         <h1 className="font-titre lg:text-4xl text-white z-10 relative">Veuillez vous connecter <br/> afin d'accéder à nos services</h1>
