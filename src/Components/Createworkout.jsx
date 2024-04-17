@@ -12,28 +12,35 @@ const Createworkout = () => {
   const [isAbleToCreate, setIsAbleToCreate] = useState(false);
   const { createWorkout, user } = useUser();
 
-  const handleCreateWorkout = () => {
-    createWorkout(workoutName, Object.values(selectedExercises).flat());
-    setWorkoutName("");
-  };
-
   useEffect(() => {
     if (user) {
       setExperience(user.experience);
-      console.log(user.experience);
     }
   }, [user]);
 
   useEffect(() => {
-    if (experience >= 100) {
-      setIsAbleToCreate(true);
-    } else {
-      setIsAbleToCreate(false);
-    }
+    setIsAbleToCreate(experience >= 50);
   }, [experience]);
+
+  const exerciseThresholds = {
+    Jambes: {
+      "Soulevé de terre": 100,
+      "Presse à cuisses": 150,
+    },
+  };
 
   const toggleExercise = (muscleGroup, exerciseName) => {
     const updatedSelectedExercises = { ...selectedExercises };
+    const requiredExperience =
+      exerciseThresholds[muscleGroup]?.[exerciseName] || 0;
+
+    if (experience < requiredExperience) {
+      console.log(
+        `Vous avez besoin de ${requiredExperience} d'expérience pour débloquer cet exercice.`
+      );
+      return;
+    }
+
     if (updatedSelectedExercises[muscleGroup]?.includes(exerciseName)) {
       updatedSelectedExercises[muscleGroup] = updatedSelectedExercises[
         muscleGroup
@@ -50,6 +57,11 @@ const Createworkout = () => {
 
   const togglePopup = (muscleGroup) => {
     setOpenPopup(openPopup === muscleGroup ? "" : muscleGroup);
+  };
+
+  const handleCreateWorkout = () => {
+    createWorkout(workoutName, Object.values(selectedExercises).flat());
+    setWorkoutName("");
   };
 
   return (
@@ -85,6 +97,11 @@ const Createworkout = () => {
                             toggleExercise(muscleGroup, exercise.name)
                           }
                           className="mr-2"
+                          disabled={
+                            experience <
+                            (exerciseThresholds[muscleGroup]?.[exercise.name] ||
+                              0)
+                          }
                         />
                       </label>
                     ))}
@@ -96,11 +113,7 @@ const Createworkout = () => {
                 disabled={!isAbleToCreate}
                 onClick={() => togglePopup(muscleGroup)}
               >
-                {openPopup === muscleGroup ? (
-                  <FaArrowTurnDown />
-                ) : (
-                  <FaArrowTurnDown />
-                )}
+                <FaArrowTurnDown />
               </button>
             </div>
           )

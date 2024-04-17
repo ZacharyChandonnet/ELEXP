@@ -134,7 +134,7 @@ export function UserProvider({ children }) {
 
     const currentTime = new Date().getTime();
     const lastWorkoutTime = userDocSnap.data().cooldown || 0;
-    const cooldownTime =  60 * 1000; // 1 minute
+    const cooldownTime = 8 * 60 * 60 * 1000;
 
     if (currentTime - lastWorkoutTime >= cooldownTime) {
       const workoutDocRef = doc(db, "workouts", workoutId);
@@ -146,7 +146,7 @@ export function UserProvider({ children }) {
 
         await updateDoc(userDocRef, {
           experience: userDocSnap.data().experience + experienceToAdd,
-          cooldown: currentTime // Mettre à jour la date de cooldown
+          cooldown: currentTime, 
         });
 
         const updatedHistory = [...userDocSnap.data().history, workoutId];
@@ -156,7 +156,6 @@ export function UserProvider({ children }) {
       }
     } else {
       console.log("Le cooldown n'est pas encore écoulé.");
-      // Gérer le cas où le cooldown n'est pas encore écoulé
     }
   };
 

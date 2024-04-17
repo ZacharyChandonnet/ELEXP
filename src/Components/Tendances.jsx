@@ -19,31 +19,37 @@ const Tendances = () => {
     }
   }, [user]);
 
+  const tendanceThresholds = [30, 60, 100]; // Seuils d'expérience requis pour chaque tendance
+
   const handleHover = (index) => {
     setHoveredIndex(index);
   };
 
-  const renderTendanceItem = (tendance, index) => (
-    <div key={tendance.id} className="tendance-item mb-4">
-      <Link
-        to={isAbleToAccess ? `/tendances/${tendance.id}` : "/tendances"}
-        style={{ textDecoration: "none" }}
-      >
-        <div className="pt-12 bg-dark text-white  px-4">
-          <div className="flex flex-col-reverse justify-between h-40 pb-6">
-            <div className="flex justify-between items-end">
-              <h5 className="uppercase font-titre text-4xl">
-                {tendance.title}
-              </h5>
-              <div className="btn btn-primary text-4xl">
-                <FaArrowRightLong />
+  const renderTendanceItem = (tendance, index) => {
+    const requiredExperience = tendanceThresholds[index] || 0;
+
+    return (
+      <div key={tendance.id} className="tendance-item mb-4">
+        <Link
+          to={user && user.experience >= requiredExperience ? `/tendances/${tendance.id}` : "/tendances"}
+          style={{ textDecoration: "none" }}
+        >
+          <div className={`pt-12 bg-dark text-white  px-4 ${!isAbleToAccess && user && user.experience < requiredExperience ? 'opacity-50' : ''}`}>
+            <div className="flex flex-col-reverse justify-between h-40 pb-6">
+              <div className="flex justify-between items-end">
+                <h5 className="uppercase font-titre text-4xl">
+                  {tendance.title}
+                </h5>
+                <div className="btn btn-primary text-4xl">
+                  <FaArrowRightLong />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Link>
-    </div>
-  );
+        </Link>
+      </div>
+    );
+  };
 
   return (
     <div>
