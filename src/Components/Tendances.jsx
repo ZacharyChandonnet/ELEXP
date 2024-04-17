@@ -2,11 +2,33 @@ import { Link } from 'react-router-dom';
 import TendanceData from '../Data/TendanceData';
 import Heading from './Heading';
 import { FaArrowRightLong } from "react-icons/fa6";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { useUser } from '../Context/UserContext';
+import {motion} from 'framer-motion';
 
 const Tendances = () => {
 
+    const { user } = useUser();
+    const [experience, setExperience] = useState(0);
+    const [isAbleToAccess, setisAbleToAccess] = useState(false);
+
     const [hover, setHover] = useState(false);
+
+    
+    useEffect(() => {
+        if (user) {
+            setExperience(user.experience);
+            console.log(user.experience);
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if(experience >= 30) {
+            setisAbleToAccess(true);
+        }else{
+            setisAbleToAccess(false);
+        }
+    }, [experience]);
     
     return (
         <div>
@@ -15,7 +37,8 @@ const Tendances = () => {
             <div>
                 {TendanceData.map((tendance) => (
                     <div key={tendance.id} className="tendance-item mb-4">
-                        <Link to={`/tendances/${tendance.id}`} style={{ textDecoration: 'none' }}>
+                        <Link to=
+                        {isAbleToAccess ? `/tendances/${tendance.id}  ` : '/tendances'} style={{ textDecoration: 'none' }}>
                             <div className='pt-12 bg-dark text-white rounded-lg px-4'>
                                 <div className='flex flex-col-reverse justify-between h-40 pb-6'>
                                     <div className="flex justify-between items-end">

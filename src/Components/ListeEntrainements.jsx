@@ -24,6 +24,9 @@ const ListeEntrainements = () => {
 
   return (
     <section>
+
+<DailyQuest />
+
       <div>
         <h2 className="font-titre uppercase">Mes entrainements</h2>
         {workouts && workouts.length === 0 ? (
@@ -44,10 +47,12 @@ const ListeEntrainements = () => {
           ))
         )}
       </div>
+     
 
       <Createworkout />
 
-      <DailyQuest />
+      
+     
     </section>
   );
 };
