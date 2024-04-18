@@ -8,6 +8,7 @@ const Profil = () => {
     ajouterWorkoutFini,
     afficherWokoutDetails,
     afficherWorkoutFini,
+    afficherDailyQuestFini,
     user
   } = useUser();
   const [currentExperience, setCurrentExperience] = useState(0);
@@ -37,6 +38,7 @@ const Profil = () => {
     };
     getHistory();
   }, [afficherWorkoutFini]);
+
 
   useEffect(() => {
     if (user && user.cooldown) {

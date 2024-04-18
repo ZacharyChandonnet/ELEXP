@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
 import { db } from "../Config/firebase";
+import DailyQuest from "../Data/DailyQuest.json";
 import {
   doc,
   setDoc,
@@ -27,6 +28,12 @@ const UserContext = createContext({
   afficherExperience: async () => {},
   ajouterWorkoutFini: async () => {},
   afficherWorkoutFini: async () => {},
+  creerDailyQuest: async () => {},
+  afficherDailyQuest: async () => {},
+  ajouterDailyQuestFini: async () => {},
+  afficherDailyQuestFini: async () => {},
+  ajouterExperience: async () => {},
+  partirTimer: async () => {},
   user: null,
   _v: 0,
 });
@@ -197,6 +204,155 @@ export function UserProvider({ children }) {
       return history;
     }
   };
+  const creerDailyQuest = async () => {
+    const uuid = user.uid;
+    const dailyQuestId = genererId();
+
+    const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
+  
+    const currentTime = new Date().getTime();
+    const lastDailyQuestTime = userInfos.lastDailyQuestTime || 0;
+    const cooldownTime = 24 * 60 * 60 * 1000;
+
+    if (currentTime - lastDailyQuestTime >= cooldownTime) {
+      const randomIndex = Math.floor(Math.random() * DailyQuest.daily_quests.length);
+      const randomQuest = DailyQuest.daily_quests[randomIndex];
+
+      await setDoc(dailyQuestDocRef, { 
+        id: dailyQuestId,
+        name: randomQuest,
+        user: uuid,
+      });
+
+     
+      const userDocRef = doc(db, "users", uuid);
+      await updateDoc(userDocRef, {
+        lastDailyQuestTime: currentTime,
+        userCompletedDailyQuest: false,
+      });
+
+      onSnapshot(userDocRef, (doc) => {
+        setUserInfos(doc.data());
+      });
+
+      return randomQuest;
+     
+    }
+  };
+
+
+  const afficherDailyQuest = async () => {
+    const uuid = user.uid;
+    const dailyQuestRef = collection(db, "dailyQuest");
+    const userDailyQuestQuery = query(dailyQuestRef, where("user", "==", uuid));
+
+    const querySnapshot = await getDocs(userDailyQuestQuery); 
+    const dailyQuests = [];
+
+    querySnapshot.forEach((doc) => { 
+    dailyQuests.push({ id: doc.id, ...doc.data() });
+    });
+
+   
+    if (dailyQuests.length > 1) {
+      for (let i = 0; i < dailyQuests.length - 1; i++) {
+        const dailyQuestId = dailyQuests[i].id;
+        const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
+        await deleteDoc(dailyQuestDocRef);
+      }
+
+    }
+
+    return dailyQuests[0];
+  };
+
+
+  const ajouterDailyQuestFini = async () => {
+
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    const dailyQuest = await afficherDailyQuest();
+    const dailyQuestId = dailyQuest.id;
+    const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
+
+
+    if (dailyQuest) {
+      const dailyQuestData = dailyQuest.name;
+      const experienceToAdd = dailyQuestData.experience;
+
+      await updateDoc(userDocRef, {
+        experience: userDocSnap.data().experience + experienceToAdd,
+        userCompletedDailyQuest: true,
+      });
+
+      onSnapshot(userDocRef, (doc) => {
+        setUserInfos(doc.data());
+      });
+
+      return dailyQuestData;
+    }
+   
+  };
+
+  const afficherDailyQuestFini = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const dailyQuestCompleted = [];
+
+      for(const dailyQuestId of userData.dailyQuestCompleted){
+        const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
+        const dailyQuestDocSnap = await getDoc(dailyQuestDocRef);
+
+        if(dailyQuestDocSnap.exists()){
+          dailyQuestCompleted.push({id: dailyQuestDocSnap.id, ...dailyQuestDocSnap.data()});
+        }
+      }
+    }
+  };
+
+  const ajouterExperience = async (experienceToAdd) => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      await updateDoc(userDocRef, {
+        experience: userDocSnap.data().experience + experienceToAdd,
+      });
+
+      onSnapshot(userDocRef, (doc) => {
+        setUserInfos(doc.data());
+      });
+    }
+  };
+
+  const partirTimer = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef); 
+
+    const currentTime = new Date().getTime();
+    const cooldownTime = 8 * 60 * 60 * 1000;
+    const lastWorkoutTime = currentTime - cooldownTime;
+
+    await updateDoc(userDocRef, {
+      cooldown: currentTime,
+    });
+
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+
+  };
+  
+
+
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -219,7 +375,10 @@ export function UserProvider({ children }) {
             workout: [],
             experience: 0,
             history: [],
+            dailyQuestCompleted: [],
             cooldown: 0,
+            lastDailyQuestTime: 0,
+            userCompletedDailyQuest: false,
           });
         } catch (error) {
           console.error("Error creating user document:", error);
@@ -242,6 +401,12 @@ export function UserProvider({ children }) {
         afficherExperience,
         ajouterWorkoutFini,
         afficherWorkoutFini,
+        creerDailyQuest,
+        afficherDailyQuest,
+        ajouterDailyQuestFini,
+        afficherDailyQuestFini,
+        ajouterExperience,
+        partirTimer,
       }}
     >
       {children}

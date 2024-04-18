@@ -7,7 +7,7 @@ import { useUser } from "../Context/UserContext";
 import { motion } from "framer-motion";
 
 const Tendances = () => {
-  const { user } = useUser();
+  const { user, ajouterExperience } = useUser();
   const [isAbleToAccess, setIsAbleToAccess] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -19,7 +19,7 @@ const Tendances = () => {
     }
   }, [user]);
 
-  const tendanceThresholds = [30, 60, 100]; // Seuils d'expérience requis pour chaque tendance
+  const tendanceThresholds = [30, 90, 120]; 
 
   const handleHover = (index) => {
     setHoveredIndex(index);
@@ -29,6 +29,8 @@ const Tendances = () => {
     const requiredExperience = tendanceThresholds[index] || 0;
 
     return (
+      <div>
+      
       <div key={tendance.id} className="tendance-item mb-4">
         <Link
           to={user && user.experience >= requiredExperience ? `/tendances/${tendance.id}` : "/tendances"}
@@ -47,6 +49,7 @@ const Tendances = () => {
             </div>
           </div>
         </Link>
+      </div>
       </div>
     );
   };

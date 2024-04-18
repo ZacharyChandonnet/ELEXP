@@ -1,0 +1,59 @@
+{
+    "daily_quests": [
+      {
+        "id": 1,
+        "title": "Course à pied",
+        "description": "Courez 2 kilomètres aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 2,
+        "title": "Push-ups",
+        "description": "Faites 20 push-ups aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 3,
+        "title": "Squats",
+        "description": "Faites 30 squats aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 4,
+        "title": "Jumping Jacks",
+        "description": "Faites 50 jumping jacks aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 5,
+        "title": "Course à pied",
+        "description": "Courez 5 kilomètres aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 6,
+        "title": "Push-ups",
+        "description": "Faites 50 push-ups aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 7,
+        "title": "Squats",
+        "description": "Faites 50 squats aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 8,
+        "title": "Jumping Jacks",
+        "description": "Faites 100 jumping jacks aujourd'hui.",
+        "experience": 30
+      },
+      {
+        "id": 9,
+        "title": "Squats",
+        "description": "Faites 100 squats aujourd'hui.",
+        "experience": 30
+      }
+    ]
+  }
+  
