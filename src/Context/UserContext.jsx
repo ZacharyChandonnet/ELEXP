@@ -149,7 +149,7 @@ export function UserProvider({ children }) {
 
       if (workoutDocSnap.exists()) {
         const workoutData = workoutDocSnap.data();
-        const experienceToAdd = workoutData.exercices.length * 10;
+        const experienceToAdd = workoutData.exercices.length * 10; 
 
         await updateDoc(userDocRef, {
           experience: userDocSnap.data().experience + experienceToAdd,

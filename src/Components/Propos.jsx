@@ -14,13 +14,14 @@ const Propos = () => {
         <div className="bg-dark text-white grid grid-cols-1 items-center  p-12 pt-36 pb-36">
           <div className="lg:pl-16">
             <h2 className="font-titre text-white text-lg lg:text-3xl">
-              CRÉEZ ET PERSONNALISE <br />
-              TES ENTRAINEMENTS QUAND TU VEUX.
+              Notre mission
             </h2>
 
             <p className="text-white italic pt-4 w-2/3 ">
-              Créez tes propres entraînements avec des exercices optimales au
-              développement de vos performances <br /> et au goût du jour.
+              Notre mission est d'offrir un service de qualité à nos clients.
+              Nous voulons les aider à atteindre leurs objectifs de remise en
+              forme et de bien-être. Nous voulons les aider à se sentir bien
+              dans leur peau et à être en bonne santé.
             </p>
           </div>
         </div>
@@ -33,7 +34,22 @@ const Propos = () => {
         >
           <img src="/push1_image.jpg" alt="Entrainement" className="para" />
         </motion.div>
+
       </div>
+
+      <div>
+        <h2 className="">
+          Notre vision
+        </h2>
+
+        <p className="">
+          Notre vision est de motiver nos clients à adopter un mode de vie sain
+          en leur proposant un système d'expérience unique sous fourme de jeu.
+          En gagnant de l'expérience, les clients pourront débloquer des entraînements et
+          des exercices plus avancés afin d'assurer une progression constante.
+        </p>
+      </div>
+
     </div>
   );
 };

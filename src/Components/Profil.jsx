@@ -15,6 +15,7 @@ const Profil = () => {
   const [workouts, setWorkouts] = useState([]);
   const [history, setHistory] = useState([]);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const [convertTime, setConvertTime] = useState(0);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -38,6 +39,21 @@ const Profil = () => {
     };
     getHistory();
   }, [afficherWorkoutFini]);
+
+  // on convert le nombre de millisecondes en heures, minutes et secondes de user.lastWorkoutTime
+  useEffect(() => {
+    if (user && user.lastWorkoutTime) {
+      const lastWorkoutTime = user.lastWorkoutTime;
+      const date = new Date(lastWorkoutTime);
+      const hours = date.getHours();
+      const minutes = "0" + date.getMinutes();
+      const seconds = "0" + date.getSeconds();
+      const formattedTime =
+        hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+      setConvertTime(formattedTime);
+    }
+  }, [user]);
+
 
 
   useEffect(() => {
