@@ -19,7 +19,7 @@ const Tendances = () => {
     }
   }, [user]);
 
-  const tendanceThresholds = [30, 90, 120]; 
+  const tendanceThresholds = [30, 90, 120];
 
   const handleHover = (index) => {
     setHoveredIndex(index);
@@ -29,14 +29,32 @@ const Tendances = () => {
     const requiredExperience = tendanceThresholds[index] || 0;
 
     return (
-      <div>
-      
-      <div key={tendance.id} className="tendance-item mb-4">
+      <motion.div
+        key={tendance.id}
+        className="tendance-item mb-4"
+        whileHover={{ scale: 1.075, transition: { duration: 0.25 } }}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          transition: { duration: 1, delay: 0.1 * index },
+        }}
+      >
         <Link
-          to={user && user.experience >= requiredExperience ? `/tendances/${tendance.id}` : "/tendances"}
+          to={
+            user && user.experience >= requiredExperience
+              ? `/tendances/${tendance.id}`
+              : "/tendances"
+          }
           style={{ textDecoration: "none" }}
         >
-          <div className={`pt-12 bg-dark text-white  px-4 ${!isAbleToAccess && user && user.experience < requiredExperience ? 'opacity-50' : ''}`}>
+          <div
+            className={`pt-12 bg-dark text-white  px-4 ${
+              !isAbleToAccess || (user && user.experience < requiredExperience)
+                ? "opacity-50"
+                : ""
+            }`}
+          >
             <div className="flex flex-col-reverse justify-between h-40 pb-6">
               <div className="flex justify-between items-end">
                 <h5 className="uppercase font-titre text-4xl">
@@ -49,8 +67,7 @@ const Tendances = () => {
             </div>
           </div>
         </Link>
-      </div>
-      </div>
+      </motion.div>
     );
   };
 
@@ -73,7 +90,7 @@ const Tendances = () => {
         <h2 className="font-titre uppercase pt-12 pb-4">
           Avantages de s'entrainer
         </h2>
-        
+
         <div className="flex flex-col pt-4 gap-12">
           {[
             "Améliore la santé mentale",
@@ -89,11 +106,21 @@ const Tendances = () => {
               <h3 className="uppercase font-titre text-2xl lg:text-4xl">
                 {advantage}
               </h3>
+
               {hoveredIndex === index && (
-                <p className="text-dark text-lg">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                  ut purus eget sapien.
-                </p>
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.1 * index }}
+                >
+                  <p className="text-dark text-lg">
+                    {index === 0
+                      ? "L'exercice physique régulier peut aider à réduire l'anxiété, la dépression et le stress."
+                      : index === 1
+                      ? "L'exercice physique régulier peut vous aider à rester en forme et à réduire le risque de maladies chroniques."
+                      : "L'exercice physique régulier peut vous aider à vous endormir plus rapidement et à améliorer la qualité de votre sommeil."}
+                  </p>
+                </motion.div>
               )}
             </div>
           ))}

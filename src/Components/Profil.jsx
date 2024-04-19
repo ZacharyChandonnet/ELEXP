@@ -9,7 +9,7 @@ const Profil = () => {
     afficherWokoutDetails,
     afficherWorkoutFini,
     afficherDailyQuestFini,
-    user
+    user,
   } = useUser();
   const [currentExperience, setCurrentExperience] = useState(0);
   const [workouts, setWorkouts] = useState([]);
@@ -53,8 +53,6 @@ const Profil = () => {
       setConvertTime(formattedTime);
     }
   }, [user]);
-
-
 
   useEffect(() => {
     if (user && user.cooldown) {
