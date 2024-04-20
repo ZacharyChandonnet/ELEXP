@@ -15,10 +15,18 @@ import Profil from "./Components/Profil";
 import Entrainements from "./Components/Entrainements";
 import Propos from "./Components/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
+import { useEffect } from "react";
 
 
 function App() {
   const { user } = useAuth();
+
+  useEffect(() => {
+    // on load le user ici
+   user
+  }, [user]);
+
+
 
   const routes = [
     {

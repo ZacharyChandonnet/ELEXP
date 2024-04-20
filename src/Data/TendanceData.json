@@ -7,7 +7,7 @@
       "workouts": [
           {
               "id": 1,
-              "name": "Développé couché",
+              "name": "Développé couché incliné",
               "sets": 4,
               "reps": 8,
               "image": "push1_image.jpg"
@@ -44,7 +44,7 @@
       "workouts": [
           {
               "id": 1,
-              "name": "Traction à la barre fixe",
+              "name": "Tirage horiontal",
               "sets": 4,
               "reps": 8,
               "image": "pull1_image.jpg"
@@ -87,14 +87,14 @@
           },
           {
               "id": 2,
-              "name": "Soulevé de terre",
+              "name": "Presse molets",
               "sets": 3,
               "reps": 10,
               "image": "legs2_image.jpg"
           },
           {
               "id": 3,
-              "name": "Presse à jambes",
+              "name": "Leg curl arrière",
               "sets": 3,
               "reps": 12,
               "image": "legs3_image.jpg"

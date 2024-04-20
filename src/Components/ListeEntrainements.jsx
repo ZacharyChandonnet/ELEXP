@@ -4,7 +4,11 @@ import Createworkout from "./Createworkout";
 import DailyQuest from "./DailyQuest";
 
 const ListeEntrainements = () => {
-  const { afficherWokoutDetails, supprimerEntrainement } = useUser();
+  const {
+    afficherWokoutDetails,
+    supprimerEntrainement,
+    user,
+  } = useUser();
   const [workouts, setWorkouts] = useState([]);
 
   useEffect(() => {
@@ -24,8 +28,7 @@ const ListeEntrainements = () => {
 
   return (
     <section>
-
-    <DailyQuest />
+      <DailyQuest />
 
       <div>
         <h2 className="font-titre uppercase">Mes entrainements</h2>
@@ -47,12 +50,8 @@ const ListeEntrainements = () => {
           ))
         )}
       </div>
-     
 
       <Createworkout />
-
-      
-     
     </section>
   );
 };

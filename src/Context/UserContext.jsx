@@ -34,6 +34,8 @@ const UserContext = createContext({
   afficherDailyQuestFini: async () => {},
   ajouterExperience: async () => {},
   partirTimer: async () => {},
+  ajouterWorkoutTendance: async () => {},
+  afficherDateEntrainementTendance: async () => {},
   user: null,
   _v: 0,
 });
@@ -107,6 +109,37 @@ export function UserProvider({ children }) {
     }
   };
 
+  const modifierWorkout = async (workoutId, workoutName, selectedExercises) => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const updatedWorkouts = userData.workout.map((item) => {
+        if (item.id === workoutId) {
+          return { id: workoutId, name: workoutName };
+        }
+
+        return item;
+      });
+
+      await updateDoc(userDocRef, {
+        workout: updatedWorkouts,
+      });
+
+      const workoutDocRef = doc(db, "workouts", workoutId);
+      await updateDoc(workoutDocRef, {
+        name: workoutName,
+        exercices: selectedExercises,
+      });
+
+      await afficherWokoutDetails();
+    }
+
+    return null;
+  };
+
   const afficherWokoutDetails = async () => {
     const uuid = user.uid;
     const workoutsRef = collection(db, "workouts");
@@ -149,14 +182,18 @@ export function UserProvider({ children }) {
 
       if (workoutDocSnap.exists()) {
         const workoutData = workoutDocSnap.data();
-        const experienceToAdd = workoutData.exercices.length * 10; 
+        const experienceToAdd = workoutData.exercices.length * 10;
 
         await updateDoc(userDocRef, {
           experience: userDocSnap.data().experience + experienceToAdd,
-          cooldown: currentTime, 
+          cooldown: currentTime,
         });
 
-        const updatedHistory = [...userDocSnap.data().history, workoutId];
+        // Ajouter la date actuelle à l'historique
+        const updatedHistory = [
+          ...userDocSnap.data().history,
+          { workoutId, date: currentTime },
+        ];
         await updateDoc(userDocRef, {
           history: updatedHistory,
         });
@@ -192,39 +229,44 @@ export function UserProvider({ children }) {
       const userData = userDocSnap.data();
       const history = [];
 
-      for (const workoutId of userData.history) {
-        const workoutDocRef = doc(db, "workouts", workoutId);
+      for (const workout of userData.history) {
+        const workoutDocRef = doc(db, "workouts", workout.workoutId);
         const workoutDocSnap = await getDoc(workoutDocRef);
 
         if (workoutDocSnap.exists()) {
-          history.push({ id: workoutDocSnap.id, ...workoutDocSnap.data() });
+          history.push({
+            id: workoutDocSnap.id,
+            ...workoutDocSnap.data(),
+            date: workout.date,
+          });
         }
       }
 
       return history;
     }
   };
+
   const creerDailyQuest = async () => {
     const uuid = user.uid;
-    const dailyQuestId = genererId();
-
-    const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
-  
     const currentTime = new Date().getTime();
     const lastDailyQuestTime = userInfos.lastDailyQuestTime || 0;
     const cooldownTime = 24 * 60 * 60 * 1000;
 
     if (currentTime - lastDailyQuestTime >= cooldownTime) {
-      const randomIndex = Math.floor(Math.random() * DailyQuest.daily_quests.length);
+      const dailyQuestId = genererId();
+      const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
+      const randomIndex = Math.floor(
+        Math.random() * DailyQuest.daily_quests.length
+      );
       const randomQuest = DailyQuest.daily_quests[randomIndex];
 
-      await setDoc(dailyQuestDocRef, { 
+      await setDoc(dailyQuestDocRef, {
         id: dailyQuestId,
         name: randomQuest,
         user: uuid,
+        date: new Date().getTime(),
       });
 
-     
       const userDocRef = doc(db, "users", uuid);
       await updateDoc(userDocRef, {
         lastDailyQuestTime: currentTime,
@@ -236,39 +278,33 @@ export function UserProvider({ children }) {
       });
 
       return randomQuest;
-     
     }
   };
-
 
   const afficherDailyQuest = async () => {
     const uuid = user.uid;
     const dailyQuestRef = collection(db, "dailyQuest");
     const userDailyQuestQuery = query(dailyQuestRef, where("user", "==", uuid));
 
-    const querySnapshot = await getDocs(userDailyQuestQuery); 
+    const querySnapshot = await getDocs(userDailyQuestQuery);
     const dailyQuests = [];
 
-    querySnapshot.forEach((doc) => { 
-    dailyQuests.push({ id: doc.id, ...doc.data() });
+    querySnapshot.forEach((doc) => {
+      dailyQuests.push({ id: doc.id, ...doc.data() });
     });
 
-   
     if (dailyQuests.length > 1) {
       for (let i = 0; i < dailyQuests.length - 1; i++) {
         const dailyQuestId = dailyQuests[i].id;
         const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
         await deleteDoc(dailyQuestDocRef);
       }
-
     }
 
     return dailyQuests[0];
   };
 
-
   const ajouterDailyQuestFini = async () => {
-
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
     const userDocSnap = await getDoc(userDocRef);
@@ -277,12 +313,16 @@ export function UserProvider({ children }) {
     const dailyQuestId = dailyQuest.id;
     const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
 
+    await updateDoc(dailyQuestDocRef, {
+      date: new Date().getTime(),
+    });
 
     if (dailyQuest) {
       const dailyQuestData = dailyQuest.name;
       const experienceToAdd = dailyQuestData.experience;
 
       await updateDoc(userDocRef, {
+        dailyQuestCompleted: arrayUnion(dailyQuestId),
         experience: userDocSnap.data().experience + experienceToAdd,
         userCompletedDailyQuest: true,
       });
@@ -293,7 +333,6 @@ export function UserProvider({ children }) {
 
       return dailyQuestData;
     }
-   
   };
 
   const afficherDailyQuestFini = async () => {
@@ -305,14 +344,19 @@ export function UserProvider({ children }) {
       const userData = userDocSnap.data();
       const dailyQuestCompleted = [];
 
-      for(const dailyQuestId of userData.dailyQuestCompleted){
+      for (const dailyQuestId of userData.dailyQuestCompleted) {
         const dailyQuestDocRef = doc(db, "dailyQuest", dailyQuestId);
         const dailyQuestDocSnap = await getDoc(dailyQuestDocRef);
 
-        if(dailyQuestDocSnap.exists()){
-          dailyQuestCompleted.push({id: dailyQuestDocSnap.id, ...dailyQuestDocSnap.data()});
+        if (dailyQuestDocSnap.exists()) {
+          dailyQuestCompleted.push({
+            id: dailyQuestDocSnap.id,
+            ...dailyQuestDocSnap.data(),
+          });
         }
       }
+
+      return dailyQuestCompleted;
     }
   };
 
@@ -332,10 +376,46 @@ export function UserProvider({ children }) {
     }
   };
 
+  const ajouterWorkoutTendance = async (workoutId) => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      let tendances = [...userData.entrainementsTendance];
+
+      tendances.push({ id: workoutId, date: new Date().getTime() });
+
+      await updateDoc(userDocRef, {
+        entrainementsTendance: tendances,
+      });
+
+      onSnapshot(userDocRef, (doc) => {
+        setUserInfos(doc.data());
+      });
+
+      return tendances;
+    }
+  };
+
+  const afficherDateEntrainementTendance = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const tendances = userData.entrainementsTendance || [];
+      const dates = tendances.map((tendance) => tendance.date);
+      return dates;
+    }
+  };
+
   const partirTimer = async () => {
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
-    const userDocSnap = await getDoc(userDocRef); 
+    const userDocSnap = await getDoc(userDocRef);
 
     const currentTime = new Date().getTime();
     const cooldownTime = 8 * 60 * 60 * 1000;
@@ -348,11 +428,7 @@ export function UserProvider({ children }) {
     onSnapshot(userDocRef, (doc) => {
       setUserInfos(doc.data());
     });
-
   };
-  
-
-
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -376,9 +452,11 @@ export function UserProvider({ children }) {
             experience: 0,
             history: [],
             dailyQuestCompleted: [],
+            entrainementsTendance: [],
             cooldown: 0,
             lastDailyQuestTime: 0,
             userCompletedDailyQuest: false,
+            reroll: 1,
           });
         } catch (error) {
           console.error("Error creating user document:", error);
@@ -407,6 +485,8 @@ export function UserProvider({ children }) {
         afficherDailyQuestFini,
         ajouterExperience,
         partirTimer,
+        ajouterWorkoutTendance,
+        afficherDateEntrainementTendance,
       }}
     >
       {children}

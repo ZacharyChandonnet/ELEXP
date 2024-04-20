@@ -8,7 +8,12 @@ const DailyQuest = () => {
   const [dailyQuest, setDailyQuest] = useState(null);
 
   useEffect(() => {
-    creerDailyQuest();
+
+    // on créé un défi du jour si l'utilisateur n'en a pas déjà un
+    if (!user.userCompletedDailyQuest) {
+      creerDailyQuest();
+    }
+   
   }, []);
 
   useEffect(() => {
@@ -89,10 +94,13 @@ const DailyQuest = () => {
 
                 {!user.userCompletedDailyQuest && (
                   <button
-
-                 className={user.userCompletedDailyQuest ? "text-dark" : "text-white"}
-
-                  onClick={ajouterDaily}>Terminer</button>
+                    className={
+                      user.userCompletedDailyQuest ? "text-dark" : "text-white"
+                    }
+                    onClick={ajouterDaily}
+                  >
+                    Terminer
+                  </button>
                 )}
                 {cooldownRemaining > 0 && (
                   <p
@@ -100,11 +108,15 @@ const DailyQuest = () => {
                       user.userCompletedDailyQuest ? "text-dark" : "text-white"
                     }
                   >
-
                     Temps restant avant le prochain défi :{" "}
                     {formatCooldown(cooldownRemaining)}
                   </p>
                 )}
+
+                <p className="text-white italic text-sm">
+                  *Tu as le droit à {user.reroll} re-roll par jour (refresh la
+                  page)
+                </p>
               </div>
             </div>
           </div>

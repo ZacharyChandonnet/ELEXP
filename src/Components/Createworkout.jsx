@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ChoixExercices from "../Data/Exercices.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowTurnDown } from "react-icons/fa6";
+import "./Createworkout.css";
 
 const Createworkout = () => {
   const [workoutName, setWorkoutName] = useState("");
@@ -71,8 +72,10 @@ const Createworkout = () => {
         {Object.entries(ChoixExercices.exercices).map(
           ([muscleGroup, exercises]) => (
             <div
-              className=" grid grid-cols-1 items-center border-b-2 border-dark pb-2 cursor-pointer pt-4"
+              className=" grid grid-cols-1 items-center border-b-2 border-dark mb-8  mt-4 cursor-pointer"
               key={muscleGroup}
+              onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
+              onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
             >
               <h3 className="text-xl font-semibold">{muscleGroup}</h3>
               <AnimatePresence>
@@ -85,7 +88,10 @@ const Createworkout = () => {
                     className="popup"
                   >
                     {exercises.map((exercise) => (
-                      <label key={exercise.id} className="flex items-center ">
+                      <label
+                        key={exercise.id}
+                        className="flex items-center cursor-pointer "
+                      >
                         {exercise.name}
                         <input
                           type="checkbox"
@@ -108,13 +114,6 @@ const Createworkout = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-              <button
-                className="ml-auto text-2xl pr-12"
-                disabled={!isAbleToCreate}
-                onClick={() => togglePopup(muscleGroup)}
-              >
-                <FaArrowTurnDown />
-              </button>
             </div>
           )
         )}

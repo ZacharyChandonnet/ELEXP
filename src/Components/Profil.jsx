@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
+import TendancesData from "../Data/TendanceData";
 
 const Profil = () => {
   const {
@@ -9,6 +10,7 @@ const Profil = () => {
     afficherWokoutDetails,
     afficherWorkoutFini,
     afficherDailyQuestFini,
+    afficherDateEntrainementTendance,
     user,
   } = useUser();
   const [currentExperience, setCurrentExperience] = useState(0);
@@ -16,6 +18,9 @@ const Profil = () => {
   const [history, setHistory] = useState([]);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [convertTime, setConvertTime] = useState(0);
+  const [dailyQuestsCompleted, setDailyQuestsCompleted] = useState([]);
+  const [tendances, setTendances] = useState([]);
+  const [dateEntrainementTendance, setDateEntrainementTendance] = useState([]);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -40,7 +45,14 @@ const Profil = () => {
     getHistory();
   }, [afficherWorkoutFini]);
 
-  // on convert le nombre de millisecondes en heures, minutes et secondes de user.lastWorkoutTime
+  useEffect(() => {
+    const getDailyQuestsCompleted = async () => {
+      const dailyQuestsCompleted = await afficherDailyQuestFini();
+      setDailyQuestsCompleted(dailyQuestsCompleted);
+    };
+    getDailyQuestsCompleted();
+  }, [afficherDailyQuestFini]);
+
   useEffect(() => {
     if (user && user.lastWorkoutTime) {
       const lastWorkoutTime = user.lastWorkoutTime;
@@ -77,6 +89,28 @@ const Profil = () => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (user && user.entrainementsTendance) {
+      const tendances = Object.values(user.entrainementsTendance).map(
+        (tendance) => TendancesData.find((t) => t.id === tendance.id)
+      );
+      setTendances(tendances);
+    }
+  }, [user]);
+
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleDateString();
+  };
+
+  useEffect(() => {
+    const fetchDateEntrainementTendance = async () => {
+      const dates = await afficherDateEntrainementTendance();
+      setDateEntrainementTendance(dates);
+    };
+    fetchDateEntrainementTendance();
+  }, []);
+
   return (
     <section>
       <div>
@@ -103,11 +137,30 @@ const Profil = () => {
         <div>
           <h3 className="font-titre uppercase">Historique</h3>
           <ul>
-            {history.map((workout) => (
-              <li key={workout.id}>
+            {history.map((workout, index) => (
+              <li key={index}>
                 <Link to={`/entrainements`}>{workout.name}</Link>
+                {workout.date && <span>Date: {formatDate(workout.date)}</span>}
               </li>
             ))}
+
+            {dailyQuestsCompleted &&
+              dailyQuestsCompleted.map((dailyQuest) => (
+                <li key={dailyQuest.id}>
+                  {dailyQuest.name.description} - {formatDate(dailyQuest.date)}
+                </li>
+              ))}
+
+            {tendances &&
+              tendances.map((tendance, index) => (
+                <li className="flex" key={index}>
+                  <Link to={`/tendances/${tendance.id}`}>{tendance.title}</Link>
+
+                  {dateEntrainementTendance[index] && (
+                    <p>{formatDate(dateEntrainementTendance[index])}</p>
+                  )}
+                </li>
+              ))}
           </ul>
         </div>
       </div>

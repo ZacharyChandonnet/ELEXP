@@ -8,7 +8,12 @@ const DetailsTendance = () => {
     const { id } = useParams();
     const tendance = TendanceData[id - 1];
     const [cooldownRemaining, setCooldownRemaining] = useState(0);
-    const { ajouterExperience, user, partirTimer } = useUser();
+    const { ajouterExperience, user, partirTimer, ajouterWorkoutTendance } = useUser();
+
+
+    const ajouterWorkout = () => {
+        ajouterWorkoutTendance(tendance.id);
+    }
 
     useEffect(() => {
         if (user && user.cooldown) {
@@ -36,6 +41,7 @@ const DetailsTendance = () => {
     const addWorkout = () => {
       if (cooldownRemaining === 0) {
         ajouterExperience(10);
+        ajouterWorkout();
         partirTimer();
       } else {
         console.log('Vous devez attendre avant de pouvoir ajouter un autre workout');
@@ -45,7 +51,7 @@ const DetailsTendance = () => {
     return (
         <div className='relative'>
             <Heading title={tendance.title} paragraph={tendance.description} />
-            <button onClick = {addWorkout}>Ajouter un workout</button>
+            <button onClick={addWorkout}>Ajouter un workout</button>
             <p>Temps de récupération : {formatCooldown(cooldownRemaining)}</p>
             <div>
               {tendance.workouts.map((detail, index) => (
