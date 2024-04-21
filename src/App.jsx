@@ -21,11 +21,6 @@ import { useEffect } from "react";
 function App() {
   const { user } = useAuth();
 
-  useEffect(() => {
-    // on load le user ici
-   user
-  }, [user]);
-
 
 
   const routes = [

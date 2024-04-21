@@ -36,6 +36,8 @@ const UserContext = createContext({
   partirTimer: async () => {},
   ajouterWorkoutTendance: async () => {},
   afficherDateEntrainementTendance: async () => {},
+  supprimerExerciceWorkout: async () => {},
+  ajouterExercicesAuWorkout: async () => {},
   user: null,
   _v: 0,
 });
@@ -57,6 +59,7 @@ export function UserProvider({ children }) {
     return new Date().getTime().toString();
   };
 
+  
   const createWorkout = async (workoutName, selectedExercises) => {
     const uuid = user.uid;
     const workoutId = genererId();
@@ -86,6 +89,46 @@ export function UserProvider({ children }) {
     });
   };
 
+  const supprimerExerciceWorkout = async (workoutId, exerciseName) => {
+    const workoutDocRef = doc(db, "workouts", workoutId);
+    const workoutDocSnap = await getDoc(workoutDocRef);
+
+    if (workoutDocSnap.exists()) {
+      const workoutData = workoutDocSnap.data();
+      const updatedExercises = workoutData.exercices.filter(
+        (exercise) => exercise !== exerciseName
+      );
+
+      await updateDoc(workoutDocRef, {
+        exercices: updatedExercises,
+      });
+      return updatedExercises;
+    } else {
+      console.error("L'entrainement n'existe pas.");
+    }
+  };
+
+  const ajouterExercicesAuWorkout = async (workoutId, selectedExercises) => {
+    const workoutDocRef = doc(db, "workouts", workoutId);
+    const workoutDocSnap = await getDoc(workoutDocRef);
+
+    if (workoutDocSnap.exists()) {
+      const workoutData = workoutDocSnap.data();
+      const updatedExercises = [...workoutData.exercices, ...selectedExercises];
+
+      await updateDoc(workoutDocRef, {
+        exercices: updatedExercises,
+      });
+      return updatedExercises;
+    } else {
+      console.error("L'entrainement n'existe pas.");
+    }
+
+    return updatedExercises;
+
+
+  };
+
   const supprimerEntrainement = async (workoutId) => {
     const uuid = user.uid;
 
@@ -107,37 +150,6 @@ export function UserProvider({ children }) {
 
       await afficherWokoutDetails();
     }
-  };
-
-  const modifierWorkout = async (workoutId, workoutName, selectedExercises) => {
-    const uuid = user.uid;
-    const userDocRef = doc(db, "users", uuid);
-    const userDocSnap = await getDoc(userDocRef);
-
-    if (userDocSnap.exists()) {
-      const userData = userDocSnap.data();
-      const updatedWorkouts = userData.workout.map((item) => {
-        if (item.id === workoutId) {
-          return { id: workoutId, name: workoutName };
-        }
-
-        return item;
-      });
-
-      await updateDoc(userDocRef, {
-        workout: updatedWorkouts,
-      });
-
-      const workoutDocRef = doc(db, "workouts", workoutId);
-      await updateDoc(workoutDocRef, {
-        name: workoutName,
-        exercices: selectedExercises,
-      });
-
-      await afficherWokoutDetails();
-    }
-
-    return null;
   };
 
   const afficherWokoutDetails = async () => {
@@ -189,7 +201,6 @@ export function UserProvider({ children }) {
           cooldown: currentTime,
         });
 
-        // Ajouter la date actuelle à l'historique
         const updatedHistory = [
           ...userDocSnap.data().history,
           { workoutId, date: currentTime },
@@ -437,8 +448,6 @@ export function UserProvider({ children }) {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setUserInfos(docSnap.data());
-
         onSnapshot(docRef, (doc) => {
           setUserInfos(doc.data());
         });
@@ -487,6 +496,8 @@ export function UserProvider({ children }) {
         partirTimer,
         ajouterWorkoutTendance,
         afficherDateEntrainementTendance,
+        supprimerExerciceWorkout,
+        ajouterExercicesAuWorkout,
       }}
     >
       {children}

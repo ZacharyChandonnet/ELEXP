@@ -31,13 +31,6 @@ const Connexion = () => {
   };
 
  
-  const videoStyle = {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    position: "absolute",
-    filter: "brightness(0.5)",
-  };
 
   return (
     <motion.section

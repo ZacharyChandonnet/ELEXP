@@ -8,8 +8,6 @@ const DailyQuest = () => {
   const [dailyQuest, setDailyQuest] = useState(null);
 
   useEffect(() => {
-
-    // on créé un défi du jour si l'utilisateur n'en a pas déjà un
     if (!user.userCompletedDailyQuest) {
       creerDailyQuest();
     }
