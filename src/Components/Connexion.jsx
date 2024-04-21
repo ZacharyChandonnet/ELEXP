@@ -1,7 +1,7 @@
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import video from "../assets/video.mp4";
+import video from "/video1F.mp4";
 import { motion } from "framer-motion";
 
 const Connexion = () => {

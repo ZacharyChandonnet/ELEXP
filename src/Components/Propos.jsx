@@ -32,7 +32,7 @@ const Propos = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
-          <img src="/push1_image.jpg" alt="Entrainement" className="para" />
+          <img src="/push1_image.webp" alt="Entrainement" className="para" />
         </motion.div>
 
       </div>

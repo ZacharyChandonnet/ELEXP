@@ -3,35 +3,35 @@
       "id": 1,
       "title": "Push",
       "description": "Exercices ciblant les mouvements de poussée tels que la poitrine, les épaules et les triceps.",
-      "image": "push_image.jpg",
+      "image": "push_image.webp",
       "workouts": [
           {
               "id": 1,
               "name": "Développé couché incliné",
               "sets": 4,
               "reps": 8,
-              "image": "push1_image.jpg"
+              "image": "push1_image.webp"
           },
           {
               "id": 2,
               "name": "Développé militaire",
               "sets": 3,
               "reps": 10,
-              "image": "push2_image.jpg"
+              "image": "push2_image.webp"
           },
           {
               "id": 3,
               "name": "Dips pour les triceps",
               "sets": 3,
               "reps": 12,
-              "image": "push3_image.jpg"
+              "image": "push3_image.webp"
           },
           {
                 "id": 4,
                 "name": "Machine pectoraux",
                 "sets": 3,
                 "reps": 12,
-                "image": "push4_image.jpg"
+                "image": "push4_image.webp"
 
           }
       ]
@@ -40,35 +40,35 @@
       "id": 2,
       "title": "Pull",
       "description": "Exercices ciblant les mouvements de traction tels que le dos et les biceps.",
-      "image": "pull_image.jpg",
+      "image": "pull_image.webp",
       "workouts": [
           {
               "id": 1,
               "name": "Tirage horiontal",
               "sets": 4,
               "reps": 8,
-              "image": "pull1_image.jpg"
+              "image": "pull1_image.webp"
           },
           {
               "id": 2,
               "name": "Rowing barre",
               "sets": 3,
               "reps": 10,
-              "image": "pull2_image.jpg"
+              "image": "pull2_image.webp"
           },
           {
               "id": 3,
               "name": "Curls biceps",
               "sets": 3,
               "reps": 12,
-              "image": "pull3_image.jpg"
+              "image": "pull3_image.webp"
           },
           {
                 "id": 4,
                 "name": "Tirage poulie haute",
                 "sets": 3,
                 "reps": 12,
-                "image": "pull4_image.jpg"
+                "image": "pull4_image.webp"
           }
       ]
   },
@@ -76,35 +76,35 @@
       "id": 3,
       "title": "Legs",
       "description": "Exercices ciblant les muscles des jambes tels que les quadriceps, les ischio-jambiers et les mollets.",
-      "image": "legs_image.jpg",
+      "image": "legs_image.webp",
       "workouts": [
           {
               "id": 1,
               "name": "Squats",
               "sets": 4,
               "reps": 8,
-              "image": "legs1_image.jpg"
+              "image": "legs1_image.webp"
           },
           {
               "id": 2,
               "name": "Presse molets",
               "sets": 3,
               "reps": 10,
-              "image": "legs2_image.jpg"
+              "image": "legs2_image.webp"
           },
           {
               "id": 3,
               "name": "Leg curl arrière",
               "sets": 3,
               "reps": 12,
-              "image": "legs3_image.jpg"
+              "image": "legs4_image.webp"
           },
           {
                 "id": 4,
                 "name": "Leg curl",
                 "sets": 3,
                 "reps": 12,
-                "image": "legs4_image.jpg"
+                "image": "legs2_image.webp"
 
           }
       ]

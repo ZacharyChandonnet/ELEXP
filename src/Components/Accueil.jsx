@@ -30,6 +30,10 @@ const Accueil = () => {
 
   const style = {
     lineHeight: "6rem",
+    height: "50vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
 
   const h1 = {
@@ -53,13 +57,18 @@ const Accueil = () => {
       </motion.div>
 
       <motion.div className="bottom" variants={bottomVariants}>
-        <figure className="bg-gray-400">
-          <h1
-            className="text-center font-titre text-9xl pt-12 text-white"
-            style={style}
-          >
-            INTERIEUR <br />
-            ET EXTERIEUR
+        <figure
+          className="bg-image"
+          style={{
+            backgroundImage: "url('landing.jpg')",
+            ...style,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        >
+          <h1 className="text-center font-titre text-9xl text-white">
+            INTÉRIEUR <br />
+            ET EXTÉRIEUR
           </h1>
         </figure>
       </motion.div>

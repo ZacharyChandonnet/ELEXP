@@ -45,7 +45,7 @@ const Entrainements = () => {
           </div>
 
           <div>
-            <img src="/push1_image.jpg" alt="Entrainement" className="clip" />
+            <img src="/push1_image.webp" alt="Entrainement" className="clip" />
           </div>
         </div>
       </motion.div>
@@ -74,7 +74,7 @@ const Entrainements = () => {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
               <div>
-                <img src="/push1_image.jpg" alt="Entrainement" className="clip" />
+                <img src="/legs3_image.webp" alt="Entrainement" className="clip" />
               </div>
 
               <div className="bg-dark text-white grid grid-cols-1 items-center  p-12 pt-36 pb-36 reverse-clip">

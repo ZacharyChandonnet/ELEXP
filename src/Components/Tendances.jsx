@@ -5,11 +5,15 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { useState, useEffect } from "react";
 import { useUser } from "../Context/UserContext";
 import { motion } from "framer-motion";
+import video1F from "/video3F.mp4";
+import video2F from "/video2F.mp4";
+import video3F from "/video1F.mp4";
 
 const Tendances = () => {
   const { user, ajouterExperience } = useUser();
   const [isAbleToAccess, setIsAbleToAccess] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (user && user.experience >= 30) {
@@ -19,14 +23,32 @@ const Tendances = () => {
     }
   }, [user]);
 
-  const tendanceThresholds = [30, 90, 120];
+  const tendanceThresholds = [30, 80, 120];
 
   const handleHover = (index) => {
     setHoveredIndex(index);
   };
 
+  useEffect(() => {
+    const videos = document.querySelectorAll("video");
+    videos.forEach((video) => {
+      video.pause();
+      video.currentTime = 7;
+      video.addEventListener("mouseenter", () => {
+        const requiredExperience = tendanceThresholds[0] || 0;
+        if (user && user.experience >= requiredExperience) {
+          video.play();
+        }
+      });
+      video.addEventListener("mouseleave", () => {
+        video.pause();
+      });
+    });
+  }, [user]);
+
   const renderTendanceItem = (tendance, index) => {
     const requiredExperience = tendanceThresholds[index] || 0;
+    const videos = [video1F, video2F, video3F];
 
     return (
       <motion.div
@@ -52,15 +74,24 @@ const Tendances = () => {
             className={`pt-12 bg-dark text-white  px-4 ${
               !isAbleToAccess || (user && user.experience < requiredExperience)
                 ? "opacity-50"
-                : ""
+                : "opacity-100"
             }`}
+            style={{ position: "relative", overflow: "hidden" }}
           >
-            <div className="flex flex-col-reverse justify-between h-40 pb-6">
+            <video
+              className="w-full h-full object-cover absolute bottom-0 left-0 z-0 opacity-25"
+              autoPlay
+              loop
+              muted
+              playsInline
+              src={videos[index]}
+            ></video>
+            <div className="flex flex-col-reverse justify-between h-60 pb-6">
               <div className="flex justify-between items-end">
-                <h5 className="uppercase font-titre text-4xl">
+                <h5 className="uppercase font-titre text-4xl z-10 relative">
                   {tendance.title}
                 </h5>
-                <div className="btn btn-primary text-4xl">
+                <div className="btn btn-primary text-4xl z-10 relative">
                   <FaArrowRightLong />
                 </div>
               </div>
@@ -80,10 +111,22 @@ const Tendances = () => {
       <h2 className="font-titre uppercase pt-12 pb-4">
         Entrainements tendances
       </h2>
-      <div>
-        {TendanceData.map((tendance, index) =>
-          renderTendanceItem(tendance, index)
-        )}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="lg:col-span-2 flex">
+          {TendanceData.slice(0, 2).map((tendance, index) => (
+            <div key={tendance.id} className="w-1/2 pr-4">
+              {renderTendanceItem(tendance, index)}
+            </div>
+          ))}
+        </div>
+
+        <div className="lg:col-span-2">
+          {TendanceData.slice(2).map((tendance, index) => (
+            <div key={tendance.id} className="mb-4">
+              {renderTendanceItem(tendance, index + 2)}
+            </div>
+          ))}
+        </div>
       </div>
 
       <div>

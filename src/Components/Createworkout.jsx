@@ -85,7 +85,7 @@ const Createworkout = () => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="popup"
+                    className="flex"
                   >
                     {exercises.map((exercise) => (
                       <label

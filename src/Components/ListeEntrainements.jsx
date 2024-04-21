@@ -133,8 +133,8 @@ const ListeEntrainements = () => {
       <Createworkout />
 
       {ajouter.visible && (
-        <div className="popup">
-          <div className="popup-content">
+        <div>
+          <div >
             <span className="close" onClick={toggleAjouterPopup}>
               &times;
             </span>
