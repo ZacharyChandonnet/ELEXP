@@ -313,6 +313,12 @@ export function UserProvider({ children }) {
       }
     }
 
+    const userDocRef = doc(db, "users", uuid);
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+
+
     return dailyQuests[0];
   };
 
@@ -519,6 +525,7 @@ export function UserProvider({ children }) {
       return objectifs;
     }
   };
+
 
   useEffect(() => {
     const getDocRef = async () => {

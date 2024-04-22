@@ -78,6 +78,11 @@ const Tendances = () => {
             }`}
             style={{ position: "relative", overflow: "hidden" }}
           >
+            {user && user.experience < requiredExperience && (
+              <div className="experience-indicator absolute top-0 right-0 mt-2 mr-2 text-md text-bold text-red-500 uppercase">
+                Experience minimale requise: {requiredExperience}
+              </div>
+            )}
             <video
               className="w-full h-full object-cover absolute bottom-0 left-0 z-0 opacity-25"
               autoPlay

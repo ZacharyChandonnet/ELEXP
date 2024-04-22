@@ -180,15 +180,15 @@ const Profil = () => {
   const handleWorkoutCompleted = (id) => {
     if (cooldownRemaining === 0) {
       ajouterWorkoutFini(id);
-  
+
       setNotificationWorkout(true);
-  
+
       setTimeout(() => {
         setNotificationWorkout(false);
       }, 7000);
     }
   };
-  
+
   return (
     <section>
       <div>
@@ -243,9 +243,10 @@ const Profil = () => {
         </div>
 
         <div className="text-white bg-dark h-96">
-          <h3 className="font-titre uppercase text-center text-3xl">
-            Mes objectifs
-          </h3>
+          <div className="text-center">
+            <h3 className="font-titre uppercase  text-3xl">Mes objectifs</h3>
+            <p> Garder trace de vos objectifs personnels.</p>
+          </div>
 
           <button
             onClick={() => setAjouterObjectif(!ajouterObjectif)}

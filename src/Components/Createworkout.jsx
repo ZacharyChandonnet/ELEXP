@@ -27,8 +27,10 @@ const Createworkout = () => {
 
   const exerciseThresholds = {
     Jambes: {
+      "Marche avec des poids": 50,
       "Soulevé de terre": 100,
       "Presse à cuisses": 150,
+      "Sauts en boîte": 200,
     },
   };
 
@@ -80,7 +82,7 @@ const Createworkout = () => {
         {Object.entries(ChoixExercices.exercices).map(
           ([muscleGroup, exercises]) => (
             <div
-              className=" grid grid-cols-1 items-center border-b-2 border-dark mb-8  mt-4 cursor-pointer"
+              className="grid grid-cols-1 items-center border-b-2 border-dark mb-8  mt-4 cursor-pointer"
               key={muscleGroup}
               onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
               onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
@@ -98,9 +100,18 @@ const Createworkout = () => {
                     {exercises.map((exercise) => (
                       <label
                         key={exercise.id}
-                        className="flex items-center cursor-pointer "
+                        className={`flex items-center cursor-pointer ${
+                          experience <
+                          (exerciseThresholds[muscleGroup]?.[exercise.name] ||
+                            0)
+                            ? "filter opacity-50"
+                            : ""
+                        }`}
                       >
                         {exercise.name}
+                        <span className="ml-2" style={{ color: "red" }}>
+                          {exerciseThresholds[muscleGroup]?.[exercise.name]}
+                        </span>
                         <input
                           type="checkbox"
                           value={exercise.name}

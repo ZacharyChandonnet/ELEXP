@@ -56,7 +56,7 @@ const Header = () => {
       />
 
       <div className="cursor-pointer" onClick={handleClick}>
-        <p>{user?.name} lvl.{user?.experience}</p>
+        <p>{user?.name} exp.{user?.experience}</p>
 
         {isClicked && (
           <div className="flex flex-col absolute top-12 right-0">

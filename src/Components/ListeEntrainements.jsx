@@ -17,6 +17,7 @@ const ListeEntrainements = () => {
     supprimerExerciceWorkout,
     ajouterExercicesAuWorkout,
   } = useUser();
+
   const [workouts, setWorkouts] = useState([]);
   const [modifier, setModifier] = useState(false);
   const [ajouter, setAjouter] = useState({ visible: false, workoutId: null });
@@ -35,6 +36,9 @@ const ListeEntrainements = () => {
     getWorkouts();
   }, [afficherWokoutDetails]);
 
+  // Suppose que l'expérience de l'utilisateur est accessible via user.experience
+  const experience = user ? user.experience : 0;
+
   const handleDeleteWorkout = async (id) => {
     await supprimerEntrainement(id);
     const updatedWorkouts = await afficherWokoutDetails();
@@ -45,6 +49,15 @@ const ListeEntrainements = () => {
     setTimeout(() => {
       setNotification(false);
     }, 7000);
+  };
+
+  const exerciseThresholds = {
+    Jambes: {
+      "Marche avec des poids": 50,
+      "Soulevé de terre": 100,
+      "Presse à cuisses": 150,
+      "Sauts en boîte": 200,
+    },
   };
 
   const handleDeleteExercice = async (id, exercice) => {
@@ -100,11 +113,19 @@ const ListeEntrainements = () => {
               {ChoixExercices.exercices[category].map((exercise) => (
                 <li key={exercise.id}>
                   {exercise.name}
-                  <button onClick={() => toggleExerciseSelection(exercise)}>
-                    {exercicesSelectionnes.includes(exercise)
-                      ? "Sélectionné"
-                      : "Sélectionner"}
-                  </button>
+                  {experience >=
+                  (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                    <button onClick={() => toggleExerciseSelection(exercise)}>
+                      {exercicesSelectionnes.includes(exercise)
+                        ? "Sélectionné"
+                        : "Sélectionner"}
+                    </button>
+                  ) : (
+                    <span style={{ color: "red" }}>
+                      Expérience nécessaire :{" "}
+                      {exerciseThresholds[category]?.[exercise.name]}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>
