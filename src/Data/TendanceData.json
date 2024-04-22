@@ -14,14 +14,14 @@
           },
           {
               "id": 2,
-              "name": "Développé militaire",
+              "name": "Pec press",
               "sets": 3,
               "reps": 10,
               "image": "push2_image.webp"
           },
           {
               "id": 3,
-              "name": "Dips pour les triceps",
+              "name": "Développé militaire",
               "sets": 3,
               "reps": 12,
               "image": "push3_image.webp"

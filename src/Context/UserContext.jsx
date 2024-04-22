@@ -67,7 +67,7 @@ export function UserProvider({ children }) {
     const uuid = user.uid;
     const workoutId = genererId();
     const useDocRef = doc(db, "users", uuid);
-
+  
     await setDoc(
       useDocRef,
       {
@@ -78,7 +78,7 @@ export function UserProvider({ children }) {
       },
       { merge: true }
     );
-
+  
     const workoutDocRef = doc(db, "workouts", workoutId);
     await setDoc(workoutDocRef, {
       uuid: workoutId,
@@ -86,7 +86,7 @@ export function UserProvider({ children }) {
       user: uuid,
       exercices: selectedExercises,
     });
-
+  
     onSnapshot(useDocRef, (doc) => {
       setUserInfos(doc.data());
     });
@@ -489,18 +489,19 @@ export function UserProvider({ children }) {
   };
 
   const objectifCompleted = async (objectifId) => {
+    const currentDate = new Date().getTime();
     const objectifDocRef = doc(db, "objectifs", objectifId);
     await updateDoc(objectifDocRef, {
       isCompleted: true,
+      dateCompleted: currentDate,
     });
-
+  
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
     onSnapshot(userDocRef, (doc) => {
       setUserInfos(doc.data());
     });
   };
-
   const afficherObjectifs = async () => {
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);

@@ -134,6 +134,7 @@ const ListeEntrainements = () => {
       </div>
     );
   };
+  
 
   const handleToggleSettings = (workoutId) => {
     setOpenSettingsId(openSettingsId === workoutId ? null : workoutId);

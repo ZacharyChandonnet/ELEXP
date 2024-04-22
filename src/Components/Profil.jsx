@@ -169,6 +169,7 @@ const Profil = () => {
 
   const handleObjectifCompleted = (id) => {
     objectifCompleted(id);
+    const dateCompleted = new Date();
 
     setNotificationCompleted(true);
 
@@ -264,18 +265,22 @@ const Profil = () => {
                 {objectif.description}
               </p>
               {objectif.isCompleted ? (
-                <button
-                  className="text-green-500"
-                  onClick={() => handleObjectifCompleted(objectif.id)}
-                >
-                  <FaCheck />
-                </button>
+                <div>
+                  <p className="text-green-500">
+                    Date de complétion: {formatDate(objectif.dateCompleted)}
+                  </p>{" "}
+                  <button
+                    className="text-green-500"
+                    onClick={() => handleObjectifCompleted(objectif.id)}
+                  >
+                    <FaCheck />
+                  </button>
+                </div>
               ) : (
                 <button onClick={() => handleObjectifCompleted(objectif.id)}>
                   <FaCheck />
                 </button>
               )}
-
               <button
                 className="text-red-500"
                 onClick={() => handleDeleteObjectif(objectif.id)}
