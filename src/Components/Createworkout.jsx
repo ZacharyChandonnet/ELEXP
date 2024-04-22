@@ -4,6 +4,7 @@ import ChoixExercices from "../Data/Exercices.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowTurnDown } from "react-icons/fa6";
 import "./Createworkout.css";
+import Notification from "./Notification";
 
 const Createworkout = () => {
   const [workoutName, setWorkoutName] = useState("");
@@ -12,6 +13,7 @@ const Createworkout = () => {
   const [experience, setExperience] = useState(0);
   const [isAbleToCreate, setIsAbleToCreate] = useState(false);
   const { createWorkout, user } = useUser();
+  const [notification, setNotification] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -62,6 +64,12 @@ const Createworkout = () => {
 
   const handleCreateWorkout = () => {
     createWorkout(workoutName, Object.values(selectedExercises).flat());
+    setNotification(true);
+
+    setTimeout(() => {
+      setNotification(false);
+    }, 7000);
+
     setWorkoutName("");
   };
 
@@ -130,6 +138,12 @@ const Createworkout = () => {
           Créer l'entraînement
         </button>
       </div>
+
+      {notification && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification message={"Votre entraînement a bien été créé !"} />
+        </div>
+      )}
     </div>
   );
 };

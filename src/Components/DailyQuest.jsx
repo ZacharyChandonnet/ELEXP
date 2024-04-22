@@ -1,17 +1,18 @@
 import { useUser } from "../Context/UserContext";
 import { useState, useEffect } from "react";
+import Notification from "./Notification";
 
 const DailyQuest = () => {
   const { creerDailyQuest, user, afficherDailyQuest, ajouterDailyQuestFini } =
     useUser();
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [dailyQuest, setDailyQuest] = useState(null);
+  const [notification, setNotification] = useState(false);
 
   useEffect(() => {
     if (!user.userCompletedDailyQuest) {
       creerDailyQuest();
     }
-   
   }, []);
 
   useEffect(() => {
@@ -27,6 +28,12 @@ const DailyQuest = () => {
   const ajouterDaily = () => {
     if (user.userCompletedDailyQuest === false) {
       ajouterDailyQuestFini();
+
+      setNotification(true);
+
+      setTimeout(() => {
+        setNotification(false);
+      }, 7000);
     } else {
       console.log("Vous avez déjà terminé votre défi du jour");
     }
@@ -120,6 +127,15 @@ const DailyQuest = () => {
           </div>
         </div>
       </div>
+
+      {notification && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification
+           message={"Votre défi du jour a bien été terminé !" + dailyQuest?.name?.experience + " points d'expérience"}
+            redirection="/profil"
+          />
+        </div>
+      )}
     </section>
   );
 };

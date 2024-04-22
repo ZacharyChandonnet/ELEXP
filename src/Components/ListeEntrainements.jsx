@@ -7,6 +7,7 @@ import { TbDots } from "react-icons/tb";
 import { TiDelete } from "react-icons/ti";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
+import Notification from "./Notification";
 
 const ListeEntrainements = () => {
   const {
@@ -21,6 +22,9 @@ const ListeEntrainements = () => {
   const [ajouter, setAjouter] = useState({ visible: false, workoutId: null });
   const [exercicesSelectionnes, setExercicesSelectionnes] = useState([]);
   const [openSettingsId, setOpenSettingsId] = useState(null);
+  const [notification, setNotification] = useState(false);
+  const [notificationDelete, setNotificationDelete] = useState(false);
+  const [notificationAjout, setNotificationAjout] = useState(false);
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -35,12 +39,24 @@ const ListeEntrainements = () => {
     await supprimerEntrainement(id);
     const updatedWorkouts = await afficherWokoutDetails();
     setWorkouts(updatedWorkouts);
+
+    setNotification(true);
+
+    setTimeout(() => {
+      setNotification(false);
+    }, 7000);
   };
 
   const handleDeleteExercice = async (id, exercice) => {
     await supprimerExerciceWorkout(id, exercice);
     const updatedWorkouts = await afficherWokoutDetails();
     setWorkouts(updatedWorkouts);
+
+    setNotificationDelete(true);
+
+    setTimeout(() => {
+      setNotificationDelete(false);
+    }, 7000);
   };
 
   const toggleAjouterPopup = (workoutId) => {
@@ -65,6 +81,12 @@ const ListeEntrainements = () => {
     setWorkouts(updatedWorkouts);
     setAjouter({ visible: false, workoutId: null });
     setExercicesSelectionnes([]);
+
+    setNotificationAjout(true);
+
+    setTimeout(() => {
+      setNotificationAjout(false);
+    }, 7000);
   };
 
   const renderExercicesList = () => {
@@ -155,6 +177,24 @@ const ListeEntrainements = () => {
       </div>
 
       <Createworkout />
+
+      {notification && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification message={"Votre entrainement a bien été supprimé"} />
+        </div>
+      )}
+
+      {notificationDelete && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification message={"Votre exercice a bien été supprimé"} />
+        </div>
+      )}
+
+      {notificationAjout && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification message={"Vos exercices ont bien été ajoutés"} />
+        </div>
+      )}
 
       {ajouter.visible && (
         <div>

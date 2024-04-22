@@ -6,6 +6,7 @@ import { useUser } from "../Context/UserContext";
 import "./DetailsTendance.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
+import Notification from "./Notification";
 
 const DetailsTendance = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const DetailsTendance = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [popupImage, setPopupImage] = useState("");
+  const [notification, setNotification] = useState(false);
   const { ajouterExperience, user, partirTimer, ajouterWorkoutTendance } =
     useUser();
 
@@ -46,9 +48,15 @@ const DetailsTendance = () => {
 
   const addWorkout = () => {
     if (cooldownRemaining === 0) {
-      ajouterExperience(10);
+      ajouterExperience(40);
       ajouterWorkout();
       partirTimer();
+
+      setNotification(true);
+
+      setTimeout(() => {
+        setNotification(false);
+      }, 7000);
     } else {
       console.log(
         "Vous devez attendre avant de pouvoir ajouter un autre workout"
@@ -136,9 +144,26 @@ const DetailsTendance = () => {
         >
           <div className="popup-content">
             <img src={popupImage} alt="Popup Image" />
-            <button className="text-white text-3xl" onClick={() => setShowPopup(false)}> <FaTimes/> </button>
+            <button
+              className="text-white text-3xl"
+              onClick={() => setShowPopup(false)}
+            >
+              {" "}
+              <FaTimes />{" "}
+            </button>
           </div>
         </motion.div>
+      )}
+
+      {notification && (
+        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <Notification
+            message={
+              "Votre workout a bien été ajouté !" + 40 + " points d'expérience"
+            }
+            redirection="/profil"
+          />
+        </div>
       )}
     </div>
   );

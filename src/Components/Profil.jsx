@@ -5,6 +5,7 @@ import TendancesData from "../Data/TendanceData";
 import { FaCheck } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
+import Notification from "./Notification";
 
 const Profil = () => {
   const {
@@ -30,6 +31,10 @@ const Profil = () => {
   const [dateEntrainementTendance, setDateEntrainementTendance] = useState([]);
   const [ajouterObjectif, setAjouterObjectif] = useState(false);
   const [objectifs, setObjectifs] = useState([]);
+  const [notificationAdd, setNotificationAdd] = useState(false);
+  const [notificationCompleted, setNotificationCompleted] = useState(false);
+  const [notificationDelete, setNotificationDelete] = useState(false);
+  const [notificationWorkout, setNotificationWorkout] = useState(false);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -141,6 +146,12 @@ const Profil = () => {
       };
       creerObjectif(objectif);
       setAjouterObjectif(false);
+
+      setNotificationAdd(true);
+
+      setTimeout(() => {
+        setNotificationAdd(false);
+      }, 7000);
     } else {
       console.error("Problème d'envoie");
     }
@@ -148,8 +159,36 @@ const Profil = () => {
 
   const handleDeleteObjectif = (id) => {
     deleteObjectif(id);
+
+    setNotificationDelete(true);
+
+    setTimeout(() => {
+      setNotificationDelete(false);
+    }, 7000);
   };
 
+  const handleObjectifCompleted = (id) => {
+    objectifCompleted(id);
+
+    setNotificationCompleted(true);
+
+    setTimeout(() => {
+      setNotificationCompleted(false);
+    }, 7000);
+  };
+
+  const handleWorkoutCompleted = (id) => {
+    if (cooldownRemaining === 0) {
+      ajouterWorkoutFini(id);
+  
+      setNotificationWorkout(true);
+  
+      setTimeout(() => {
+        setNotificationWorkout(false);
+      }, 7000);
+    }
+  };
+  
   return (
     <section>
       <div>
@@ -165,7 +204,7 @@ const Profil = () => {
             {workouts.map((workout) => (
               <li key={workout.id}>
                 <Link to={`/entrainements`}>{workout.name}</Link>
-                <button onClick={() => ajouterWorkoutFini(workout.id)}>
+                <button onClick={() => handleWorkoutCompleted(workout.id)}>
                   Terminé
                 </button>
               </li>
@@ -208,7 +247,10 @@ const Profil = () => {
             Mes objectifs
           </h3>
 
-          <button onClick={() => setAjouterObjectif(!ajouterObjectif)} className="text-3xl">
+          <button
+            onClick={() => setAjouterObjectif(!ajouterObjectif)}
+            className="text-3xl"
+          >
             <IoMdAdd />
           </button>
 
@@ -223,13 +265,13 @@ const Profil = () => {
               {objectif.isCompleted ? (
                 <button
                   className="text-green-500"
-                  onClick={() => objectifCompleted(objectif.id)}
+                  onClick={() => handleObjectifCompleted(objectif.id)}
                 >
                   <FaCheck />
                 </button>
               ) : (
-                <button onClick={() => objectifCompleted(objectif.id)}>
-                   <FaCheck />
+                <button onClick={() => handleObjectifCompleted(objectif.id)}>
+                  <FaCheck />
                 </button>
               )}
 
@@ -248,6 +290,36 @@ const Profil = () => {
               <input type="text" placeholder="Description de l'objectif" />
               <button type="submit">Ajouter</button>
             </form>
+          )}
+
+          {notificationAdd && (
+            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+              <Notification
+                message={"Votre objectif a été ajouté avec succès"}
+              />
+            </div>
+          )}
+
+          {notificationDelete && (
+            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+              <Notification
+                message={"Votre objectif a été supprimé avec succès"}
+              />
+            </div>
+          )}
+
+          {notificationCompleted && (
+            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+              <Notification
+                message={"Votre objectif a été complété avec succès"}
+              />
+            </div>
+          )}
+
+          {notificationWorkout && (
+            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+              <Notification message={"Votre workout a bien été ajouté !"} />
+            </div>
           )}
         </div>
       </div>
