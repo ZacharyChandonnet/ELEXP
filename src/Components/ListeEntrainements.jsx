@@ -3,6 +3,10 @@ import { useUser } from "../Context/UserContext";
 import Createworkout from "./Createworkout";
 import DailyQuest from "./DailyQuest";
 import ChoixExercices from "../Data/Exercices.json";
+import { TbDots } from "react-icons/tb";
+import { TiDelete } from "react-icons/ti";
+import { FaTrash } from "react-icons/fa6";
+import { IoMdAdd } from "react-icons/io";
 
 const ListeEntrainements = () => {
   const {
@@ -16,6 +20,7 @@ const ListeEntrainements = () => {
   const [modifier, setModifier] = useState(false);
   const [ajouter, setAjouter] = useState({ visible: false, workoutId: null });
   const [exercicesSelectionnes, setExercicesSelectionnes] = useState([]);
+  const [openSettingsId, setOpenSettingsId] = useState(null);
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -59,9 +64,9 @@ const ListeEntrainements = () => {
     const updatedWorkouts = await afficherWokoutDetails();
     setWorkouts(updatedWorkouts);
     setAjouter({ visible: false, workoutId: null });
-    setExercicesSelectionnes([]); 
+    setExercicesSelectionnes([]);
   };
-  
+
   const renderExercicesList = () => {
     const categories = Object.keys(ChoixExercices.exercices);
     return (
@@ -87,42 +92,61 @@ const ListeEntrainements = () => {
     );
   };
 
+  const handleToggleSettings = (workoutId) => {
+    setOpenSettingsId(openSettingsId === workoutId ? null : workoutId);
+  };
+
   return (
     <section>
       <DailyQuest />
 
-      <div className="grid grid-cols-1 gap-4">
-        <h2 className="font-titre uppercase">Mes entrainements</h2>
+      <h2 className="font-titre uppercase">Mes entrainements</h2>
+      <div className="grid grid-cols-4 gap-4 ">
         {workouts && workouts.length === 0 ? (
           <p>Vous n'avez pas encore d'entrainements</p>
         ) : (
           workouts.map((workout) => (
-            <div key={workout.id} className="bg-red-500 relative">
-              <p>{workout.name}</p>
+            <div key={workout.id} className="bg-dark text-white relative p-4">
+              <h3 className="font-titre text-xl">{workout.name}</h3>
               <ul>
                 {workout.exercices.map((exercise, index) => (
-                  <li key={index}>
-                    {exercise}
-                    {modifier && (
+                  <li key={index} className="flex gap-2 items-center">
+                    <p>{exercise}</p>
+                    {openSettingsId === workout.id && (
                       <button
                         onClick={() =>
                           handleDeleteExercice(workout.id, exercise)
                         }
+                        className="text-red-500 text-lg"
                       >
-                        Supprimer
+                        <TiDelete />
                       </button>
                     )}
                   </li>
                 ))}
               </ul>
-              <button onClick={() => handleDeleteWorkout(workout.id)}>
-                Supprimer
-              </button>
-              <button onClick={() => setModifier(!modifier)}>Modifier</button>
 
-              <div className="absolute top-0 right-0">
-                {modifier && (
-                  <button onClick={() => toggleAjouterPopup(workout.id)}>Ajouter des exercices</button>
+              <div className="absolute top-0 right-0 pt-4 pr-4">
+                <TbDots
+                  onClick={() => handleToggleSettings(workout.id)}
+                  className="cursor-pointer"
+                />
+
+                {openSettingsId === workout.id && (
+                  <div className="grid grid-cols-1 gap-2">
+                    <button
+                      onClick={() => toggleAjouterPopup(workout.id)}
+                      className="cursor-pointer text-lg text-green-500"
+                    >
+                      <IoMdAdd />
+                    </button>
+                    <button
+                      className="text-red-500 text-lg"
+                      onClick={() => handleDeleteWorkout(workout.id)}
+                    >
+                      <FaTrash className="cursor-pointer" />
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
@@ -134,7 +158,7 @@ const ListeEntrainements = () => {
 
       {ajouter.visible && (
         <div>
-          <div >
+          <div>
             <span className="close" onClick={toggleAjouterPopup}>
               &times;
             </span>

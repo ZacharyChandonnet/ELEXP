@@ -20,7 +20,7 @@ const Createworkout = () => {
   }, [user]);
 
   useEffect(() => {
-    setIsAbleToCreate(experience >= 50);
+    setIsAbleToCreate(experience >= 40);
   }, [experience]);
 
   const exerciseThresholds = {
