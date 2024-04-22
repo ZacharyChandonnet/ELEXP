@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
 import TendancesData from "../Data/TendanceData";
+import { FaCheck } from "react-icons/fa";
+import { FaTrash } from "react-icons/fa6";
+import { IoMdAdd } from "react-icons/io";
 
 const Profil = () => {
   const {
@@ -11,6 +14,10 @@ const Profil = () => {
     afficherWorkoutFini,
     afficherDailyQuestFini,
     afficherDateEntrainementTendance,
+    creerObjectif,
+    afficherObjectifs,
+    deleteObjectif,
+    objectifCompleted,
     user,
   } = useUser();
   const [currentExperience, setCurrentExperience] = useState(0);
@@ -21,6 +28,8 @@ const Profil = () => {
   const [dailyQuestsCompleted, setDailyQuestsCompleted] = useState([]);
   const [tendances, setTendances] = useState([]);
   const [dateEntrainementTendance, setDateEntrainementTendance] = useState([]);
+  const [ajouterObjectif, setAjouterObjectif] = useState(false);
+  const [objectifs, setObjectifs] = useState([]);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -36,6 +45,14 @@ const Profil = () => {
     };
     getWorkouts();
   }, [afficherWokoutDetails]);
+
+  useEffect(() => {
+    const getObjectifs = async () => {
+      const objectifs = await afficherObjectifs();
+      setObjectifs(objectifs);
+    };
+    getObjectifs();
+  }, [afficherObjectifs]);
 
   useEffect(() => {
     const getHistory = async () => {
@@ -111,6 +128,28 @@ const Profil = () => {
     fetchDateEntrainementTendance();
   }, []);
 
+  const handleAjouterObjectif = (e) => {
+    e.preventDefault();
+
+    const nom = e.target[0].value;
+    const description = e.target[1].value;
+
+    if (nom && description) {
+      const objectif = {
+        titre: nom,
+        description: description,
+      };
+      creerObjectif(objectif);
+      setAjouterObjectif(false);
+    } else {
+      console.error("Problème d'envoie");
+    }
+  };
+
+  const handleDeleteObjectif = (id) => {
+    deleteObjectif(id);
+  };
+
   return (
     <section>
       <div>
@@ -162,6 +201,54 @@ const Profil = () => {
                 </li>
               ))}
           </ul>
+        </div>
+
+        <div className="text-white bg-dark h-96">
+          <h3 className="font-titre uppercase text-center text-3xl">
+            Mes objectifs
+          </h3>
+
+          <button onClick={() => setAjouterObjectif(!ajouterObjectif)} className="text-3xl">
+            <IoMdAdd />
+          </button>
+
+          {objectifs.map((objectif, index) => (
+            <div key={index}>
+              <h4 className={objectif.isCompleted ? "text-green-500" : ""}>
+                {objectif.titre}
+              </h4>
+              <p className={objectif.isCompleted ? "text-green-500" : ""}>
+                {objectif.description}
+              </p>
+              {objectif.isCompleted ? (
+                <button
+                  className="text-green-500"
+                  onClick={() => objectifCompleted(objectif.id)}
+                >
+                  <FaCheck />
+                </button>
+              ) : (
+                <button onClick={() => objectifCompleted(objectif.id)}>
+                   <FaCheck />
+                </button>
+              )}
+
+              <button
+                className="text-red-500"
+                onClick={() => handleDeleteObjectif(objectif.id)}
+              >
+                <FaTrash />
+              </button>
+            </div>
+          ))}
+
+          {ajouterObjectif && (
+            <form onSubmit={handleAjouterObjectif}>
+              <input type="text" placeholder="Nom de l'objectif" />
+              <input type="text" placeholder="Description de l'objectif" />
+              <button type="submit">Ajouter</button>
+            </form>
+          )}
         </div>
       </div>
     </section>

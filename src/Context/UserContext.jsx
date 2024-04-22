@@ -38,6 +38,10 @@ const UserContext = createContext({
   afficherDateEntrainementTendance: async () => {},
   supprimerExerciceWorkout: async () => {},
   ajouterExercicesAuWorkout: async () => {},
+  creerObjectif: async () => {},
+  afficherObjectifs: async () => {},
+  deleteObjectif: async () => {},
+  objectifCompleted: async () => {},
   user: null,
   _v: 0,
 });
@@ -59,7 +63,6 @@ export function UserProvider({ children }) {
     return new Date().getTime().toString();
   };
 
-  
   const createWorkout = async (workoutName, selectedExercises) => {
     const uuid = user.uid;
     const workoutId = genererId();
@@ -125,8 +128,6 @@ export function UserProvider({ children }) {
     }
 
     return updatedExercises;
-
-
   };
 
   const supprimerEntrainement = async (workoutId) => {
@@ -441,6 +442,84 @@ export function UserProvider({ children }) {
     });
   };
 
+  const creerObjectif = async (objectif) => {
+    const uuid = user.uid;
+    const objectifId = genererId();
+    const objectifDocRef = doc(db, "objectifs", objectifId);
+
+    await setDoc(objectifDocRef, {
+      id: objectifId,
+      titre: objectif.titre,
+      description: objectif.description,
+      user: uuid,
+      isCompleted: false,
+    });
+
+    const userDocRef = doc(db, "users", uuid);
+    await updateDoc(userDocRef, {
+      objectifs: arrayUnion(objectifId),
+    });
+
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+
+    return objectif;
+  };
+
+  const deleteObjectif = async (objectifId) => {
+    const objectifDocRef = doc(db, "objectifs", objectifId);
+    await deleteDoc(objectifDocRef);
+
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    await updateDoc(userDocRef, {
+      objectifs: arrayRemove(objectifId),
+    });
+
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+  };
+
+  const objectifCompleted = async (objectifId) => {
+    const objectifDocRef = doc(db, "objectifs", objectifId);
+    await updateDoc(objectifDocRef, {
+      isCompleted: true,
+    });
+
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+  };
+
+  const afficherObjectifs = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const objectifs = [];
+
+      for (const objectifId of userData.objectifs) {
+        const objectifDocRef = doc(db, "objectifs", objectifId);
+        const objectifDocSnap = await getDoc(objectifDocRef);
+
+        if (objectifDocSnap.exists()) {
+          objectifs.push({
+            id: objectifDocSnap.id,
+            ...objectifDocSnap.data(),
+          });
+        }
+      }
+
+      return objectifs;
+    }
+  };
+
   useEffect(() => {
     const getDocRef = async () => {
       const uuid = user.uid;
@@ -498,6 +577,10 @@ export function UserProvider({ children }) {
         afficherDateEntrainementTendance,
         supprimerExerciceWorkout,
         ajouterExercicesAuWorkout,
+        creerObjectif,
+        afficherObjectifs,
+        deleteObjectif,
+        objectifCompleted,
       }}
     >
       {children}
