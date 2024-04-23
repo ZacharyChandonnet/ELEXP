@@ -94,10 +94,7 @@ const DetailsTendance = () => {
     <div className="relative">
       <Heading title={tendance.title} paragraph={tendance.description} />
 
-      <p>
-        Temps de récupération avant le prochain workout :{" "}
-        {formatCooldown(cooldownRemaining)}
-      </p>
+
 
       <div>
         <div className="detail-container cursor-pointer">
@@ -113,15 +110,20 @@ const DetailsTendance = () => {
                   transition={{ duration: 0.5, delay: index * 0.25 }}
                   onClick={() => handleImageClick(`/${detail.image}`)}
                 >
-                  <div className="bg-dark text-white detail">
-                    <div className="p-4">
-                      <h3 className="font-titre">{detail.name}</h3>
-                      <p> Séries - {detail.sets}</p>
-                      <p>Répétition - {detail.reps}</p>
-                    </div>
+                  <div className="bg-dark text-white detail grid grid-cols-1 md:grid-cols-2 items-center">
                     <figure>
-                      <img src={`/${detail.image}`} alt={detail.name} />
+                      <img src={`/${detail.image}`} alt={detail.name}
+                        style={{ maxHeight: "400px" }}
+                      />
                     </figure>
+                    <div className="p-6 ">
+                      <h3 className="font-titre lg:text-3xl uppercase">{detail.name}</h3>
+                      <p className="italic w-3/4 pt-2">{detail.description}</p>
+                      <div className="flex gap-8 pt-8 font-bold">
+                        <p> Séries - {detail.sets}</p>
+                        <p>Répétition - {detail.reps}</p>
+                      </div>
+                    </div>
                   </div>
                 </motion.div>
               ))}
@@ -129,7 +131,15 @@ const DetailsTendance = () => {
         </div>
       </div>
 
-      <button onClick={addWorkout}>J'ai complété ce workout</button>
+
+      <p className="text-red-500 italic font-bold text-sm py-4">
+        *Temps de récupération avant le prochain workout :{" "}
+        {formatCooldown(cooldownRemaining)}
+      </p>
+
+      <div className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12">
+        <button onClick={addWorkout}>J'ai complété ce workout</button>
+      </div>
 
       <Link to="/programmes" className="absolute top-0 left-0 p-4">
         Retour

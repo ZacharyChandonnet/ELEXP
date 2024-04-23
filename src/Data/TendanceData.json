@@ -1,112 +1,122 @@
 [
-  {
-      "id": 1,
-      "title": "Push",
-      "description": "Exercices ciblant les mouvements de poussée tels que la poitrine, les épaules et les triceps.",
-      "image": "push_image.webp",
-      "workouts": [
-          {
-              "id": 1,
-              "name": "Développé couché incliné",
-              "sets": 4,
-              "reps": 8,
-              "image": "push1_image.webp"
-          },
-          {
-              "id": 2,
-              "name": "Pec press",
-              "sets": 3,
-              "reps": 10,
-              "image": "push2_image.webp"
-          },
-          {
-              "id": 3,
-              "name": "Développé militaire",
-              "sets": 3,
-              "reps": 12,
-              "image": "push3_image.webp"
-          },
-          {
+    {
+        "id": 1,
+        "title": "Push",
+        "description": "Exercices ciblant les mouvements de poussée tels que la poitrine, les épaules et les triceps.",
+        "image": "push_image.webp",
+        "workouts": [
+            {
+                "id": 1,
+                "name": "Développé couché incliné",
+                "sets": 4,
+                "reps": 8,
+                "image": "push1_image.webp",
+                "description": "Le développé couché incliné est un exercice de musculation qui sollicite principalement les pectoraux supérieurs, les épaules et les triceps. Il est très similaire au développé couché classique, mais la différence réside dans l'inclinaison du banc qui permet de cibler davantage les pectoraux supérieurs."
+            },
+            {
+                "id": 2,
+                "name": "Pec press",
+                "sets": 3,
+                "reps": 10,
+                "image": "push2_image.webp",
+                "description": "Le pec press est un exercice de musculation qui sollicite principalement les pectoraux. Il est réalisé à la machine de musculation pec deck ou butterfly. Cet exercice permet de travailler les pectoraux de manière isolée et de les renforcer efficacement."
+            },
+            {
+                "id": 3,
+                "name": "Développé militaire",
+                "sets": 3,
+                "reps": 12,
+                "image": "push3_image.webp",
+                "description": "Le développé militaire est un exercice de musculation qui sollicite principalement les épaules. Il est réalisé debout ou assis et nécessite l'utilisation d'une barre ou de haltères ou même d'une machine. Cet exercice permet de renforcer les muscles deltoïdes et de travailler la stabilité des épaules."
+            },
+            {
                 "id": 4,
                 "name": "Machine pectoraux",
                 "sets": 3,
                 "reps": 12,
-                "image": "push4_image.webp"
-
-          }
-      ]
-  },
-  {
-      "id": 2,
-      "title": "Pull",
-      "description": "Exercices ciblant les mouvements de traction tels que le dos et les biceps.",
-      "image": "pull_image.webp",
-      "workouts": [
-          {
-              "id": 1,
-              "name": "Tirage horiontal",
-              "sets": 4,
-              "reps": 8,
-              "image": "pull1_image.webp"
-          },
-          {
-              "id": 2,
-              "name": "Rowing barre",
-              "sets": 3,
-              "reps": 10,
-              "image": "pull2_image.webp"
-          },
-          {
-              "id": 3,
-              "name": "Curls biceps",
-              "sets": 3,
-              "reps": 12,
-              "image": "pull3_image.webp"
-          },
-          {
+                "image": "push4_image.webp",
+                "description": "La machine pectoraux est un exercice de musculation qui sollicite principalement les pectoraux. Il est réalisé à la machine de musculation pec deck ou butterfly. Cet exercice permet de travailler les pectoraux de manière isolée et de les renforcer efficacement."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Pull",
+        "description": "Exercices ciblant les mouvements de traction tels que le dos et les biceps.",
+        "image": "pull_image.webp",
+        "workouts": [
+            {
+                "id": 1,
+                "name": "Tirage horizontal",
+                "sets": 4,
+                "reps": 8,
+                "image": "pull1_image.webp",
+                "description": "Le tirage horizontal est un exercice de musculation qui sollicite principalement les muscles du dos, notamment les grands dorsaux. Il est réalisé à la machine de musculation ou avec une barre ou des haltères. Cet exercice permet de renforcer les muscles du dos et de travailler la largeur du dos."
+            },
+            {
+                "id": 2,
+                "name": "Rowing barre",
+                "sets": 3,
+                "reps": 10,
+                "image": "pull2_image.webp",
+                "description": "Le rowing barre est un exercice de musculation qui sollicite principalement les muscles du dos, notamment les grands dorsaux. Il est réalisé avec une barre et permet de renforcer les muscles du dos et de travailler la largeur du dos."
+            },
+            {
+                "id": 3,
+                "name": "Curls biceps",
+                "sets": 3,
+                "reps": 12,
+                "image": "pull3_image.webp",
+                "description": "Les curls biceps sont un exercice de musculation qui sollicite principalement les muscles des bras, notamment les biceps. Ils sont réalisés avec une barre ou des haltères et permettent de renforcer les muscles des bras et de travailler la masse musculaire des biceps."
+            },
+            {
                 "id": 4,
                 "name": "Tirage poulie haute",
                 "sets": 3,
                 "reps": 12,
-                "image": "pull4_image.webp"
-          }
-      ]
-  },
-  {
-      "id": 3,
-      "title": "Legs",
-      "description": "Exercices ciblant les muscles des jambes tels que les quadriceps, les ischio-jambiers et les mollets.",
-      "image": "legs_image.webp",
-      "workouts": [
-          {
-              "id": 1,
-              "name": "Squats",
-              "sets": 4,
-              "reps": 8,
-              "image": "legs1_image.webp"
-          },
-          {
-              "id": 2,
-              "name": "Presse molets",
-              "sets": 3,
-              "reps": 10,
-              "image": "legs2_image.webp"
-          },
-          {
-              "id": 3,
-              "name": "Leg curl arrière",
-              "sets": 3,
-              "reps": 12,
-              "image": "legs4_image.webp"
-          },
-          {
+                "image": "pull4_image.webp",
+                "description": "Le tirage poulie haute est un exercice de musculation qui sollicite principalement les muscles du dos, notamment les grands dorsaux. Il est réalisé à la machine de musculation ou avec une barre ou des haltères. Cet exercice permet de renforcer les muscles du dos et de travailler la largeur du dos."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Legs",
+        "description": "Exercices ciblant les muscles des jambes tels que les quadriceps, les ischio-jambiers et les mollets.",
+        "image": "legs_image.webp",
+        "workouts": [
+            {
+                "id": 1,
+                "name": "Squats",
+                "sets": 4,
+                "reps": 8,
+                "image": "legs1_image.webp",
+                "description": "Les squats sont un exercice de musculation qui sollicite principalement les quadriceps, les fessiers et les ischio-jambiers. Ils sont réalisés avec une barre ou des haltères et permettent de renforcer les muscles des jambes et de travailler la masse musculaire des cuisses."  
+            },
+            {
+                "id": 2,
+                "name": "Presse molets",
+                "sets": 3,
+                "reps": 10,
+                "image": "legs2_image.webp",
+                "description": "La presse molets est un exercice de musculation qui sollicite principalement les muscles des mollets. Il est réalisé à la machine de musculation et permet de renforcer les muscles des mollets et de travailler la masse musculaire des jambes."   
+            },
+            {
+                "id": 3,
+                "name": "Leg curl arrière",
+                "sets": 3,
+                "reps": 12,
+                "image": "legs4_image.webp",
+                "description": "Le leg curl arrière est un exercice de musculation qui sollicite principalement les ischio-jambiers. Il est réalisé à la machine de musculation et permet de renforcer les muscles des jambes et de travailler la masse musculaire des cuisses."    
+            },
+            {
                 "id": 4,
                 "name": "Leg curl",
                 "sets": 3,
                 "reps": 12,
-                "image": "legs2_image.webp"
-
-          }
-      ]
-  }
+                "image": "legs3_image.webp",
+                "description": "Le leg curl est un exercice de musculation qui sollicite principalement les ischio-jambiers. Il est réalisé à la machine de musculation et permet de renforcer les muscles des jambes et de travailler la masse musculaire des cuisses."    
+            }
+        ]
+    }
 ]

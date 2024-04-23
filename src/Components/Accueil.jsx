@@ -49,7 +49,7 @@ const Accueil = () => {
       animate="visible"
     >
       <motion.div variants={itemVariants}>
-        <Heading title="atteints tes objectifs" />
+        <Heading title="atteint tes objectifs" />
         <h1 className="text-center font-titre  pt-6 text-dark" style={h1}>
           TROUVE <br />
           TON POTENTIEL
