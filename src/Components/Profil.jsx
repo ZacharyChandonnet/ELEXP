@@ -245,7 +245,7 @@ const Profil = () => {
             {user && user?.name}
           </h2>
           <p>
-          Bienvenue sur votre profil, ici vous pouvez voir votre progression, vos objectifs et vos workouts terminés.
+          Bienvenue sur ton profil, ici tu peux voir ta progression, tes objectifs et tes workouts terminés.
           </p>
         </div>
       <figure className="">

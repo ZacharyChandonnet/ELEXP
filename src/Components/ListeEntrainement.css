@@ -1,0 +1,10 @@
+.listePopup{
+    color:white;
+    background-color: #0D0D0D;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    max-height: 80%;
+}

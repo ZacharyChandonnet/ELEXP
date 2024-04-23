@@ -7,7 +7,11 @@ import { TbDots } from "react-icons/tb";
 import { TiDelete } from "react-icons/ti";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
+import { FaCheck } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";
+import "./ListeEntrainement.css";
+import { motion } from "framer-motion";
 
 const ListeEntrainements = () => {
   const {
@@ -36,7 +40,6 @@ const ListeEntrainements = () => {
     getWorkouts();
   }, [afficherWokoutDetails]);
 
-  // Suppose que l'expérience de l'utilisateur est accessible via user.experience
   const experience = user ? user.experience : 0;
 
   const handleDeleteWorkout = async (id) => {
@@ -105,36 +108,47 @@ const ListeEntrainements = () => {
   const renderExercicesList = () => {
     const categories = Object.keys(ChoixExercices.exercices);
     return (
-      <div>
-        {categories.map((category) => (
-          <div key={category}>
-            <h3>{category}</h3>
-            <ul>
-              {ChoixExercices.exercices[category].map((exercise) => (
-                <li key={exercise.id}>
-                  {exercise.name}
-                  {experience >=
-                  (exerciseThresholds[category]?.[exercise.name] || 0) ? (
-                    <button onClick={() => toggleExerciseSelection(exercise)}>
-                      {exercicesSelectionnes.includes(exercise)
-                        ? "Sélectionné"
-                        : "Sélectionner"}
-                    </button>
-                  ) : (
-                    <span style={{ color: "red" }}>
-                      Expérience nécessaire :{" "}
-                      {exerciseThresholds[category]?.[exercise.name]}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="listePopup"
+      >
+        <span className="close text-white" onClick={toggleAjouterPopup}>
+          <FaTimes />
+        </span>
+        <h2 className="font-titre uppercase text-white text-center text-xl">Liste des exercices</h2>
+          {categories.map((category) => (
+            <div key={category} >
+              <h3>{category}</h3>
+              <ul>
+                {ChoixExercices.exercices[category].map((exercise) => (
+                  <li key={exercise.id} className="grid grid-cols-4 gap-2">
+                    {exercise.name}
+                    {experience >= (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                      <button onClick={() => toggleExerciseSelection(exercise)}>
+                        {exercicesSelectionnes.includes(exercise)
+                          ? <FaCheck />
+                          : <IoMdAdd />}
+                      </button>
+                    ) : (
+                      <span style={{ color: "red" }}>
+                        Expérience nécessaire :{" "}
+                        {exerciseThresholds[category]?.[exercise.name]}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          <button onClick={() => handleAddExercise(ajouter.workoutId)}>
+            Ajouter
+          </button>
+      </motion.div>
     );
   };
-  
+
 
   const handleToggleSettings = (workoutId) => {
     setOpenSettingsId(openSettingsId === workoutId ? null : workoutId);
@@ -221,14 +235,7 @@ const ListeEntrainements = () => {
       {ajouter.visible && (
         <div>
           <div>
-            <span className="close" onClick={toggleAjouterPopup}>
-              &times;
-            </span>
-            <h2>Liste des exercices</h2>
             {renderExercicesList()}
-            <button onClick={() => handleAddExercise(ajouter.workoutId)}>
-              Ajouter
-            </button>
           </div>
         </div>
       )}

@@ -81,59 +81,65 @@ const Createworkout = () => {
       <div className="grid grid-cols-1 ">
         {Object.entries(ChoixExercices.exercices).map(
           ([muscleGroup, exercises]) => (
-            <div
-              className="grid grid-cols-1 items-center border-b-2 border-dark mb-8  mt-4 cursor-pointer"
-              key={muscleGroup}
-              onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
-              onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
+            <motion.div
+              whileHover={{
+                backgroundColor: "#0D0D0D",
+                color: "#fff",
+              }}
             >
-              <h3 className="text-xl font-semibold">{muscleGroup}</h3>
-              <AnimatePresence>
-                {openPopup === muscleGroup && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="flex"
-                  >
-                    {exercises.map((exercise) => (
-                      <label
-                        key={exercise.id}
-                        className={`flex items-center cursor-pointer ${
-                          experience <
-                          (exerciseThresholds[muscleGroup]?.[exercise.name] ||
-                            0)
-                            ? "filter opacity-50"
-                            : ""
-                        }`}
+              <div
+                className="border-t-2 border-dark p-2 py-6 flex items-center cursor-pointer"
+                key={muscleGroup}
+                onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
+                onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
+              >
+                <h3 className="text-4xl uppercase font-titre">{muscleGroup}</h3>
+                  <AnimatePresence>
+                    {openPopup === muscleGroup && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="flex"
                       >
-                        {exercise.name}
-                        <span className="ml-2" style={{ color: "red" }}>
-                          {exerciseThresholds[muscleGroup]?.[exercise.name]}
-                        </span>
-                        <input
-                          type="checkbox"
-                          value={exercise.name}
-                          checked={selectedExercises[muscleGroup]?.includes(
-                            exercise.name
-                          )}
-                          onChange={() =>
-                            toggleExercise(muscleGroup, exercise.name)
-                          }
-                          className="mr-2"
-                          disabled={
-                            experience <
-                            (exerciseThresholds[muscleGroup]?.[exercise.name] ||
-                              0)
-                          }
-                        />
-                      </label>
-                    ))}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+                        {exercises.map((exercise) => (
+                          <label
+                            key={exercise.id}
+                            className={`flex items-center cursor-pointer ${experience <
+                              (exerciseThresholds[muscleGroup]?.[exercise.name] ||
+                                0)
+                              ? "filter opacity-50"
+                              : ""
+                              }`}
+                          >
+                            {exercise.name}
+                            <span className="ml-2" style={{ color: "red" }}>
+                              {exerciseThresholds[muscleGroup]?.[exercise.name]}
+                            </span>
+                            <input
+                              type="checkbox"
+                              value={exercise.name}
+                              checked={selectedExercises[muscleGroup]?.includes(
+                                exercise.name
+                              )}
+                              onChange={() =>
+                                toggleExercise(muscleGroup, exercise.name)
+                              }
+                              className="mr-2"
+                              disabled={
+                                experience <
+                                (exerciseThresholds[muscleGroup]?.[exercise.name] ||
+                                  0)
+                              }
+                            />
+                          </label>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+              </div>
+            </motion.div>
           )
         )}
       </div>
