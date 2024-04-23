@@ -35,6 +35,9 @@ const Profil = () => {
   const [notificationCompleted, setNotificationCompleted] = useState(false);
   const [notificationDelete, setNotificationDelete] = useState(false);
   const [notificationWorkout, setNotificationWorkout] = useState(false);
+  const [currentRank, setCurrentRank] = useState("");
+  const [nextRankExp, setNextRankExp] = useState(0);
+  const [progressPercent, setProgressPercent] = useState(0);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -120,11 +123,6 @@ const Profil = () => {
     }
   }, [user]);
 
-  const formatDate = (date) => {
-    const formattedDate = new Date(date);
-    return formattedDate.toLocaleDateString();
-  };
-
   useEffect(() => {
     const fetchDateEntrainementTendance = async () => {
       const dates = await afficherDateEntrainementTendance();
@@ -132,6 +130,38 @@ const Profil = () => {
     };
     fetchDateEntrainementTendance();
   }, []);
+
+  useEffect(() => {
+    const ranks = {
+      Débutant: 40,
+      Intermediaire: 80,
+      Avance: 120,
+      Expert: 160,
+      Maître: 200,
+      Immortel: 250,
+    };
+
+    let rank = "Débutant";
+    for (const [key, value] of Object.entries(ranks)) {
+      if (currentExperience >= value) {
+        rank = key;
+      } else {
+        break;
+      }
+    }
+    setCurrentRank(rank);
+
+    const nextRankExp = ranks[rank] ? ranks[rank] : 0;
+    setNextRankExp(nextRankExp);
+
+    const progressPercent = (currentExperience / nextRankExp) * 100;
+    setProgressPercent(progressPercent);
+  }, [currentExperience]);
+
+  const formatDate = (date) => {
+    const formattedDate = new Date(date);
+    return formattedDate.toLocaleDateString();
+  };
 
   const handleAjouterObjectif = (e) => {
     e.preventDefault();
@@ -195,6 +225,20 @@ const Profil = () => {
       <div>
         <h2 className="font-titre uppercase">Profil</h2>
         <p>Expérience: {currentExperience}</p>
+        <p>Rang: {currentRank}</p>
+        <div>
+          Barre de progression vers le prochain rang:
+          <div style={{ width: "200px", border: "1px solid black" }}>
+            <div
+              style={{
+                width: `${progressPercent}%`,
+                backgroundColor: "black",
+                height: "1rem",
+              }}
+            ></div>
+          </div>
+          <p>{nextRankExp - currentExperience} XP restants</p>
+        </div>
         {cooldownRemaining > 0 && (
           <p>Cooldown restant: {formatCooldown(cooldownRemaining)}</p>
         )}
@@ -233,7 +277,9 @@ const Profil = () => {
             {tendances &&
               tendances.map((tendance, index) => (
                 <li className="flex" key={index}>
-                  <Link to={`/programmes/${tendance.id}`}>{tendance.title}</Link>
+                  <Link to={`/programmes/${tendance.id}`}>
+                    {tendance.title}
+                  </Link>
 
                   {dateEntrainementTendance[index] && (
                     <p>{formatDate(dateEntrainementTendance[index])}</p>
