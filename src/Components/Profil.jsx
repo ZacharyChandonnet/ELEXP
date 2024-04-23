@@ -233,7 +233,7 @@ const Profil = () => {
             {tendances &&
               tendances.map((tendance, index) => (
                 <li className="flex" key={index}>
-                  <Link to={`/tendances/${tendance.id}`}>{tendance.title}</Link>
+                  <Link to={`/programmes/${tendance.id}`}>{tendance.title}</Link>
 
                   {dateEntrainementTendance[index] && (
                     <p>{formatDate(dateEntrainementTendance[index])}</p>

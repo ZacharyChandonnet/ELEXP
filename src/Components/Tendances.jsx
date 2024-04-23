@@ -65,8 +65,8 @@ const Tendances = () => {
         <Link
           to={
             user && user.experience >= requiredExperience
-              ? `/tendances/${tendance.id}`
-              : "/tendances"
+              ? `/programmes/${tendance.id}`
+              : "/programmes"
           }
           style={{ textDecoration: "none" }}
         >

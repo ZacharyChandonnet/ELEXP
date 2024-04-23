@@ -131,7 +131,7 @@ const DetailsTendance = () => {
 
       <button onClick={addWorkout}>J'ai complété ce workout</button>
 
-      <Link to="/tendances" className="absolute top-0 left-0 p-4">
+      <Link to="/programmes" className="absolute top-0 left-0 p-4">
         Retour
       </Link>
 

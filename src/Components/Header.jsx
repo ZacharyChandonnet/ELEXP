@@ -43,9 +43,9 @@ const Header = () => {
             title: "Entrainements",
           },
           {
-            url: "/tendances",
-            name: "Tendances",
-            title: "Tendances",
+            url: "/programmes",
+            name: "Programmes",
+            title: "Programmes",
           },
           // {
           //   url: "/forum",

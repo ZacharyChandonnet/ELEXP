@@ -52,11 +52,11 @@ function App() {
           element: <Entrainements />,
         },
         {
-          path: "tendances",
+          path: "programmes",
           element: <Tendances />,
         },
         {
-          path: "tendances/:id",
+          path: "programmes/:id",
           element: <DetailsTendance />,
         },
         // {
