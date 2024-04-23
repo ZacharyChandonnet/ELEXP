@@ -234,15 +234,33 @@ const Profil = () => {
 
   return (
     <section>
-      <Heading title="Profil" paragraph="Bienvenue sur votre profil, ici vous pouvez voir votre progression, vos objectifs et vos workouts terminés." />
+      <motion.div
+      initial={{ opacity: 0, x:100 }}
+      animate={{ opacity: 1, x:0 }}
+      transition={{ duration: 1 }}
+      >
+      <div className="displayLanding pt-24">
+        <div className="flex flex-col gap-4">
+          <h2 className="font-titre uppercase text-3xl lg:text-5xl">
+            {user && user?.name}
+          </h2>
+          <p>
+          Bienvenue sur votre profil, ici vous pouvez voir votre progression, vos objectifs et vos workouts terminés.
+          </p>
+        </div>
+      <figure className="">
+            <img src="/legs1_image.webp" alt="landing" className="paraProfil w-3/4 mx-auto" />
+          </figure>
+      </div>
+      </motion.div>
+    
 
-      
       <div className="pt-12">
 
         <h3 className="font-titre uppercase">Mes workouts</h3>
 
         <motion.div
-          initial={{ opacity: 0, x: 100 }}
+          initial={{ opacity: 0, x: -100 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
@@ -315,17 +333,31 @@ const Profil = () => {
 
 
 
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: .5 }}
+      >
 
         <h3 className="font-titre uppercase pt-8 pb-2">Historique</h3>
         <ul className="grid grid-cols-1 gap-4 p-2 bg-dark">
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">Mes workouts terminés</h2>
             {history.map((workout, index) => (
-              <li key={index} className="text-white flex border-b-2 border-white p-2 mt-2">
-                <Link to={`/entrainements`}>{workout.name}</Link>
-                {workout.date && <p className="ml-auto font-bold">{formatDate(workout.date)}</p>}
-              </li>
+              <Link to={`/entrainements`}>
+                <motion.li
+                  whileHover={{
+                    scale: 1.025,
+                  }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <li key={index} className="text-white flex border-b-2 border-white p-2 mt-2">
+                    {workout.name}
+                    {workout.date && <p className="ml-auto font-bold">{formatDate(workout.date)}</p>}
+                  </li>
+                </motion.li>
+              </Link>
+
             ))}
           </div>
 
@@ -334,29 +366,46 @@ const Profil = () => {
             <h2 className="font-titre uppercase text-white">Mes programmes terminés</h2>
             {tendances &&
               tendances.map((tendance, index) => (
-                <li className="text-white flex border-b-2 border-white p-2 mt-2" key={tendance.id}>
-                  <Link to={`/programmes/${tendance.id}`}>
-                    {tendance.title}
-                  </Link>
+                <Link to={`/programmes/${tendance.id}`}>
+                  <motion.li
+                    whileHover={{
+                      scale: 1.025,
+                    }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <li className="text-white flex border-b-2 border-white p-2 mt-2" key={tendance.id}>
+                      {tendance.title}
 
-                  {dateEntrainementTendance[index] && (
-                    <p className="ml-auto font-bold">{formatDate(dateEntrainementTendance[index])}</p>
-                  )}
-                </li>
+                      {dateEntrainementTendance[index] && (
+                        <p className="ml-auto font-bold">{formatDate(dateEntrainementTendance[index])}</p>
+                      )}
+                    </li>
+                  </motion.li>
+                </Link>
               ))}
           </div>
 
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">Mon dernier défi du jour</h2>
-            {dailyQuestsCompleted &&
-              dailyQuestsCompleted.map((dailyQuest) => (
-                <li key={dailyQuest.id} className="text-white flex border-b-2 border-white p-2 mt-2">
-                  {dailyQuest.name.description} <p className="ml-auto font-bold">{formatDate(dailyQuest.date)}</p>
-                </li>
-              ))}
+            <Link to={`/entrainements`}>
+              {dailyQuestsCompleted &&
+                dailyQuestsCompleted.map((dailyQuest) => (
+
+                  <motion.li
+                    whileHover={{
+                      scale: 1.025,
+                    }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <li key={dailyQuest.id} className="text-white flex border-b-2 border-white p-2 mt-2">
+                      {dailyQuest.name.description} <p className="ml-auto font-bold">{formatDate(dailyQuest.date)}</p>
+                    </li>
+                  </motion.li>
+                ))}
+            </Link>
           </div>
         </ul>
-      </div>
+      </motion.div>
 
       <div className="mt-28 mb-28 relative text-center">
         <motion.div
@@ -372,7 +421,7 @@ const Profil = () => {
       </div>
 
 
-      <div className="text-white bg-dark min-h-96 relative ">
+      <div className="text-white bg-dark min-h-96 relative mb-12">
         <div className="text-center pt-8 mt-12">
           <h3 className="font-titre uppercase  lg:text-3xl">Mes objectifs</h3>
           <p className="text-sm lg:text-md"> Garde trace de tes objectifs personnels.</p>

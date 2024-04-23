@@ -4,3 +4,14 @@
     border-bottom: 1px solid #ffffff;
     color: #ffffff;
 }
+
+.paraProfil{
+    clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+
+.displayLanding{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    justify-content: center;
+    align-items: center;
+}
