@@ -30,6 +30,7 @@ const ListeEntrainements = () => {
   const [notification, setNotification] = useState(false);
   const [notificationDelete, setNotificationDelete] = useState(false);
   const [notificationAjout, setNotificationAjout] = useState(false);
+  const [openCategories, setOpenCategories] = useState({});
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -107,6 +108,13 @@ const ListeEntrainements = () => {
 
   const renderExercicesList = () => {
     const categories = Object.keys(ChoixExercices.exercices);
+    const toggleCategory = (category) => {
+      setOpenCategories((prevOpenCategories) => ({
+        ...prevOpenCategories,
+        [category]: !prevOpenCategories[category],
+      }));
+    };
+
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -117,38 +125,50 @@ const ListeEntrainements = () => {
         <span className="close text-white" onClick={toggleAjouterPopup}>
           <FaTimes />
         </span>
-        <h2 className="font-titre uppercase text-white text-center text-xl">Liste des exercices</h2>
+        <h2 className="font-titre uppercase text-white text-center text-xl">
+          Liste des exercices
+        </h2>
+        <div className="grid grid-cols-2 gap-4 justify-center items-center">
           {categories.map((category) => (
-            <div key={category} >
-              <h3>{category}</h3>
-              <ul>
-                {ChoixExercices.exercices[category].map((exercise) => (
-                  <li key={exercise.id} className="grid grid-cols-4 gap-2">
-                    {exercise.name}
-                    {experience >= (exerciseThresholds[category]?.[exercise.name] || 0) ? (
-                      <button onClick={() => toggleExerciseSelection(exercise)}>
-                        {exercicesSelectionnes.includes(exercise)
-                          ? <FaCheck />
-                          : <IoMdAdd />}
-                      </button>
-                    ) : (
-                      <span style={{ color: "red" }}>
-                        Expérience nécessaire :{" "}
-                        {exerciseThresholds[category]?.[exercise.name]}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
+            <div key={category}>
+              <h3 onClick={() => toggleCategory(category)}>
+                {category} {openCategories[category] ? "▼" : "►"}
+              </h3>
+              {openCategories[category] && (
+                <ul>
+                  {ChoixExercices.exercices[category].map((exercise) => (
+                    <li key={exercise.id} className="grid grid-cols-4 gap-2">
+                      {exercise.name}
+                      {experience >=
+                      (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                        <button
+                          onClick={() => toggleExerciseSelection(exercise)}
+                        >
+                          {exercicesSelectionnes.includes(exercise) ? (
+                            <FaCheck />
+                          ) : (
+                            <IoMdAdd />
+                          )}
+                        </button>
+                      ) : (
+                        <span style={{ color: "red" }}>
+                          exp nécessaire :{" "}
+                          {exerciseThresholds[category]?.[exercise.name]}
+                        </span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           ))}
-          <button onClick={() => handleAddExercise(ajouter.workoutId)}>
-            Ajouter
-          </button>
+        </div>
+        <button onClick={() => handleAddExercise(ajouter.workoutId)}>
+          Ajouter
+        </button>
       </motion.div>
     );
   };
-
 
   const handleToggleSettings = (workoutId) => {
     setOpenSettingsId(openSettingsId === workoutId ? null : workoutId);
@@ -234,9 +254,7 @@ const ListeEntrainements = () => {
 
       {ajouter.visible && (
         <div>
-          <div>
-            {renderExercicesList()}
-          </div>
+          <div>{renderExercicesList()}</div>
         </div>
       )}
     </section>
