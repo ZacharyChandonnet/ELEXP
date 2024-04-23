@@ -133,27 +133,29 @@ const Profil = () => {
 
   useEffect(() => {
     const ranks = {
-      Débutant: 40,
-      Intermediaire: 80,
-      Avance: 120,
+      Débutant: 0,
+      Intermediaire: 50,
+      Avance: 100,
       Expert: 160,
       Maître: 200,
       Immortel: 250,
     };
-
+  
     let rank = "Débutant";
+    let nextRank = "";
     for (const [key, value] of Object.entries(ranks)) {
       if (currentExperience >= value) {
         rank = key;
       } else {
+        nextRank = key;
         break;
       }
     }
     setCurrentRank(rank);
-
-    const nextRankExp = ranks[rank] ? ranks[rank] : 0;
+  
+    const nextRankExp = ranks[nextRank];
     setNextRankExp(nextRankExp);
-
+  
     const progressPercent = (currentExperience / nextRankExp) * 100;
     setProgressPercent(progressPercent);
   }, [currentExperience]);
