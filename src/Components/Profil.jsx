@@ -6,6 +6,9 @@ import { FaCheck } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import Notification from "./Notification";
+import { motion, AnimatePresence } from "framer-motion";
+import "./Profil.css"
+import Heading from "./Heading";
 
 const Profil = () => {
   const {
@@ -38,6 +41,7 @@ const Profil = () => {
   const [currentRank, setCurrentRank] = useState("");
   const [nextRankExp, setNextRankExp] = useState(0);
   const [progressPercent, setProgressPercent] = useState(0);
+  const [nextRank, setNextRank] = useState("");
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -134,13 +138,13 @@ const Profil = () => {
   useEffect(() => {
     const ranks = {
       Débutant: 0,
-      Intermediaire: 50,
-      Avance: 100,
-      Expert: 160,
-      Maître: 200,
-      Immortel: 250,
+      Intermédiaire: 100,
+      Avancé: 200,
+      Expert: 350,
+      Maître: 500,
+      Immortel: 1000,
     };
-  
+
     let rank = "Débutant";
     let nextRank = "";
     for (const [key, value] of Object.entries(ranks)) {
@@ -152,13 +156,16 @@ const Profil = () => {
       }
     }
     setCurrentRank(rank);
-  
+
     const nextRankExp = ranks[nextRank];
     setNextRankExp(nextRankExp);
-  
+    setNextRank(nextRank);
+
     const progressPercent = (currentExperience / nextRankExp) * 100;
     setProgressPercent(progressPercent);
   }, [currentExperience]);
+
+
 
   const formatDate = (date) => {
     const formattedDate = new Date(date);
@@ -224,63 +231,109 @@ const Profil = () => {
 
   return (
     <section>
-      <div>
-        <h2 className="font-titre uppercase">Profil</h2>
-        <p>Expérience: {currentExperience}</p>
-        <p>Rang: {currentRank}</p>
-        <div>
-          Barre de progression vers le prochain rang:
-          <div style={{ width: "200px", border: "1px solid black" }}>
-            <div
-              style={{
-                width: `${progressPercent}%`,
-                backgroundColor: "black",
-                height: "1rem",
-              }}
-            ></div>
+      <Heading title="Profil" paragraph="Bienvenue sur votre profil, ici vous pouvez voir votre progression, vos objectifs et vos workouts terminés." />
+
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1}}
+      >
+
+        <div className="my-12">
+          <div className="flex gap-4 items-center font-titre">
+            <p>{currentRank}
+              <br />
+              exp.{currentExperience}
+            </p>
+            <div style={{ width: "100%", border: "1px solid black" }}>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercent}%` }}
+                transition={{ delay: 0.5, duration: 1 }}
+                >
+                
+              <div
+                style={{
+                  width: `${progressPercent}%`,
+                  backgroundColor: "black",
+                  height: "1.5rem",
+                }}
+                >
+              </div>
+                </motion.div>
+            </div>
+            <p>{nextRank}</p>
+
+
           </div>
-          <p>{nextRankExp - currentExperience} XP restants</p>
+          <p className="text-center font-bold italic">{nextRankExp - currentExperience}XP restants</p>
         </div>
-        {cooldownRemaining > 0 && (
-          <p>Cooldown restant: {formatCooldown(cooldownRemaining)}</p>
-        )}
+      </motion.div>
+      <div>
 
-        <div>
-          <h3 className="font-titre uppercase">Mes workouts</h3>
-          <ul>
+        <h3 className="font-titre uppercase">Mes workouts</h3>
+
+        <motion.div
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1}}
+        >
+
+          <ul className="pt-2">
             {workouts.map((workout) => (
-              <li key={workout.id}>
-                <Link to={`/entrainements`}>{workout.name}</Link>
-                <button onClick={() => handleWorkoutCompleted(workout.id)}>
-                  Terminé
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
+              <motion.li
+                whileHover={{
+                  scale: 1.025,
+                  backgroundColor: "#0D0D0D",
+                  color: "#fff",
+                }}
 
-        <div>
-          <h3 className="font-titre uppercase">Historique</h3>
-          <ul>
+                transition={{ duration: 0.25 }}
+              >
+                <li key={workout.id} className="border-t-2 border-dark p-2 py-6 flex items-center">
+                  <h2 className="uppercase font-titre lg:text-5xl"> <Link to={`/entrainements`}>{workout.name}</Link></h2>
+                  <button onClick={() => handleWorkoutCompleted(workout.id)} className="ml-auto lg:text-2xl">
+                    <FaCheck />
+                  </button>
+                </li>
+              </motion.li>
+
+            ))}
+
+            {cooldownRemaining > 0 && (
+              <p className="text-red-500 font-bold italic text-sm p-2">Temps de repos restant avant d'ajouter un autre entrainement: {formatCooldown(cooldownRemaining)}</p>
+            )}
+          </ul>
+
+        </motion.div>
+
+      </div>
+
+      <div>
+        
+      </div>
+
+      <div>
+        <h3 className="font-titre uppercase pt-8">Historique</h3>
+        <ul className="grid grid-cols-1 gap-4 p-2">
+          <div className="">
+          <h2 className="font-titre uppercase">Mes workouts terminés</h2>
             {history.map((workout, index) => (
               <li key={index}>
-                <Link to={`/entrainements`}>{workout.name}</Link>
-                {workout.date && <span>Date: {formatDate(workout.date)}</span>}
+                <Link to={`/entrainements`}>{workout.name}</Link> 
+                {workout.date && <span>{formatDate(workout.date)}</span>}
               </li>
             ))}
+          </div>
 
-            {dailyQuestsCompleted &&
-              dailyQuestsCompleted.map((dailyQuest) => (
-                <li key={dailyQuest.id}>
-                  {dailyQuest.name.description} - {formatDate(dailyQuest.date)}
-                </li>
-              ))}
 
+          <div>
+            <h2 className="font-titre uppercase">Mes programmes terminés</h2>
             {tendances &&
               tendances.map((tendance, index) => (
                 <li className="flex" key={index}>
                   <Link to={`/programmes/${tendance.id}`}>
-                    {tendance.title}
+                    {tendance.title} 
                   </Link>
 
                   {dateEntrainementTendance[index] && (
@@ -288,94 +341,132 @@ const Profil = () => {
                   )}
                 </li>
               ))}
-          </ul>
-        </div>
-
-        <div className="text-white bg-dark h-96">
-          <div className="text-center">
-            <h3 className="font-titre uppercase  text-3xl">Mes objectifs</h3>
-            <p> Garder trace de vos objectifs personnels.</p>
           </div>
 
-          <button
-            onClick={() => setAjouterObjectif(!ajouterObjectif)}
-            className="text-3xl"
-          >
-            <IoMdAdd />
-          </button>
+          <div>
+            <h2 className="font-titre uppercase">Mon dernier défi du jour</h2>
+            {dailyQuestsCompleted &&
+              dailyQuestsCompleted.map((dailyQuest) => (
+                <li key={dailyQuest.id}>
+                  {dailyQuest.name.description} {formatDate(dailyQuest.date)}
+                </li>
+              ))}
+          </div>
+        </ul>
+      </div>
 
+      <div className="text-white bg-dark min-h-96 relative ">
+        <div className="text-center pt-8 mt-12">
+          <h3 className="font-titre uppercase  lg:text-3xl">Mes objectifs</h3>
+          <p className="text-sm lg:text-md"> Garde trace de tes objectifs personnels.</p>
+        </div>
+
+        <button
+          onClick={() => setAjouterObjectif(!ajouterObjectif)}
+          className=" text-lg lg:text-3xl absolute right-0 top-0 p-4 bg-dark text-white z-50 mb-4 mr-4"
+        >
+          <IoMdAdd />
+        </button>
+
+        <div className="grid grid-cols-1 gap-2 p-2  w-11/12 mx-auto">
           {objectifs.map((objectif, index) => (
-            <div key={index}>
-              <h4 className={objectif.isCompleted ? "text-green-500" : ""}>
+            <div className=" mt-4 relative border-b-2 border-white p-2" key={index}>
+              <h4 className={objectif.isCompleted ? "text-green-500 font-titre" : "font-titre"}>
                 {objectif.titre}
               </h4>
-              <p className={objectif.isCompleted ? "text-green-500" : ""}>
+              <p className={objectif.isCompleted ? "text-green-500 italic" : "italic"}>
                 {objectif.description}
               </p>
-              {objectif.isCompleted ? (
-                <div>
-                  <p className="text-green-500">
-                    Date de complétion: {formatDate(objectif.dateCompleted)}
-                  </p>{" "}
-                  <button
-                    className="text-green-500"
-                    onClick={() => handleObjectifCompleted(objectif.id)}
-                  >
+
+              {objectif.isCompleted && (
+                <p className="text-green-500"> Date de complétion: {formatDate(objectif.dateCompleted)}</p>
+              )}
+
+              <div className="absolute right-0 bottom-0 p-4 flex gap-4">
+                {objectif.isCompleted ? (
+                  <div>
+                    <button
+                      className="text-green-500"
+                      onClick={() => handleObjectifCompleted(objectif.id)}
+                    >
+                      <FaCheck />
+                    </button>
+                  </div>
+                ) : (
+                  <button onClick={() => handleObjectifCompleted(objectif.id)}>
                     <FaCheck />
                   </button>
-                </div>
-              ) : (
-                <button onClick={() => handleObjectifCompleted(objectif.id)}>
-                  <FaCheck />
+                )}
+                <button
+                  className="text-red-500"
+                  onClick={() => handleDeleteObjectif(objectif.id)}
+                >
+                  <FaTrash />
                 </button>
-              )}
-              <button
-                className="text-red-500"
-                onClick={() => handleDeleteObjectif(objectif.id)}
-              >
-                <FaTrash />
-              </button>
+              </div>
             </div>
           ))}
 
-          {ajouterObjectif && (
-            <form onSubmit={handleAjouterObjectif}>
-              <input type="text" placeholder="Nom de l'objectif" />
-              <input type="text" placeholder="Description de l'objectif" />
-              <button type="submit">Ajouter</button>
-            </form>
-          )}
 
-          {notificationAdd && (
-            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
-              <Notification
-                message={"Votre objectif a été ajouté avec succès"}
-              />
-            </div>
-          )}
+          <div className="flex justify-center items-center mt-4">
+            {ajouterObjectif && (
+              <AnimatePresence>
 
-          {notificationDelete && (
-            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
-              <Notification
-                message={"Votre objectif a été supprimé avec succès"}
-              />
-            </div>
-          )}
+                <motion.div
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <form onSubmit={handleAjouterObjectif} className="flex flex-col gap-4 formulaire">
+                    <div className="flex flex-col lg:flex-row gap-4">
+                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72" />
+                      <input type="text" placeholder="Description de l'objectif" className="lg:w-72" />
+                    </div>
+                    <div className="border-2 border-white p-2 flex justify-center w-1/2 mx-auto">
+                      <button type="submit">Ajouter</button>
+                    </div>
+                  </form>
+                </motion.div>
 
-          {notificationCompleted && (
-            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
-              <Notification
-                message={"Votre objectif a été complété avec succès"}
-              />
-            </div>
-          )}
+              </AnimatePresence>
+            )}
+          </div>
 
-          {notificationWorkout && (
-            <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
-              <Notification message={"Votre workout a bien été ajouté !"} />
-            </div>
-          )}
+
         </div>
+
+
+
+        {notificationAdd && (
+          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+            <Notification
+              message={"Votre objectif a été ajouté avec succès"}
+            />
+          </div>
+        )}
+
+        {notificationDelete && (
+          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+            <Notification
+              message={"Votre objectif a été supprimé avec succès"}
+            />
+          </div>
+        )}
+
+        {notificationCompleted && (
+          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+            <Notification
+              message={"Votre objectif a été complété avec succès"}
+            />
+          </div>
+        )}
+
+        {notificationWorkout && (
+          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+            <Notification message={"Votre workout a bien été ajouté !"} />
+          </div>
+        )}
       </div>
     </section>
   );
