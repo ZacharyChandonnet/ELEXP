@@ -6,9 +6,10 @@ import { FaCheck } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import Notification from "./Notification";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import "./Profil.css"
 import Heading from "./Heading";
+
 
 const Profil = () => {
   const {
@@ -229,54 +230,21 @@ const Profil = () => {
     }
   };
 
+  const { scrollYProgress } = useScroll();
+
   return (
     <section>
       <Heading title="Profil" paragraph="Bienvenue sur votre profil, ici vous pouvez voir votre progression, vos objectifs et vos workouts terminés." />
 
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1}}
-      >
-
-        <div className="my-12">
-          <div className="flex gap-4 items-center font-titre">
-            <p>{currentRank}
-              <br />
-              exp.{currentExperience}
-            </p>
-            <div style={{ width: "100%", border: "1px solid black" }}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPercent}%` }}
-                transition={{ delay: 0.5, duration: 1 }}
-                >
-                
-              <div
-                style={{
-                  width: `${progressPercent}%`,
-                  backgroundColor: "black",
-                  height: "1.5rem",
-                }}
-                >
-              </div>
-                </motion.div>
-            </div>
-            <p>{nextRank}</p>
-
-
-          </div>
-          <p className="text-center font-bold italic">{nextRankExp - currentExperience}XP restants</p>
-        </div>
-      </motion.div>
-      <div>
+      
+      <div className="pt-12">
 
         <h3 className="font-titre uppercase">Mes workouts</h3>
 
         <motion.div
           initial={{ opacity: 0, x: 100 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1}}
+          transition={{ duration: 1 }}
         >
 
           <ul className="pt-2">
@@ -308,52 +276,101 @@ const Profil = () => {
         </motion.div>
 
       </div>
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+
+        <div className="my-12">
+          <div className="flex gap-4 items-center font-titre">
+            <p>{currentRank}
+              <br />
+              exp.{currentExperience}
+            </p>
+            <div style={{ width: "100%", border: "1px solid black" }}>
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${progressPercent}%` }}
+                transition={{ delay: 0.5, duration: 1 }}
+              >
+
+                <div
+                  style={{
+                    width: `${progressPercent}%`,
+                    backgroundColor: "black",
+                    height: "1.5rem",
+                  }}
+                >
+                </div>
+              </motion.div>
+            </div>
+            <p>{nextRank}</p>
+
+
+          </div>
+          <p className="text-center font-bold italic">{nextRankExp - currentExperience}XP restants</p>
+        </div>
+      </motion.div>
+
+
 
       <div>
-        
-      </div>
 
-      <div>
-        <h3 className="font-titre uppercase pt-8">Historique</h3>
-        <ul className="grid grid-cols-1 gap-4 p-2">
-          <div className="">
-          <h2 className="font-titre uppercase">Mes workouts terminés</h2>
+        <h3 className="font-titre uppercase pt-8 pb-2">Historique</h3>
+        <ul className="grid grid-cols-1 gap-4 p-2 bg-dark">
+          <div className="p-4">
+            <h2 className="font-titre uppercase text-white">Mes workouts terminés</h2>
             {history.map((workout, index) => (
-              <li key={index}>
-                <Link to={`/entrainements`}>{workout.name}</Link> 
-                {workout.date && <span>{formatDate(workout.date)}</span>}
+              <li key={index} className="text-white flex border-b-2 border-white p-2 mt-2">
+                <Link to={`/entrainements`}>{workout.name}</Link>
+                {workout.date && <p className="ml-auto font-bold">{formatDate(workout.date)}</p>}
               </li>
             ))}
           </div>
 
 
-          <div>
-            <h2 className="font-titre uppercase">Mes programmes terminés</h2>
+          <div className="p-4">
+            <h2 className="font-titre uppercase text-white">Mes programmes terminés</h2>
             {tendances &&
               tendances.map((tendance, index) => (
-                <li className="flex" key={index}>
+                <li className="text-white flex border-b-2 border-white p-2 mt-2" key={tendance.id}>
                   <Link to={`/programmes/${tendance.id}`}>
-                    {tendance.title} 
+                    {tendance.title}
                   </Link>
 
                   {dateEntrainementTendance[index] && (
-                    <p>{formatDate(dateEntrainementTendance[index])}</p>
+                    <p className="ml-auto font-bold">{formatDate(dateEntrainementTendance[index])}</p>
                   )}
                 </li>
               ))}
           </div>
 
-          <div>
-            <h2 className="font-titre uppercase">Mon dernier défi du jour</h2>
+          <div className="p-4">
+            <h2 className="font-titre uppercase text-white">Mon dernier défi du jour</h2>
             {dailyQuestsCompleted &&
               dailyQuestsCompleted.map((dailyQuest) => (
-                <li key={dailyQuest.id}>
-                  {dailyQuest.name.description} {formatDate(dailyQuest.date)}
+                <li key={dailyQuest.id} className="text-white flex border-b-2 border-white p-2 mt-2">
+                  {dailyQuest.name.description} <p className="ml-auto font-bold">{formatDate(dailyQuest.date)}</p>
                 </li>
               ))}
           </div>
         </ul>
       </div>
+
+      <div className="mt-28 mb-28 relative text-center">
+        <motion.div
+          style={{ opacity: scrollYProgress }}
+        >
+          <figure className="relative z-10">
+            <img src="/landing.jpg" alt="landing" className="w-1/2 mx-auto" />
+          </figure>
+          <h2 className="absolute top-1/2 left-1/2 text-white font-titre text-8xl mt-12 z-50 uppercase transform -translate-x-1/2 -translate-y-1/2">TROUVER TON POTENTIEL</h2>
+          <h2 className="absolute top-1/2 left-0 font-titre text-5xl text-dark mt-12 p-4 uppercase">À TOI DE</h2>
+          <h2 className="absolute top-1/2 right-0 font-titre text-5xl text-dark mt-12 p-4 uppercase">ET GRANDIR</h2>
+        </motion.div>
+      </div>
+
 
       <div className="text-white bg-dark min-h-96 relative ">
         <div className="text-center pt-8 mt-12">
