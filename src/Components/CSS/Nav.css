@@ -1,12 +1,21 @@
+.onHover {
+  position: relative;
+  text-decoration: none;
+}
+
 .onHover::after {
-  content: "";
+  content: '';
   position: absolute;
-  width: 100%;
-  height: 2px;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
-  border-bottom: 2px solid black;
-  visibility: hidden;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out;
+  width: 0%;
+  height: 2px; 
+  background-color: #000; 
+  transition: width 0.3s ease; 
+  
+}
+
+.onHover:hover::after {
+  width: 100%;
+  transition: width 0.3s ease;
 }
