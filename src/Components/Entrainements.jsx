@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import Heading from "./Heading";
 import ListeEntrainements from "./ListeEntrainements";
-import "./Entrainement.css";
-import { motion, AnimatePresence } from "framer-motion";
+import "./CSS/Entrainement.css";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 
 const Entrainements = () => {
   const [showWorkouts, setShowWorkouts] = useState(false);
   const [showX2, setShowX2] = useState(false);
-
+  const { scrollYProgress } = useScroll();
   const handleX2AnimationComplete = () => {
     setShowWorkouts(true);
   };
@@ -15,6 +15,8 @@ const Entrainements = () => {
   const handleX2Return = () => {
     setShowWorkouts(false);
   };
+
+
 
   return (
     <section>

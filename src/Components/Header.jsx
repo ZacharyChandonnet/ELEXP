@@ -21,14 +21,18 @@ const Header = () => {
 
   return (
     <motion.header
-      className="flex justify-between pt-8"
+      className="flex justify-between pt-8 border-b-2 border-dark py-6 items-center "
       variants={headerVariants}
       initial="hidden"
       animate="visible"
     >
-      <div>
-        <Link to="/">ELEXP</Link>
-      </div>
+      
+        <Link to="/">
+          <img src="LogoD.svg" alt="logo" 
+          style={{width: "150px"}}/>
+
+        </Link>
+     
 
       <Navbar
         links={[
@@ -58,11 +62,18 @@ const Header = () => {
       <div className="cursor-pointer" onClick={handleClick}>
         <p>{user?.name} exp.{user?.experience}</p>
 
+
         {isClicked && (
-          <div className="flex flex-col absolute top-12 right-0">
-            <Link to="/profil">Profil</Link>
-            <button onClick={logout}>Déconnexion</button>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, }}
+            animate={{ opacity: 1, }}
+            transition={{ duration: .5 }}
+          >
+            <div className="flex flex-col absolute top-12 right-0 bg-dark text-white  m-12">
+              <Link to="/profil" className="mx-2 my-2">Profil</Link>
+              <button  className="mx-2 my-2" onClick={logout}>Déconnexion</button>
+            </div>
+          </motion.div>
         )}
       </div>
     </motion.header>

@@ -6,20 +6,20 @@ import {
 
 import { useAuth } from "./Context/AuthContext";
 import LayouthAuth from "./Components/LayouthAuth";
-
 import Layout from "./Components/Layout";
 import Accueil from "./Components/Accueil";
 import Tendances from "./Components/Tendances";
 import Profil from "./Components/Profil";
-// import Forum from "./Components/Forum";
 import Entrainements from "./Components/Entrainements";
 import Propos from "./Components/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
-import { useEffect } from "react";
-
+import{motion, useScroll} from "framer-motion";
 
 function App() {
   const { user } = useAuth();
+  const { scrollYProgress } = useScroll();
+
+
 
 
 
@@ -59,10 +59,6 @@ function App() {
           path: "programmes/:id",
           element: <DetailsTendance />,
         },
-        // {
-        //   path: "forum",
-        //   element: <Forum />,
-        // },
         {
           path: "profil",
           element: <Profil />,
@@ -82,9 +78,11 @@ function App() {
   ];
 
   return (
+  
     <RouterProvider
       router={createBrowserRouter(user === null ? routes : routesLogged)}
     />
+ 
   );
 }
 

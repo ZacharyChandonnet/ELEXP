@@ -7,7 +7,7 @@ import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
 import Notification from "./Notification";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
-import "./Profil.css"
+import "./CSS/Profil.css";
 import Heading from "./Heading";
 
 
@@ -235,25 +235,25 @@ const Profil = () => {
   return (
     <section>
       <motion.div
-      initial={{ opacity: 0, x:100 }}
-      animate={{ opacity: 1, x:0 }}
-      transition={{ duration: 1 }}
+        initial={{ opacity: 0, x: 100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
       >
-      <div className="displayLanding pt-24">
-        <div className="flex flex-col gap-4">
-          <h2 className="font-titre uppercase text-3xl lg:text-5xl">
-            {user && user?.name}
-          </h2>
-          <p>
-          Bienvenue sur ton profil, ici tu peux voir ta progression, tes objectifs et tes workouts terminés.
-          </p>
-        </div>
-      <figure className="">
+        <div className="displayLanding pt-24">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-titre uppercase text-3xl lg:text-5xl">
+              {user && user?.name}
+            </h2>
+            <p>
+              Bienvenue sur ton profil, ici tu peux voir ta progression, tes objectifs et tes workouts terminés.
+            </p>
+          </div>
+          <figure className="">
             <img src="/legs1_image.webp" alt="landing" className="paraProfil w-3/4 mx-auto" />
           </figure>
-      </div>
+        </div>
       </motion.div>
-    
+
 
       <div className="pt-12">
 
@@ -279,7 +279,7 @@ const Profil = () => {
                 <li key={workout.id} className="border-t-2 border-dark p-2 py-6 flex items-center">
                   <h2 className="uppercase font-titre lg:text-5xl"> <Link to={`/entrainements`}>{workout.name}</Link></h2>
                   <button onClick={() => handleWorkoutCompleted(workout.id)} className="ml-auto lg:text-2xl">
-                    <FaCheck />
+                    <IoMdAdd />
                   </button>
                 </li>
               </motion.li>
@@ -421,9 +421,14 @@ const Profil = () => {
       </div>
 
 
-      <div className="text-white bg-dark min-h-96 relative mb-12">
+      <div className="text-white bg-dark min-h-96 relative mb-12 relative">
+
+       <img src="/LogoB.svg" alt="landing" className="w-full h-full object-cover absolute top-0 left-0 z-10"
+        style={{ opacity: 0.05 }}  
+       />
+
         <div className="text-center pt-8 mt-12">
-          <h3 className="font-titre uppercase  lg:text-3xl">Mes objectifs</h3>
+          <h3 className="font-titre uppercase  lg:text-3xl ">Mes objectifs</h3>
           <p className="text-sm lg:text-md"> Garde trace de tes objectifs personnels.</p>
         </div>
 
@@ -434,7 +439,7 @@ const Profil = () => {
           <IoMdAdd />
         </button>
 
-        <div className="grid grid-cols-1 gap-2 p-2  w-11/12 mx-auto">
+        <div className="grid grid-cols-1 gap-2 p-2  relative z-20 w-11/12 mx-auto">
           {objectifs.map((objectif, index) => (
             <div className=" mt-4 relative border-b-2 border-white p-2" key={index}>
               <h4 className={objectif.isCompleted ? "text-green-500 font-titre" : "font-titre"}>
@@ -484,9 +489,9 @@ const Profil = () => {
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <form onSubmit={handleAjouterObjectif} className="flex flex-col gap-4 formulaire">
+                  <form onSubmit={handleAjouterObjectif} className="flex flex-col gap-4 formulaire relative z-20">
                     <div className="flex flex-col lg:flex-row gap-4">
-                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72" 
+                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72"
                       autoFocus
                       />
                       <input type="text" placeholder="Description de l'objectif" className="lg:w-72" />

@@ -10,7 +10,7 @@ import { IoMdAdd } from "react-icons/io";
 import { FaCheck } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";
-import "./ListeEntrainement.css";
+import "./CSS/ListeEntrainement.css";
 import { motion } from "framer-motion";
 
 const ListeEntrainements = () => {

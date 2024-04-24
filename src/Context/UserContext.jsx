@@ -539,9 +539,6 @@ export function UserProvider({ children }) {
           setUserInfos(doc.data());
         });
       } else {
-        onSnapshot(docRef, (doc) => {
-          setUserInfos(doc.data());
-        });
         try {
           await setDoc(docRef, {
             email: user.email,
@@ -556,7 +553,8 @@ export function UserProvider({ children }) {
             lastDailyQuestTime: 0,
             userCompletedDailyQuest: false,
             reroll: 1,
-          });
+            objectifs: [],
+          }); setUserInfos({ email: user.email, uuid: user.uid, name: user.displayName, workout: [], experience: 0, history: [], dailyQuestCompleted: [], entrainementsTendance: [], cooldown: 0, lastDailyQuestTime: 0, userCompletedDailyQuest: false, reroll: 1, objectifs: [] });
         } catch (error) {
           console.error("Error creating user document:", error);
         }

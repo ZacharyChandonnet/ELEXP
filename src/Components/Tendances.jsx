@@ -114,7 +114,7 @@ const Tendances = () => {
         paragraph="Découvrez les tendances du moment pour vous aider à rester en forme."
       />
       <h2 className="font-titre uppercase pt-12 pb-4">
-        Entrainements tendances
+        Programmes tendances
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="lg:col-span-2 flex">
@@ -175,7 +175,10 @@ const Tendances = () => {
         </div>
       </div>
 
-      <div className="bg-dark h-96 mt-12 mb-12  flex justify-center items-center">
+      <div className="bg-dark h-96 mt-12 mb-12  flex justify-center items-center relative">
+      <img src="/LogoB.svg" alt="landing" className="w-full h-full object-cover absolute top-0 left-0 "
+        style={{ opacity: 0.1 }}  
+       />
         <h2 className="font-titre uppercase pt-12 pb-4 text-center text-white text-3xl lg:text-9xl">
           TON CORPS <br /> TON TEMPLE
         </h2>

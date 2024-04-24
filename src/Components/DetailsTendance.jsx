@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import TendanceData from "../Data/TendanceData";
 import Heading from "./Heading";
 import { useUser } from "../Context/UserContext";
-import "./DetailsTendance.css";
+import "./CSS/DetailsTendance.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";

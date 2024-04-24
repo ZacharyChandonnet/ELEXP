@@ -1,7 +1,10 @@
 import Heading from "./Heading";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 const Accueil = () => {
+
+  const { scrollYProgress } = useScroll();
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -9,6 +12,7 @@ const Accueil = () => {
       transition: { delay: 0.5, duration: 1.5 },
     },
   };
+
 
   const itemVariants = {
     hidden: { opacity: 0, y: -50 },
@@ -49,7 +53,7 @@ const Accueil = () => {
       animate="visible"
     >
       <motion.div variants={itemVariants}>
-        <Heading title="atteint tes objectifs" />
+        <Heading title="atteins tes objectifs" />
         <h1 className="text-center font-titre  pt-6 text-dark" style={h1}>
           TROUVE <br />
           TON POTENTIEL

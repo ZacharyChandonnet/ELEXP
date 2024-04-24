@@ -1,5 +1,5 @@
 import Heading from "./Heading";
-import "./Entrainement.css";
+import "./CSS/Entrainement.css";
 import { motion } from "framer-motion";
 
 const Propos = () => {
@@ -60,7 +60,7 @@ const Propos = () => {
             }}
             className="mr-12"
           >
-            <img src="/push1_image.webp" alt="Entrainement" />
+            <img src="/legs1_image.webp" alt="Entrainement" />
           </figure>
         </div>
       </motion.div>
@@ -71,7 +71,7 @@ const Propos = () => {
         transition={{ duration: 1, delay: 1.5 }}
       >
         <img
-          src="/push2_image.webp"
+          src="/pull3_image.webp"
           alt="Entrainement"
           className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10"
           style={{

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ChoixExercices from "../Data/Exercices.json";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaArrowTurnDown } from "react-icons/fa6";
-import "./Createworkout.css";
+import "./CSS/Createworkout.css";
 import Notification from "./Notification";
 
 const Createworkout = () => {
