@@ -1,0 +1,44 @@
+/* const style = {
+    lineHeight: "6rem",
+    height: "50vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+
+  const h1 = {
+    fontSize: "10rem",
+    lineHeight: "7rem",
+  }; */
+
+.bigT {
+    line-height: 7rem;
+ 
+    font-size: 10rem;
+}
+
+@media screen and (max-width: 768px) {
+    .bigT {
+        font-size: 4rem;
+        line-height: 3rem;
+        margin-bottom: -8rem;
+        margin-top: -8rem;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .bigT {
+        font-size: 3rem;
+        line-height:2.5rem;
+        margin-bottom: -8rem;
+        margin-top: -7rem;
+        height: 50vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

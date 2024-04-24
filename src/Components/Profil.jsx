@@ -342,7 +342,10 @@ const Profil = () => {
         <h3 className="font-titre uppercase pt-8 pb-2">Historique</h3>
         <ul className="grid grid-cols-1 gap-4 p-2 bg-dark">
           <div className="p-4">
-            <h2 className="font-titre uppercase text-white">Mes workouts terminés</h2>
+            <h2 className="font-titre uppercase text-white ">Mes workouts terminés</h2>
+            {history.length === 0 && (
+              <p className="text-white text-sm italic">Aucun workout terminé</p>
+            )}
             {history.map((workout, index) => (
               <Link to={`/entrainements`}>
                 <motion.li
@@ -364,6 +367,11 @@ const Profil = () => {
 
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">Mes programmes terminés</h2>
+
+            {tendances.length === 0 && (
+               <p className="text-white text-sm italic">Aucun workout terminé</p>
+            )}
+
             {tendances &&
               tendances.map((tendance, index) => (
                 <Link to={`/programmes/${tendance.id}`}>
@@ -387,6 +395,9 @@ const Profil = () => {
 
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">Mon dernier défi du jour</h2>
+            {dailyQuestsCompleted.length === 0 && (
+              <p className="text-white text-sm italic">Aucun défi terminé</p>
+            )}
             <Link to={`/entrainements`}>
               {dailyQuestsCompleted &&
                 dailyQuestsCompleted.map((dailyQuest) => (

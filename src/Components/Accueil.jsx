@@ -1,9 +1,11 @@
 import Heading from "./Heading";
 import { motion, useScroll } from "framer-motion";
+import { useEffect } from "react";
+import "./CSS/Accueil.css";
 
 const Accueil = () => {
 
-  const { scrollYProgress } = useScroll();
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,6 +47,8 @@ const Accueil = () => {
     lineHeight: "7rem",
   };
 
+
+
   return (
     <motion.section
       className="grid grid-cols-1 gap-12"
@@ -54,7 +58,7 @@ const Accueil = () => {
     >
       <motion.div variants={itemVariants}>
         <Heading title="atteins tes objectifs" />
-        <h1 className="text-center font-titre  pt-6 text-dark" style={h1}>
+        <h1 className="text-center font-titre  pt-6 text-dark bigT">
           TROUVE <br />
           TON POTENTIEL
         </h1>
@@ -70,7 +74,7 @@ const Accueil = () => {
             backgroundSize: "cover",
           }}
         >
-          <h1 className="text-center font-titre text-9xl text-white">
+          <h1 className="text-center font-titre text-3xl lg:text-9xl text-white">
             INTÉRIEUR <br />
             ET EXTÉRIEUR
           </h1>
