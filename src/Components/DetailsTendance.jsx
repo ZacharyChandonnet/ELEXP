@@ -7,6 +7,8 @@ import "./DetailsTendance.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";
+import { FaArrowLeftLong } from "react-icons/fa6";
+
 
 const DetailsTendance = () => {
   const { id } = useParams();
@@ -142,7 +144,7 @@ const DetailsTendance = () => {
       </div>
 
       <Link to="/programmes" className="absolute top-0 left-0 p-4">
-        Retour
+        <FaArrowLeftLong className="text-3xl text-dark mt-6" />
       </Link>
 
       {showPopup && (

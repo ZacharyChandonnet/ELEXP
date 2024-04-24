@@ -1,6 +1,7 @@
 import { useUser } from "../Context/UserContext";
 import { useState, useEffect } from "react";
 import Notification from "./Notification";
+import { FaCheck } from "react-icons/fa";
 
 const DailyQuest = () => {
   const { creerDailyQuest, user, afficherDailyQuest, ajouterDailyQuestFini } =
@@ -9,7 +10,7 @@ const DailyQuest = () => {
   const [dailyQuest, setDailyQuest] = useState(null);
   const [notification, setNotification] = useState(false);
 
-useEffect(() => {
+  useEffect(() => {
     if (user && user.lastDailyQuestTime) {
       const currentTime = new Date().getTime();
       const lastWorkoutTime = user.lastDailyQuestTime;
@@ -77,48 +78,50 @@ useEffect(() => {
         <div>
           <div>
             <div
-              className={`p-4  ${
-                !user.userCompletedDailyQuest ? "bg-dark" : "bg-gray-300"
-              }`}
+              className={`p-4  ${!user.userCompletedDailyQuest ? "bg-dark" : "bg-gray-300"
+                }`}
+
+              style={{ position: "relative" }}
             >
               <p
-                className={`text-lg font-bold pb-4  ${
-                  user.userCompletedDailyQuest ? "texr-dark" : "text-white"
-                }`}
+                className={`text-lg font-bold font-titre py-2  ${user.userCompletedDailyQuest ? "texr-dark" : "text-white"
+                  }`}
               >
                 {dailyQuest?.name?.title}
               </p>
-              <div className="pl-2 italic flex flex-col gap-2">
-                <p
-                  className={
-                    user.userCompletedDailyQuest ? "text-dark" : "text-white"
-                  }
-                >
-                  {dailyQuest?.name?.description}
-                </p>
-                <p
-                  className={
-                    user.userCompletedDailyQuest ? "text-dark" : "text-white"
-                  }
-                >
-                  Récompense de {dailyQuest?.name?.experience} points
-                  d'expérience
-                </p>
-
-                {!user.userCompletedDailyQuest && (
-                  <button
-                    className={
-                      user.userCompletedDailyQuest ? "text-dark" : "text-white"
-                    }
-                    onClick={ajouterDaily}
-                  >
-                    Terminer
-                  </button>
-                )}
-                {cooldownRemaining > 0 && (
+              <div className="pl-2  flex flex-col gap-2">
+                <div className="flex items-center gap-2">
                   <p
                     className={
                       user.userCompletedDailyQuest ? "text-dark" : "text-white"
+                    }
+                  >
+                    - {dailyQuest?.name?.description}
+                  </p>
+
+
+                  {!user.userCompletedDailyQuest && (
+                    <button
+                      className={
+                        user.userCompletedDailyQuest ? "text-dark" : "text-white"
+                      }
+                      onClick={ajouterDaily}
+                    >
+                      <p className="p-2">
+                        <FaCheck />
+                      </p>
+                    </button>
+                  )}
+
+                </div>
+
+
+
+
+                {cooldownRemaining > 0 && (
+                  <p
+                    className={
+                      user.userCompletedDailyQuest ? "text-dark italic text-sm" : "text-red-500 italic text-sm"
                     }
                   >
                     Temps restant avant le prochain défi :{" "}
@@ -126,9 +129,24 @@ useEffect(() => {
                   </p>
                 )}
 
-                <p className="text-white italic text-sm">
+                <p className="text-white italic text-sm  opacity-50"
+
+                >
                   *Tu as le droit à {user.reroll} re-roll par jour (refresh la
                   page)
+                </p>
+                <p
+                  className={
+                    user.userCompletedDailyQuest ? "hidden" : "text-green-500 p-6 text-sm italic "
+                  }
+
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                  }}
+                >
+                  Récompense de {dailyQuest?.name?.experience} exp
                 </p>
               </div>
             </div>
