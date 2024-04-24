@@ -5,7 +5,6 @@ import React from "react";
 
 const authContext = React.createContext({
   login: async () => {},
-  register: async () => {},
   logout: () => {},
   user: null,
   _v: 0,
@@ -33,11 +32,17 @@ const AuthProvider = ({ children }) => {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    console.log(user);
+  }
+  , [user]);
+
   const login = async () => {
     try {
       const provider = new GoogleAuthProvider();
       const creds = await signInWithPopup(auth, provider);
       setUser(creds.user);
+      console.log(creds.user);
       return { success: true, message: "Connexion réussie" };
     } catch (error) {
       return {
@@ -47,19 +52,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async () => {
-    try {
-      const provider = new GoogleAuthProvider();
-      const creds = await signInWithPopup(auth, provider);
-      setUser(creds.user);
-      return { success: true, message: "Inscription réussie" };
-    } catch (error) {
-      return {
-        success: false,
-        message: "Échec de l'inscription. Veuillez réessayer.",
-      };
-    }
-  };
 
   const logout = async () => {
     try {
@@ -71,7 +63,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <authContext.Provider value={{ _v: 1, login, register, logout, user }}>
+    <authContext.Provider value={{ _v: 1, login, logout, user }}>
       {!loading && children}
     </authContext.Provider>
   );

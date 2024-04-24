@@ -486,7 +486,9 @@ const Profil = () => {
                 >
                   <form onSubmit={handleAjouterObjectif} className="flex flex-col gap-4 formulaire">
                     <div className="flex flex-col lg:flex-row gap-4">
-                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72" />
+                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72" 
+                      autoFocus
+                      />
                       <input type="text" placeholder="Description de l'objectif" className="lg:w-72" />
                     </div>
                     <div className="border-2 border-white p-2 flex justify-center w-1/2 mx-auto">

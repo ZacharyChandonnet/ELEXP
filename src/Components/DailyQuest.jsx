@@ -11,7 +11,7 @@ const DailyQuest = () => {
   const [notification, setNotification] = useState(false);
 
   useEffect(() => {
-    if (user && user.lastDailyQuestTime) {
+    if (user) {
       const currentTime = new Date().getTime();
       const lastWorkoutTime = user.lastDailyQuestTime;
       const cooldownTime = 24 * 60 * 60 * 1000;
