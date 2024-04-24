@@ -57,10 +57,33 @@ const ListeEntrainements = () => {
 
   const exerciseThresholds = {
     Jambes: {
-      "Marche avec des poids": 50,
-      "Soulevé de terre": 100,
+      "Marche avec des poids": 150,
+      "Soulevé de terre": 425,
       "Presse à cuisses": 150,
       "Sauts en boîte": 200,
+      "Fentes": 75,
+    },
+    Dos: {
+      "Tirage bûcheron": 210,
+      "Haussement d’épaules": 45,
+    },
+    Pec: {
+      "Dips": 230,
+      "Développé couché": 95,
+      "Développé décliné": 130,
+    },
+    Épaules: {
+      "Élévation postérieure": 500,
+      "Rowing menton": 160,
+      "Développé Arnold": 60,
+    },
+    Biceps: {
+      "Curl haltères": 250,
+      "Curl incliné": 145,
+    },
+    Triceps: {
+      "Dips": 230,
+      "Barre au front": 310,
     },
   };
 
@@ -122,25 +145,25 @@ const ListeEntrainements = () => {
         exit={{ opacity: 0 }}
         className="listePopup"
       >
-        <span className="close text-white" onClick={toggleAjouterPopup}>
+        <span className="close text-white p-4 cursor-pointer" onClick={toggleAjouterPopup}>
           <FaTimes />
         </span>
         <h2 className="font-titre uppercase text-white text-center text-xl">
           Liste des exercices
-        </h2>
-        <div className="grid grid-cols-2 gap-4 justify-center items-center">
+        </h2> 
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 justify-center items-center mx-auto p-4">
           {categories.map((category) => (
             <div key={category}>
-              <h3 onClick={() => toggleCategory(category)}>
+              <h3 className="cursor-pointer" onClick={() => toggleCategory(category)}>
                 {category} {openCategories[category] ? "▼" : "►"}
               </h3>
               {openCategories[category] && (
-                <ul>
+                <ul className="overflow-y-scroll lg:overflow-y-hidden">
                   {ChoixExercices.exercices[category].map((exercise) => (
-                    <li key={exercise.id} className="grid grid-cols-4 gap-2">
+                    <li key={exercise.id} className="grid grid-cols-2">
                       {exercise.name}
                       {experience >=
-                      (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                        (exerciseThresholds[category]?.[exercise.name] || 0) ? (
                         <button
                           onClick={() => toggleExerciseSelection(exercise)}
                         >
@@ -163,8 +186,10 @@ const ListeEntrainements = () => {
             </div>
           ))}
         </div>
-        <button onClick={() => handleAddExercise(ajouter.workoutId)}>
-          Ajouter
+        <button onClick={() => handleAddExercise(ajouter.workoutId)} className="border-2 border-white p-2 ml-4">
+          <p>
+            Ajouter
+          </p>
         </button>
       </motion.div>
     );

@@ -49,7 +49,7 @@ const Propos = () => {
       >
         <div className="flex justify-center">
           <div className="mb-auto ">
-            <h2 className="font-titre lg:text-9xl uppercase ">
+            <h2 className="font-titre lg:text-9xl uppercase">
               {" "}
               DÉVELOPPE TOI
             </h2>
@@ -77,16 +77,18 @@ const Propos = () => {
           style={{
             width: "22%",
             marginBottom: "2.5%",
+            filter: "blur(2.5px)",
           }}
         />
 
         <img
           src="/push2_image.webp"
-          alt="Entrainement" 
+          alt="Entrainement"
           className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10"
           style={{
             width: "25%",
             marginTop: "15%",
+            filter: "blur(5.5px)",
           }}
         />
       </motion.div>

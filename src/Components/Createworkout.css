@@ -3,6 +3,14 @@ input[type="checkbox"] {
 }
 
 
+ .cwText{
+  outline: none;
+  width: 16.6666%;
+ 
+ }
+
+
+
 
 .popup {
   display: grid;

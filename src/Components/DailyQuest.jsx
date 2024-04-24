@@ -9,11 +9,19 @@ const DailyQuest = () => {
   const [dailyQuest, setDailyQuest] = useState(null);
   const [notification, setNotification] = useState(false);
 
-  useEffect(() => {
-    if (!user.userCompletedDailyQuest) {
-      creerDailyQuest();
+useEffect(() => {
+    if (user && user.lastDailyQuestTime) {
+      const currentTime = new Date().getTime();
+      const lastWorkoutTime = user.lastDailyQuestTime;
+      const cooldownTime = 24 * 60 * 60 * 1000;
+      const remainingTime = cooldownTime - (currentTime - lastWorkoutTime);
+      if (remainingTime <= 0) {
+        creerDailyQuest();
+      }
     }
-  }, []);
+  }, [user]);
+
+
 
   useEffect(() => {
     const getDailyQuest = async () => {
@@ -70,7 +78,7 @@ const DailyQuest = () => {
           <div>
             <div
               className={`p-4  ${
-                !user.userCompletedDailyQuest ? "bg-dark" : "bg-green-100"
+                !user.userCompletedDailyQuest ? "bg-dark" : "bg-gray-300"
               }`}
             >
               <p

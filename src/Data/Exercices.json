@@ -23,15 +23,15 @@
         {"id": 18, "name": "Tirage menton à la corde"},
         {"id": 19, "name": "Rowing barre buste penché"},
         {"id": 20, "name": "Tractions"},
-        {"id": 21, "name": "Haussements d’épaules"}
+        {"id": 21, "name": "Haussement d’épaules"}
       ],
       "Pec": [
         {"id": 22, "name": "Développé couché"},
         {"id": 23, "name": "Développé incliné"},
         {"id": 24, "name": "Développé décliné"},
-        {"id": 25, "name": "Ecartés inclinés"},
+        {"id": 25, "name": "Écartés inclinés"},
         {"id": 26, "name": "Développé militaire"},
-        {"id": 27, "name": "Ecartés couchés"},
+        {"id": 27, "name": "Écartés couchés"},
         {"id": 28, "name": "Pompes"},
         {"id": 29, "name": "Poulie vis-à-vis"},
         {"id": 30, "name": "Pull-over"},
@@ -39,9 +39,9 @@
       ],
       "Épaules": [
         {"id": 32, "name": "Développé militaire"},
-        {"id": 33, "name": "Elevation latérale"},
-        {"id": 34, "name": "Elevation frontale"},
-        {"id": 35, "name": "Elevation postérieure"},
+        {"id": 33, "name": "Élévation latérale"},
+        {"id": 34, "name": "Élévation frontale"},
+        {"id": 35, "name": "Élévation postérieure"},
         {"id": 36, "name": "Rowing menton"},
         {"id": 37, "name": "Développé Arnold"},
         {"id": 38, "name": "Développé assis"},
