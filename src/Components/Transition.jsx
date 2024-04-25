@@ -4,38 +4,30 @@ import { useState } from 'react';
 
 const Transition = () => {
 
-    const [animationComplete, setAnimationComplete] = useState(false);
-
-    const handleAnimationComplete = () => {
-        setAnimationComplete(true);
-    }
 
     return (
 
         <AnimatePresence>
-            <motion.div
-               
+         
+                <motion.div 
+                className='preloader'
                 initial={{ width: '100%' }}
-                animate={{ width: ['100%', '0%'], height: ['100%', '0%', '0%'], opacity: [1, 1, 1]}}
-                transition={{ duration: 3, delay:1,  ease: 'easeInOut'}}
-                onAnimationComplete={handleAnimationComplete}
-            >
-                <div className='preloader'
-                    style={{ display: animationComplete ? 'none' : '' }}
+                animate={{ width: ['100%', '0%'], height: ['100%', '100%', '100%'], opacity: [1, 1, 1]}}
+                transition={{ duration: 2.5, delay:1.5,  ease: 'easeInOut'}}
                 >
                     <div className='text-container'>
                         <span>
                             <motion.div
-                                initial={{ opacity: 0, y: 0 }}
+                                initial={{ opacity: 0, y: -150 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 1, delay: .5 }}
+                                transition={{ duration: 1.5, delay: .1, ease: 'easeInOut'}}
                             >
                                 <img src="/LogoB.svg" alt="Logo" className='logo' />
                             </motion.div>
                         </span>
                     </div>
-                </div>
             </motion.div>
+                
         </AnimatePresence>
     )
 

@@ -42,6 +42,8 @@ const UserContext = createContext({
   afficherObjectifs: async () => { },
   deleteObjectif: async () => { },
   objectifCompleted: async () => { },
+  setRerolltoTrue: async () => { },
+  setRerolltoFalse: async () => { },
   user: null,
   _v: 0,
 });
@@ -527,6 +529,29 @@ export function UserProvider({ children }) {
     }
   };
 
+  const setRerolltoTrue = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    await updateDoc(userDocRef, {
+      reroll: true,
+    });
+
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+  };
+
+  const setRerolltoFalse = async () => {
+    const uuid = user.uid;
+    const userDocRef = doc(db, "users", uuid);
+    await updateDoc(userDocRef, {
+      reroll: false,
+    });
+
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+  };
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -552,9 +577,9 @@ export function UserProvider({ children }) {
             cooldown: 0,
             lastDailyQuestTime: 0,
             userCompletedDailyQuest: false,
-            reroll: 1,
+            reroll: false,
             objectifs: [],
-          }); setUserInfos({ email: user.email, uuid: user.uid, name: user.displayName, workout: [], experience: 0, history: [], dailyQuestCompleted: [], entrainementsTendance: [], cooldown: 0, lastDailyQuestTime: 0, userCompletedDailyQuest: false, reroll: 1, objectifs: [] });
+          }); setUserInfos({ email: user.email, uuid: user.uid, name: user.displayName, workout: [], experience: 0, history: [], dailyQuestCompleted: [], entrainementsTendance: [], cooldown: 0, lastDailyQuestTime: 0, userCompletedDailyQuest: false, reroll: false, objectifs: [] });
         } catch (error) {
           console.error("Error creating user document:", error);
         }
@@ -590,6 +615,8 @@ export function UserProvider({ children }) {
         afficherObjectifs,
         deleteObjectif,
         objectifCompleted,
+        setRerolltoTrue,
+        setRerolltoFalse,
       }}
     >
       {children}

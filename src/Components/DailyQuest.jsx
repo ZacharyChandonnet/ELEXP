@@ -2,13 +2,16 @@ import { useUser } from "../Context/UserContext";
 import { useState, useEffect } from "react";
 import Notification from "./Notification";
 import { FaCheck } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const DailyQuest = () => {
-  const { creerDailyQuest, user, afficherDailyQuest, ajouterDailyQuestFini } =
+  const { creerDailyQuest, user, afficherDailyQuest, ajouterDailyQuestFini, setRerolltoTrue, setRerolltoFalse } =
     useUser();
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [dailyQuest, setDailyQuest] = useState(null);
   const [notification, setNotification] = useState(false);
+
+
 
   useEffect(() => {
     if (user) {
@@ -18,6 +21,12 @@ const DailyQuest = () => {
       const remainingTime = cooldownTime - (currentTime - lastWorkoutTime);
       if (remainingTime <= 0) {
         creerDailyQuest();
+        const setReroll = async () => {
+          if (!user.reroll || user.reroll) {
+            setRerolltoFalse();
+          }
+        };
+        setReroll();
       }
     }
   }, [user]);
@@ -48,6 +57,13 @@ const DailyQuest = () => {
     }
   };
 
+  const setReroll = async () => {
+    if (!user.reroll) {
+      setRerolltoTrue();
+      window.location.reload();
+    }
+  };
+
   useEffect(() => {
     if (user && user.lastDailyQuestTime) {
       const currentTime = new Date().getTime();
@@ -73,86 +89,107 @@ const DailyQuest = () => {
 
   return (
     <section className="pt-12 pb-12">
-      <h2 className="font-titre uppercase pb-4">Défi du jour</h2>
-      <div>
+
+      {user && !user.reroll && (
+        
+        <motion.button 
+        whileHover={{ scale: 1.05, backgroundColor: "white", color: "black", border: "2px solid black" }}
+        transition={{ duration: 0.25 }}
+
+        className="bg-dark text-white p-2 w-full flex justify-center items-center mx-auto" onClick={setReroll}>
+          <p className="font-titre uppercase p-4">
+            Générer le défi du jour
+          </p>
+        </motion.button>
+      )}
+
+
+      {user && user.reroll && (<h2 className="font-titre uppercase pb-4">Défi du jour</h2>)}
+      {user && user.reroll && (
         <div>
           <div>
-            <div
-              className={`p-4  ${!user.userCompletedDailyQuest ? "bg-dark" : "bg-gray-300"
-                }`}
-
-              style={{ position: "relative" }}
-            >
-              <p
-                className={`text-lg font-bold font-titre py-2  ${user.userCompletedDailyQuest ? "texr-dark" : "text-white"
+            <div>
+              <div
+                className={`p-4  ${!user.userCompletedDailyQuest ? "bg-dark" : "bg-gray-300"
                   }`}
+
+                style={{ position: "relative" }}
               >
-                {dailyQuest?.name?.title}
-              </p>
-              <div className="pl-2  flex flex-col gap-2">
-                <div className="flex items-center gap-2">
-                  <p
-                    className={
-                      user.userCompletedDailyQuest ? "text-dark" : "text-white"
-                    }
-                  >
-                    - {dailyQuest?.name?.description}
-                  </p>
-
-
-                  {!user.userCompletedDailyQuest && (
-                    <button
+                <p
+                  className={`text-lg font-bold font-titre py-2  ${user.userCompletedDailyQuest ? "texr-dark" : "text-white"
+                    }`}
+                >
+                  {dailyQuest?.name?.title}
+                </p>
+                <div className="pl-2  flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <p
                       className={
                         user.userCompletedDailyQuest ? "text-dark" : "text-white"
                       }
-                      onClick={ajouterDaily}
                     >
-                      <p className="p-2">
-                        <FaCheck />
-                      </p>
-                    </button>
+                      - {dailyQuest?.name?.description}
+                    </p>
+
+
+                    {!user.userCompletedDailyQuest && (
+                      <button
+                        className={
+                          user.userCompletedDailyQuest ? "text-dark" : "text-white"
+                        }
+                        onClick={ajouterDaily}
+                      >
+                        <p className="p-2 text-xl">
+                          <FaCheck />
+                        </p>
+                      </button>
+                    )}
+
+                  </div>
+
+
+
+
+
+                  {cooldownRemaining > 0 && (
+                    <p
+                      className={
+                        user.userCompletedDailyQuest ? "text-dark italic text-sm" : "text-red-500 italic text-sm"
+                      }
+                    >
+                      Temps restant avant le prochain défi :{" "}
+                      {formatCooldown(cooldownRemaining)}
+                    </p>
                   )}
 
-                </div>
+                  <p className="text-white italic text-sm  opacity-50"
 
-
-
-
-                {cooldownRemaining > 0 && (
+                  >
+                    *Tu as le droit à {user.reroll} re-roll par jour (refresh la
+                    page)
+                  </p>
                   <p
                     className={
-                      user.userCompletedDailyQuest ? "text-dark italic text-sm" : "text-red-500 italic text-sm"
+                      user.userCompletedDailyQuest ? "hidden" : "text-green-500 p-6 text-sm italic "
                     }
+
+                    style={{
+                      position: "absolute",
+                      top: "0",
+                      right: "0",
+                    }}
                   >
-                    Temps restant avant le prochain défi :{" "}
-                    {formatCooldown(cooldownRemaining)}
+                    Récompense de {dailyQuest?.name?.experience} exp
                   </p>
-                )}
-
-                <p className="text-white italic text-sm  opacity-50"
-
-                >
-                  *Tu as le droit à {user.reroll} re-roll par jour (refresh la
-                  page)
-                </p>
-                <p
-                  className={
-                    user.userCompletedDailyQuest ? "hidden" : "text-green-500 p-6 text-sm italic "
-                  }
-
-                  style={{
-                    position: "absolute",
-                    top: "0",
-                    right: "0",
-                  }}
-                >
-                  Récompense de {dailyQuest?.name?.experience} exp
-                </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+      )}
+
+
 
       {notification && (
         <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">

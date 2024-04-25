@@ -4,13 +4,16 @@ import Footer from "./Footer";
 import { useAuth } from "../Context/AuthContext";
 import { useEffect } from "react";
 import "./CSS/Layout.css";
+import React from "react";
+import { gsap } from "gsap";
 
 const Layout = () => {
 
-  const { user } = useAuth();
+
+
 
   return (
-    <div className="layout">
+    <div className="layout" >
       <div>
         <Header />
       </div>
@@ -21,6 +24,7 @@ const Layout = () => {
         <Footer />
       </div>
     </div>
+
   );
 };
 

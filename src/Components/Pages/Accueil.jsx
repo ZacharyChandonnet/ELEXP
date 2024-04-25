@@ -2,8 +2,10 @@ import Heading from "../Heading";
 import { motion, useScroll } from "framer-motion";
 import { useEffect } from "react";
 import "../CSS/Accueil.css";
+import React from "react";
 
 const Accueil = () => {
+
 
   const containerVariants = {
     hidden: { opacity: 0 },

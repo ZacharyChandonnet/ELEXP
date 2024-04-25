@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import video from "/video1F.mp4";
 import { motion } from "framer-motion";
-
+import "../CSS/Loader.css";
 
 const Connexion = () => {
   const { login } = useAuth();
@@ -23,11 +23,10 @@ const Connexion = () => {
   };
 
   const containerVariants = {
-    hidden: { opacity: 1, x: -100 },
+    hidden: { opacity: 0,},
     visible: {
       opacity: 1,
-      x: 0,
-      transition: { delay: 0, duration: 1.5 },
+      transition: { delay: 2, duration: 1 },
     },
   };
 
@@ -40,7 +39,7 @@ const Connexion = () => {
       animate="visible"
     >
       <div
-        className="flex items-center"
+        className="flex items-center login"
         style={{ position: "relative", overflow: "hidden", height: "100vh" }}
       >
         <div

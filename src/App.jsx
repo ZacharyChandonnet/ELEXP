@@ -3,7 +3,7 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-
+import React, { useEffect } from "react";
 import { useAuth } from "./Context/AuthContext";
 import LayouthAuth from "./Components/LayouthAuth";
 import Layout from "./Components/Layout";
@@ -13,12 +13,13 @@ import Profil from "./Components/Pages/Profil";
 import Entrainements from "./Components/Pages/Entrainements";
 import Propos from "./Components/Pages/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
-import{motion, useScroll} from "framer-motion";
+import { motion, useScroll } from "framer-motion";
 
 
 function App() {
   const { user } = useAuth();
   const { scrollYProgress } = useScroll();
+ 
 
   const routes = [
     {
@@ -75,11 +76,11 @@ function App() {
   ];
 
   return (
-  
+
     <RouterProvider
       router={createBrowserRouter(user === null ? routes : routesLogged)}
     />
- 
+
   );
 }
 
