@@ -4,6 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import video from "/video1F.mp4";
 import { motion } from "framer-motion";
 
+
 const Connexion = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
@@ -22,11 +23,11 @@ const Connexion = () => {
   };
 
   const containerVariants = {
-    hidden: { opacity: 0, x: -100 },
+    hidden: { opacity: 1, x: -100 },
     visible: {
       opacity: 1,
       x: 0,
-      transition: { delay: 0.5, duration: 1.5 },
+      transition: { delay: 0, duration: 1.5 },
     },
   };
 

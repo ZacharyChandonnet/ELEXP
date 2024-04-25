@@ -15,13 +15,10 @@ import Propos from "./Components/Pages/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
 import{motion, useScroll} from "framer-motion";
 
+
 function App() {
   const { user } = useAuth();
   const { scrollYProgress } = useScroll();
-
-
-
-
 
   const routes = [
     {

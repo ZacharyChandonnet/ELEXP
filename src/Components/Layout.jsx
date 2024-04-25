@@ -3,13 +3,14 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { useAuth } from "../Context/AuthContext";
 import { useEffect } from "react";
+import "./CSS/Layout.css";
 
 const Layout = () => {
 
   const { user } = useAuth();
 
   return (
-    <div>
+    <div className="layout">
       <div>
         <Header />
       </div>

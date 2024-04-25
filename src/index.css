@@ -10,17 +10,3 @@
     font-weight: bold;
 }
 
-
-html{
-  margin: 0 auto;
-  width: calc(100vw - 4rem);
-  font-family: 'Roboto', sans-serif;
-}
-
-
-@media screen and (min-width: 1024px){
-
-  html{
-    width: calc(100vw - 12rem);
-  }
-}
