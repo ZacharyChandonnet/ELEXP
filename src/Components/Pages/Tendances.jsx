@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import TendanceData from "../Data/TendanceData";
-import Heading from "./Heading";
+import TendanceData from "../../Data/TendanceData";
+import Heading from "../Heading";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { useState, useEffect } from "react";
-import { useUser } from "../Context/UserContext";
+import { useUser } from "../../Context/UserContext";
 import { motion } from "framer-motion";
 import video1F from "/video3F.mp4";
 import video2F from "/video2F.mp4";

@@ -122,19 +122,18 @@ const Createworkout = () => {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="flex flex-wrap"
+                    className="lg:flex lg:flex-wrap"
                   >
                     {exercises.map((exercise, index) => (
                       <div
                         key={exercise.id}
-                        className={`flex items-center cursor-pointer p-2 ${experience <
+                        className={`flex items-center cursor-pointer p-2 listeExercices ${experience <
                           (exerciseThresholds[muscleGroup]?.[exercise.name] || 0)
                           ? "filter opacity-50"
                           : selectedExercises[muscleGroup]?.includes(exercise.name)
                             ? "bg-white text-dark"
                             : ""
                           }`}
-                        style={{ width: "33.33%" }}
                         onClick={() => toggleExerciseSelection(muscleGroup, exercise.name)}
                       >
                         <div className="flex items-center">
@@ -175,7 +174,7 @@ const Createworkout = () => {
             disabled={!isAbleToCreate}
             className="border-b-2 border-dark p-2 mt-4 cwText"
           />
-          <button onClick={handleCreateWorkout} disabled={!isAbleToCreate} className="bg-dark text-white p-2 mt-4 cursor-pointer w-1/6 ">
+          <button onClick={handleCreateWorkout} disabled={!isAbleToCreate} className="bg-dark text-white p-2 mt-4 cursor-pointer lg:w-1/6 ">
             <p>
               Créer l'entraînement
             </p>

@@ -7,11 +7,11 @@ import {
 import { useAuth } from "./Context/AuthContext";
 import LayouthAuth from "./Components/LayouthAuth";
 import Layout from "./Components/Layout";
-import Accueil from "./Components/Accueil";
-import Tendances from "./Components/Tendances";
-import Profil from "./Components/Profil";
-import Entrainements from "./Components/Entrainements";
-import Propos from "./Components/Propos";
+import Accueil from "./Components/Pages/Accueil";
+import Tendances from "./Components/Pages/Tendances";
+import Profil from "./Components/Pages/Profil";
+import Entrainements from "./Components/Pages/Entrainements";
+import Propos from "./Components/Pages/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
 import{motion, useScroll} from "framer-motion";
 

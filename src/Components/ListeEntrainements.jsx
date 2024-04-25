@@ -204,7 +204,7 @@ const ListeEntrainements = () => {
       <DailyQuest />
 
       <h2 className="font-titre uppercase">Mes entrainements</h2>
-      <div className="grid grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {workouts && workouts.length === 0 ? (
           <p>Vous n'avez pas encore d'entrainements</p>
         ) : (

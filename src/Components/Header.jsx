@@ -64,8 +64,47 @@ const Header = () => {
         />
       </div>
 
+      <div onClick={handleMenu} className="md:hidden">
+        <div className="relative z-50"
+          style={{ color: isMenuOpen ? "white" : "black" }}
+        >
+          {isMenuOpen ? <IoMdClose size={40} /> : <RxHamburgerMenu size={40} />
+          }
+        </div>
+
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="flex flex-col absolute top-12 right-0 bg-dark text-white w-screen h-screen z-40 overflow-y-auto">
+              <div className="flex flex-col justify-center items-center h-full w-full">
+                <Link to="/a-propos" className="mx-2 my-2">
+                  À propos
+                </Link>
+                <Link to="/entrainements" className="mx-2 my-2">
+                  Entrainements
+                </Link>
+                <Link to="/programmes" className="mx-2 my-2">
+                  Programmes
+                </Link>
+                <Link to="/profil" className="mx-2 my-2">
+                  Profil
+                </Link>
+                <button className="mx-2 my-2" onClick={logout}>
+                  Déconnexion
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+      </div>
       <div className="cursor-pointer" onClick={handleClick}>
-        <p>
+
+
+        <p className="hidden md:flex">
           {user?.name} exp.{user?.experience}
         </p>
 

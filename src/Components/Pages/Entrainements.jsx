@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Heading from "./Heading";
-import ListeEntrainements from "./ListeEntrainements";
-import "./CSS/Entrainement.css";
+import Heading from "../Heading";
+import ListeEntrainements from "../ListeEntrainements";
+import "../CSS/Entrainement.css";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 
 const Entrainements = () => {

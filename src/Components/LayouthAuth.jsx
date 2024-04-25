@@ -1,4 +1,4 @@
-import Connexion from "./Connexion";
+import Connexion from "./Pages/Connexion";
 
 const LayoutAuth = () => {
   return (

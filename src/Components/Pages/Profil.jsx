@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useUser } from "../Context/UserContext";
+import { useUser } from "../../Context/UserContext";
 import { Link } from "react-router-dom";
-import TendancesData from "../Data/TendanceData";
+import TendancesData from "../../Data/TendanceData";
 import { FaCheck } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa6";
 import { IoMdAdd } from "react-icons/io";
-import Notification from "./Notification";
+import Notification from "../Notification";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
-import "./CSS/Profil.css";
-import Heading from "./Heading";
+import "../CSS/Profil.css";
+import Heading from "../Heading";
 
 
 const Profil = () => {

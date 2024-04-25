@@ -1,5 +1,5 @@
-import Heading from "./Heading";
-import "./CSS/Entrainement.css";
+import Heading from "../Heading";
+import "../CSS/Entrainement.css";
 import { motion } from "framer-motion";
 
 const Propos = () => {
@@ -15,17 +15,17 @@ const Propos = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <div className="flex justify-center pt-12">
+        <div className="lg:flex justify-center pt-12 ">
           <figure
             style={{
               maxWidth: "500px",
             }}
-            className="mr-12"
+            className="mr-12 hidden md:block"
           >
             <img src="/push1_image.webp" alt="Entrainement" />
           </figure>
           <div className="mt-auto ">
-            <h2 className="font-titre lg:text-9xl uppercase ">ENTRAINE TOI</h2>
+            <h2 className="font-titre text-2xl lg:text-9xl uppercase ">ENTRAINE TOI</h2>
           </div>
         </div>
       </motion.div>
@@ -36,7 +36,7 @@ const Propos = () => {
         transition={{ duration: 1, delay: 0.5 }}
       >
         <div>
-          <h2 className="font-titre lg:text-9xl uppercase text-center  ">
+          <h2 className="font-titre text-2xl lg:text-9xl uppercase lg:text-center  ">
             GAGNE DE L'EXPÉRIENCE
           </h2>
         </div>
@@ -47,9 +47,9 @@ const Propos = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 1 }}
       >
-        <div className="flex justify-center">
+        <div className="lg:flex justify-center">
           <div className="mb-auto ">
-            <h2 className="font-titre lg:text-9xl uppercase">
+            <h2 className="font-titre text-2xl lg:text-9xl uppercase">
               {" "}
               DÉVELOPPE TOI
             </h2>
@@ -73,7 +73,7 @@ const Propos = () => {
         <img
           src="/pull3_image.webp"
           alt="Entrainement"
-          className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10"
+          className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10 hidden md:block"
           style={{
             width: "22%",
             marginBottom: "2.5%",
@@ -84,7 +84,7 @@ const Propos = () => {
         <img
           src="/push2_image.webp"
           alt="Entrainement"
-          className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10"
+          className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10 hidden md:block"
           style={{
             width: "25%",
             marginTop: "15%",

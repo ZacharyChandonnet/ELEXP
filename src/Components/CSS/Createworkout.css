@@ -19,3 +19,18 @@ input[type="checkbox"] {
   margin: 1rem;
 }
 
+.listeExercices{
+  width: 33.33%;
+}
+
+
+@media screen and (max-width: 768px) {
+  .listeExercices{
+    width: 100%;
+  }
+
+  .cwText{
+    width: 100%;
+   
+   }
+}
