@@ -3,7 +3,7 @@ import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../Context/AuthContext";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
 
@@ -12,6 +12,7 @@ const Header = () => {
   const { logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [contact, setContact] = useState(false);
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -96,6 +97,9 @@ const Header = () => {
                 <button className="mx-2 my-2" onClick={logout}>
                   Déconnexion
                 </button>
+                <button onClick={() => setContact(!contact)} className="mx-2 my-2">
+                  Contact
+                </button>
               </div>
             </div>
           </motion.div>
@@ -122,10 +126,39 @@ const Header = () => {
               <button className="mx-2 my-2" onClick={logout}>
                 Déconnexion
               </button>
+              <button onClick={() => setContact(!contact)} className="mx-2 my-2 mr-auto">
+                Contact
+              </button>
             </div>
           </motion.div>
         )}
       </div>
+
+      {contact && (
+        <AnimatePresence>
+        <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        exit={{ opacity: 0 }}
+        className="fixed top-0 left-0 w-screen h-screen bg-dark bg-opacity-90 flex justify-center items-center backdrop-filter backdrop-blur-lg z-50">
+          <p className="cursor-pointer absolute top-0 right-0 text-white z-50 p-12">
+            <IoMdClose size={40} onClick={() => setContact(!contact)} />
+          </p>
+          <div className="grid grid-cols-1 justify-center items-center">
+            <p className="text-white font-titre lg:text-5xl uppercase border-b-2 border-white pb-4">
+              Mes contacts</p>
+
+            <p className="text-white pt-4 text-center">
+              Possibilité d'ajouter des contacts?
+            </p>
+          </div>
+        </motion.div>
+        </AnimatePresence>
+      )}
+
+
+
     </motion.header>
   );
 };
