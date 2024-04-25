@@ -425,9 +425,9 @@ const Profil = () => {
           <figure className="relative z-10">
             <img src="/landing.jpg" alt="landing" className="w-1/2 mx-auto" />
           </figure>
-          <h2 className="absolute top-1/2 left-1/2 text-white font-titre text-8xl mt-12 z-50 uppercase transform -translate-x-1/2 -translate-y-1/2">TROUVER TON POTENTIEL</h2>
-          <h2 className="absolute top-1/2 left-0 font-titre text-5xl text-dark mt-12 p-4 uppercase">À TOI DE</h2>
-          <h2 className="absolute top-1/2 right-0 font-titre text-5xl text-dark mt-12 p-4 uppercase">ET GRANDIR</h2>
+          <h2 className="absolute top-1/2 left-1/2 text-white font-titre lg:text-8xl mt-12 z-50 uppercase transform -translate-x-1/2 -translate-y-1/2">TROUVER TON POTENTIEL</h2>
+          <h2 className="absolute top-1/2 left-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">À TOI DE</h2>
+          <h2 className="absolute top-1/2 right-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">ET GRANDIR</h2>
         </motion.div>
       </div>
 

@@ -117,9 +117,9 @@ const Tendances = () => {
         Programmes tendances
       </h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <div className="lg:col-span-2 flex">
+        <div className="lg:col-span-2 lg:flex">
           {TendanceData.slice(0, 2).map((tendance, index) => (
-            <div key={tendance.id} className="w-1/2 pr-4">
+            <div key={tendance.id} className="lg:w-1/2 lg:pr-4">
               {renderTendanceItem(tendance, index)}
             </div>
           ))}

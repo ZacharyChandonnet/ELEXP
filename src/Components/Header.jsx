@@ -34,7 +34,7 @@ const Header = () => {
       animate="visible"
     >
       <Link to="/">
-        <img src="LogoD.svg" alt="logo" style={{ width: "150px" }} />
+        <img src={isMenuOpen ? "/LogoB.svg" : "/LogoD.svg"} alt="logo" className="relative z-50" style={{ width: "150px" }} />
       </Link>
 
       <div className="hidden md:flex">
@@ -74,9 +74,10 @@ const Header = () => {
 
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ x: "-100%" }}
+            animate={{ x: 0 }}
             transition={{ duration: 0.5 }}
+            className="fixed top-0 left-0 bg-dark w-screen h-screen z-30 overflow-y-auto"
           >
             <div className="flex flex-col absolute top-12 right-0 bg-dark text-white w-screen h-screen z-40 overflow-y-auto">
               <div className="flex flex-col justify-center items-center h-full w-full">

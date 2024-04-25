@@ -32,21 +32,21 @@ const Entrainements = () => {
         onAnimationComplete={() => setShowX2(true)}
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
-          <div className="bg-dark text-white grid grid-cols-1 items-center  p-12 pt-36 pb-36 reverse-clip">
+          <div className="bg-dark text-white grid grid-cols-1 items-center p-6 pt-16 pb-16  lg:p-12 lg:pt-36 lg:pb-36 reverse-clip order-2 lg:order-1">
             <div className="lg:pl-16">
               <h2 className="font-titre text-white text-lg lg:text-3xl">
                 CRÉEZ ET PERSONNALISE <br />
                 TES ENTRAINEMENTS QUAND TU VEUX.
               </h2>
 
-              <p className="text-white italic pt-4 w-2/3 lg:pl-8">
+              <p className="text-white italic pt-4 lg:w-2/3 lg:pl-8">
                 Créez tes propres entraînements avec des exercices optimales au
                 développement de vos performances <br /> et au goût du jour.
               </p>
             </div>
           </div>
 
-          <div>
+          <div className="order-1 lg:order-1">
             <img src="/push1_image.webp" alt="Entrainement" className="clip" />
           </div>
         </div>
@@ -75,12 +75,12 @@ const Entrainements = () => {
             onExitComplete={handleX2Return}
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
-              <div>
+              <div >
                 <img src="/legs3_image.webp" alt="Entrainement" className="clip" />
               </div>
 
-              <div className="bg-dark text-white grid grid-cols-1 items-center  p-12 pt-36 pb-36 reverse-clip">
-                <div className="lg:pl-16">
+              <div className="bg-dark text-white grid grid-cols-1 items-center p-6 pt-16 pb-16  lg:p-12 lg:pt-36 lg:pb-36 reverse-clip">
+                <div className="lg:pl-16 ">  
                   <h2 className="font-titre text-white text-lg lg:text-3xl uppercase">
                     C'est à toi de te surpasser <br />
                     en gagant en expérience.
