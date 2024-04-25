@@ -94,11 +94,11 @@ const Header = () => {
                 <Link to="/profil" className="mx-2 my-2">
                   Profil
                 </Link>
-                <button className="mx-2 my-2" onClick={logout}>
-                  Déconnexion
-                </button>
                 <button onClick={() => setContact(!contact)} className="mx-2 my-2">
                   Contact
+                </button>
+                <button className="mx-2 my-2" onClick={logout}>
+                  Déconnexion
                 </button>
               </div>
             </div>
@@ -123,11 +123,11 @@ const Header = () => {
               <Link to="/profil" className="mx-2 my-2">
                 Profil
               </Link>
-              <button className="mx-2 my-2" onClick={logout}>
-                Déconnexion
-              </button>
               <button onClick={() => setContact(!contact)} className="mx-2 my-2 mr-auto">
                 Contact
+              </button>
+              <button className="mx-2 my-2" onClick={logout}>
+                Déconnexion
               </button>
             </div>
           </motion.div>
