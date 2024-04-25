@@ -139,9 +139,14 @@ const DetailsTendance = () => {
         {formatCooldown(cooldownRemaining)}
       </p>
 
-      <div className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12">
-        <button onClick={addWorkout}>J'ai complété ce workout</button>
-      </div>
+      
+        <motion.button
+        whileHover={{ scale: 1.05, backgroundColor: "black", color: "white", border: "2px solid black" }}
+        className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12 cursor-pointer flex justify-center items-center"
+
+          onClick={addWorkout}>J'ai complété ce workout
+          </motion.button>
+     
 
       <Link to="/programmes" className="absolute top-0 left-0 p-4">
         <FaArrowLeftLong className="text-3xl text-dark mt-6" />

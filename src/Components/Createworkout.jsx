@@ -174,11 +174,14 @@ const Createworkout = () => {
             disabled={!isAbleToCreate}
             className="border-b-2 border-dark p-2 mt-4 cwText"
           />
-          <button onClick={handleCreateWorkout} disabled={!isAbleToCreate} className="bg-dark text-white p-2 mt-4 cursor-pointer lg:w-1/6 ">
+          <motion.button
+          
+          whileHover={{ scale: 1.05, backgroundColor: "white", color: "black", border: "2px solid black" }}
+          onClick={handleCreateWorkout} disabled={!isAbleToCreate} className="bg-dark text-white p-2 mt-4 cursor-pointer lg:w-1/6 ">
             <p>
               Créer l'entraînement
             </p>
-          </button>
+          </motion.button>
         </div>
       )}
 
