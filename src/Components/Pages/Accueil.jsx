@@ -5,8 +5,6 @@ import "../CSS/Accueil.css";
 import React from "react";
 
 const Accueil = () => {
-
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

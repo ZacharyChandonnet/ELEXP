@@ -16,8 +16,6 @@ const Entrainements = () => {
     setShowWorkouts(false);
   };
 
-
-
   return (
     <section>
       <Heading

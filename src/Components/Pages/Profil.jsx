@@ -10,7 +10,6 @@ import { motion, AnimatePresence, useScroll } from "framer-motion";
 import "../CSS/Profil.css";
 import Heading from "../Heading";
 
-
 const Profil = () => {
   const {
     afficherExperience,
@@ -166,8 +165,6 @@ const Profil = () => {
     setProgressPercent(progressPercent);
   }, [currentExperience]);
 
-
-
   const formatDate = (date) => {
     const formattedDate = new Date(date);
     return formattedDate.toLocaleDateString();
@@ -245,18 +242,21 @@ const Profil = () => {
               {user && user?.name}
             </h2>
             <p>
-              Bienvenue sur ton profil, ici tu peux voir ta progression, tes objectifs et tes workouts terminés.
+              Bienvenue sur ton profil, ici tu peux voir ta progression, tes
+              objectifs et tes workouts terminés.
             </p>
           </div>
           <figure className="">
-            <img src="/legs1_image.webp" alt="landing" className="paraProfil w-3/4 mx-auto" />
+            <img
+              src="/legs1_image.webp"
+              alt="landing"
+              className="paraProfil w-3/4 mx-auto"
+            />
           </figure>
         </div>
       </motion.div>
 
-
       <div className="pt-12">
-
         <h3 className="font-titre uppercase">Mes workouts</h3>
 
         <motion.div
@@ -264,6 +264,9 @@ const Profil = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1 }}
         >
+          {workouts.length === 0 && (
+            <p className="text-dark text-sm italic">Aucun workout disponible</p>
+          )}
 
           <ul className="pt-2">
             {workouts.map((workout) => (
@@ -273,36 +276,44 @@ const Profil = () => {
                   backgroundColor: "#0D0D0D",
                   color: "#fff",
                 }}
-
                 transition={{ duration: 0.25 }}
               >
-                <li key={workout.id} className="border-t-2 border-dark p-2 py-6 flex items-center">
-                  <h2 className="uppercase font-titre lg:text-5xl"> <Link to={`/entrainements`}>{workout.name}</Link></h2>
-                  <button onClick={() => handleWorkoutCompleted(workout.id)} className="ml-auto lg:text-2xl">
+                <li
+                  key={workout.id}
+                  className="border-t-2 border-dark p-2 py-6 flex items-center"
+                >
+                  <h2 className="uppercase font-titre lg:text-5xl">
+                    {" "}
+                    <Link to={`/entrainements`}>{workout.name}</Link>
+                  </h2>
+                  <button
+                    onClick={() => handleWorkoutCompleted(workout.id)}
+                    className="ml-auto lg:text-2xl"
+                  >
                     <IoMdAdd />
                   </button>
                 </li>
               </motion.li>
-
             ))}
 
             {cooldownRemaining > 0 && (
-              <p className="text-red-500 font-bold italic text-sm p-2">Temps de repos restant avant d'ajouter un autre entrainement: {formatCooldown(cooldownRemaining)}</p>
+              <p className="text-red-500 font-bold italic text-sm p-2">
+                Temps de repos restant avant d'ajouter un autre entrainement:{" "}
+                {formatCooldown(cooldownRemaining)}
+              </p>
             )}
           </ul>
-
         </motion.div>
-
       </div>
       <motion.div
         initial={{ opacity: 0, x: -100 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-
         <div className="my-12">
           <div className="flex gap-4 items-center font-titre">
-            <p>{currentRank}
+            <p>
+              {currentRank}
               <br />
               exp.{currentExperience}
             </p>
@@ -312,37 +323,34 @@ const Profil = () => {
                 animate={{ width: `${progressPercent}%` }}
                 transition={{ delay: 0.5, duration: 1 }}
               >
-
                 <div
                   style={{
                     width: `${progressPercent}%`,
                     backgroundColor: "black",
                     height: "1.5rem",
                   }}
-                >
-                </div>
+                ></div>
               </motion.div>
             </div>
             <p>{nextRank}</p>
-
-
           </div>
-          <p className="text-center font-bold italic">{nextRankExp - currentExperience}XP restants</p>
+          <p className="text-center font-bold italic">
+            {nextRankExp - currentExperience}XP restants
+          </p>
         </div>
       </motion.div>
-
-
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: .5 }}
+        transition={{ duration: 1, delay: 0.5 }}
       >
-
         <h3 className="font-titre uppercase pt-8 pb-2">Historique</h3>
         <ul className="grid grid-cols-1 gap-4 p-2 bg-dark">
           <div className="p-4">
-            <h2 className="font-titre uppercase text-white ">Mes workouts terminés</h2>
+            <h2 className="font-titre uppercase text-white ">
+              Mes workouts terminés
+            </h2>
             {history.length === 0 && (
               <p className="text-white text-sm italic">Aucun workout terminé</p>
             )}
@@ -354,22 +362,29 @@ const Profil = () => {
                   }}
                   transition={{ duration: 0.25 }}
                 >
-                  <li key={index} className="text-white flex border-b-2 border-white p-2 mt-2">
+                  <li
+                    key={index}
+                    className="text-white flex border-b-2 border-white p-2 mt-2"
+                  >
                     {workout.name}
-                    {workout.date && <p className="ml-auto font-bold">{formatDate(workout.date)}</p>}
+                    {workout.date && (
+                      <p className="ml-auto font-bold">
+                        {formatDate(workout.date)}
+                      </p>
+                    )}
                   </li>
                 </motion.li>
               </Link>
-
             ))}
           </div>
 
-
           <div className="p-4">
-            <h2 className="font-titre uppercase text-white">Mes programmes terminés</h2>
+            <h2 className="font-titre uppercase text-white">
+              Mes programmes terminés
+            </h2>
 
             {tendances.length === 0 && (
-               <p className="text-white text-sm italic">Aucun workout terminé</p>
+              <p className="text-white text-sm italic">Aucun workout terminé</p>
             )}
 
             {tendances &&
@@ -381,11 +396,16 @@ const Profil = () => {
                     }}
                     transition={{ duration: 0.25 }}
                   >
-                    <li className="text-white flex border-b-2 border-white p-2 mt-2" key={tendance.id}>
+                    <li
+                      className="text-white flex border-b-2 border-white p-2 mt-2"
+                      key={tendance.id}
+                    >
                       {tendance.title}
 
                       {dateEntrainementTendance[index] && (
-                        <p className="ml-auto font-bold">{formatDate(dateEntrainementTendance[index])}</p>
+                        <p className="ml-auto font-bold">
+                          {formatDate(dateEntrainementTendance[index])}
+                        </p>
                       )}
                     </li>
                   </motion.li>
@@ -394,22 +414,29 @@ const Profil = () => {
           </div>
 
           <div className="p-4">
-            <h2 className="font-titre uppercase text-white">Mon dernier défi du jour</h2>
+            <h2 className="font-titre uppercase text-white">
+              Mon dernier défi du jour
+            </h2>
             {dailyQuestsCompleted.length === 0 && (
               <p className="text-white text-sm italic">Aucun défi terminé</p>
             )}
             <Link to={`/entrainements`}>
               {dailyQuestsCompleted &&
                 dailyQuestsCompleted.map((dailyQuest) => (
-
                   <motion.li
                     whileHover={{
                       scale: 1.025,
                     }}
                     transition={{ duration: 0.25 }}
                   >
-                    <li key={dailyQuest.id} className="text-white flex border-b-2 border-white p-2 mt-2">
-                      {dailyQuest.name.description} <p className="ml-auto font-bold">{formatDate(dailyQuest.date)}</p>
+                    <li
+                      key={dailyQuest.id}
+                      className="text-white flex border-b-2 border-white p-2 mt-2"
+                    >
+                      {dailyQuest.name.description}{" "}
+                      <p className="ml-auto font-bold">
+                        {formatDate(dailyQuest.date)}
+                      </p>
                     </li>
                   </motion.li>
                 ))}
@@ -419,28 +446,36 @@ const Profil = () => {
       </motion.div>
 
       <div className="mt-28 mb-28 relative text-center">
-        <motion.div
-          style={{ opacity: scrollYProgress }}
-        >
+        <motion.div style={{ opacity: scrollYProgress }}>
           <figure className="relative z-10">
             <img src="/landing.jpg" alt="landing" className="w-1/2 mx-auto" />
           </figure>
-          <h2 className="absolute top-1/2 left-1/2 text-white font-titre lg:text-8xl mt-12 z-50 uppercase transform -translate-x-1/2 -translate-y-1/2">TROUVER TON POTENTIEL</h2>
-          <h2 className="absolute top-1/2 left-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">À TOI DE</h2>
-          <h2 className="absolute top-1/2 right-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">ET GRANDIR</h2>
+          <h2 className="absolute top-1/2 left-1/2 text-white font-titre lg:text-8xl mt-12 z-50 uppercase transform -translate-x-1/2 -translate-y-1/2">
+            TROUVER TON POTENTIEL
+          </h2>
+          <h2 className="absolute top-1/2 left-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">
+            À TOI DE
+          </h2>
+          <h2 className="absolute top-1/2 right-0 font-titre text-sm lg:text-6xl text-dark mt-12 lg:p-4 uppercase">
+            ET GRANDIR
+          </h2>
         </motion.div>
       </div>
 
-
       <div className="text-white bg-dark min-h-96 relative mb-12 relative">
-
-       <img src="/LogoB.svg" alt="landing" className="w-full h-full object-cover absolute top-0 left-0 z-10"
-        style={{ opacity: 0.05 }}  
-       />
+        <img
+          src="/LogoB.svg"
+          alt="landing"
+          className="w-full h-full object-cover absolute top-0 left-0 z-10"
+          style={{ opacity: 0.05 }}
+        />
 
         <div className="text-center pt-8 mt-12">
           <h3 className="font-titre uppercase  lg:text-3xl ">Mes objectifs</h3>
-          <p className="text-sm lg:text-md"> Garde trace de tes objectifs personnels.</p>
+          <p className="text-sm lg:text-md">
+            {" "}
+            Garde trace de tes objectifs personnels.
+          </p>
         </div>
 
         <button
@@ -452,16 +487,32 @@ const Profil = () => {
 
         <div className="grid grid-cols-1 gap-2 p-2  relative z-20 w-11/12 mx-auto">
           {objectifs.map((objectif, index) => (
-            <div className=" mt-4 relative border-b-2 border-white p-2" key={index}>
-              <h4 className={objectif.isCompleted ? "text-green-500 font-titre" : "font-titre"}>
+            <div
+              className=" mt-4 relative border-b-2 border-white p-2"
+              key={index}
+            >
+              <h4
+                className={
+                  objectif.isCompleted
+                    ? "text-green-500 font-titre"
+                    : "font-titre"
+                }
+              >
                 {objectif.titre}
               </h4>
-              <p className={objectif.isCompleted ? "text-green-500 italic" : "italic"}>
+              <p
+                className={
+                  objectif.isCompleted ? "text-green-500 italic" : "italic"
+                }
+              >
                 {objectif.description}
               </p>
 
               {objectif.isCompleted && (
-                <p className="text-green-500"> Date de complétion: {formatDate(objectif.dateCompleted)}</p>
+                <p className="text-green-500">
+                  {" "}
+                  Date de complétion: {formatDate(objectif.dateCompleted)}
+                </p>
               )}
 
               <div className="absolute right-0 bottom-0 p-4 flex gap-4">
@@ -489,44 +540,45 @@ const Profil = () => {
             </div>
           ))}
 
-
           <div className="flex justify-center items-center mt-4">
             {ajouterObjectif && (
               <AnimatePresence>
-
                 <motion.div
                   initial={{ opacity: 0, y: 50 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <form onSubmit={handleAjouterObjectif} className="flex flex-col gap-4 formulaire relative z-20">
+                  <form
+                    onSubmit={handleAjouterObjectif}
+                    className="flex flex-col gap-4 formulaire relative z-20"
+                  >
                     <div className="flex flex-col lg:flex-row gap-4">
-                      <input type="text" placeholder="Titre de l'objectif" className="lg:w-72"
-                      autoFocus
+                      <input
+                        type="text"
+                        placeholder="Titre de l'objectif"
+                        className="lg:w-72"
+                        autoFocus
                       />
-                      <input type="text" placeholder="Description de l'objectif" className="lg:w-72" />
+                      <input
+                        type="text"
+                        placeholder="Description de l'objectif"
+                        className="lg:w-72"
+                      />
                     </div>
                     <div className="border-2 border-white p-2 flex justify-center w-1/2 mx-auto">
                       <button type="submit">Ajouter</button>
                     </div>
                   </form>
                 </motion.div>
-
               </AnimatePresence>
             )}
           </div>
-
-
         </div>
-
-
 
         {notificationAdd && (
           <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
-            <Notification
-              message={"Votre objectif a été ajouté avec succès"}
-            />
+            <Notification message={"Votre objectif a été ajouté avec succès"} />
           </div>
         )}
 

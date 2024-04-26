@@ -46,11 +46,14 @@ const Tendances = () => {
     });
   }, [user]);
 
+
+  // JE SUIS OBLIGÉ DE FAIRE UN 2E RETURN ICI SINON J'ARRIVE PAS AVEC LES PROPS POUR FAIRE JOUER LES VIDEOS SUR LE HOVER PAR RAPPORT À L'INDEX
+  // SI JE FAIS UNE NOUVELLE COMPOSANTE, JE PERDS LE HOVER OU BIEN SI JE HOVER UNE VIDEO ELLES JOUENT TOUTES EN MEME TEMPS
   const renderTendanceItem = (tendance, index) => {
     const requiredExperience = tendanceThresholds[index] || 0;
     const videos = [video1F, video2F, video3F];
 
-    return (
+    return ( 
       <motion.div
         key={tendance.id}
         className="tendance-item mb-4"

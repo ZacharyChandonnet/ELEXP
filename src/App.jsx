@@ -14,6 +14,8 @@ import Entrainements from "./Components/Pages/Entrainements";
 import Propos from "./Components/Pages/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
 import { motion, useScroll } from "framer-motion";
+import ContactDetails from "./Components/ContactDetails";
+
 
 
 function App() {
@@ -60,6 +62,10 @@ function App() {
         {
           path: "profil",
           element: <Profil />,
+        },
+        {
+          path: "Contact/:uuid",
+          element: <ContactDetails />,
         },
         {
           path: "",

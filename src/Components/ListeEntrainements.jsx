@@ -103,11 +103,11 @@ const ListeEntrainements = () => {
     setAjouter({ visible: !ajouter.visible, workoutId: workoutId });
   };
 
-  const toggleExerciseSelection = (exercise) => {
+  const choisirExercice = (exercise) => {
     const isSelected = exercicesSelectionnes.includes(exercise);
     if (isSelected) {
       setExercicesSelectionnes(
-        exercicesSelectionnes.filter((ex) => ex !== exercise)
+        exercicesSelectionnes.filter((ex) => ex !== exercise) 
       );
     } else {
       setExercicesSelectionnes([...exercicesSelectionnes, exercise]);
@@ -129,10 +129,10 @@ const ListeEntrainements = () => {
     }, 7000);
   };
 
-  const renderExercicesList = () => {
+  const listeExercices = () => { 
     const categories = Object.keys(ChoixExercices.exercices);
     const toggleCategory = (category) => {
-      setOpenCategories((prevOpenCategories) => ({
+      setOpenCategories((prevOpenCategories) => ({ 
         ...prevOpenCategories,
         [category]: !prevOpenCategories[category],
       }));
@@ -165,7 +165,7 @@ const ListeEntrainements = () => {
                       {experience >=
                         (exerciseThresholds[category]?.[exercise.name] || 0) ? (
                         <button
-                          onClick={() => toggleExerciseSelection(exercise)}
+                          onClick={() => choisirExercice(exercise)}
                         >
                           {exercicesSelectionnes.includes(exercise) ? (
                             <FaCheck />
@@ -279,7 +279,7 @@ const ListeEntrainements = () => {
 
       {ajouter.visible && (
         <div>
-          <div>{renderExercicesList()}</div>
+          <div>{listeExercices()}</div>
         </div>
       )}
     </section>

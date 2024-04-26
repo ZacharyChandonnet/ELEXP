@@ -9,7 +9,6 @@ import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";
 import { FaArrowLeftLong } from "react-icons/fa6";
 
-
 const DetailsTendance = () => {
   const { id } = useParams();
   const tendance = TendanceData[id - 1];
@@ -95,9 +94,6 @@ const DetailsTendance = () => {
   return (
     <div className="relative">
       <Heading title={tendance.title} paragraph={tendance.description} />
-
-
-
       <div>
         <div className="detail-container cursor-pointer">
           <AnimatePresence>
@@ -114,12 +110,16 @@ const DetailsTendance = () => {
                 >
                   <div className="bg-dark text-white detail grid grid-cols-1 md:grid-cols-2 items-center">
                     <figure>
-                      <img src={`/${detail.image}`} alt={detail.name}
+                      <img
+                        src={`/${detail.image}`}
+                        alt={detail.name}
                         style={{ maxHeight: "400px" }}
                       />
                     </figure>
                     <div className="p-6 ">
-                      <h3 className="font-titre lg:text-3xl uppercase">{detail.name}</h3>
+                      <h3 className="font-titre lg:text-3xl uppercase">
+                        {detail.name}
+                      </h3>
                       <p className="italic w-3/4 pt-2">{detail.description}</p>
                       <div className="flex gap-8 pt-8 font-bold">
                         <p> Séries - {detail.sets}</p>
@@ -133,20 +133,23 @@ const DetailsTendance = () => {
         </div>
       </div>
 
-
       <p className="text-red-500 italic font-bold text-sm py-4">
         *Temps de récupération avant le prochain workout :{" "}
         {formatCooldown(cooldownRemaining)}
       </p>
 
-      
-        <motion.button
-        whileHover={{ scale: 1.05, backgroundColor: "black", color: "white", border: "2px solid black" }}
+      <motion.button
+        whileHover={{
+          scale: 1.05,
+          backgroundColor: "black",
+          color: "white",
+          border: "2px solid black",
+        }}
         className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12 cursor-pointer flex justify-center items-center"
-
-          onClick={addWorkout}>J'ai complété ce workout
-          </motion.button>
-     
+        onClick={addWorkout}
+      >
+        J'ai complété ce workout
+      </motion.button>
 
       <Link to="/programmes" className="absolute top-0 left-0 p-4">
         <FaArrowLeftLong className="text-3xl text-dark mt-6" />

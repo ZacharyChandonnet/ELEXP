@@ -21,29 +21,34 @@ import {
 } from "firebase/firestore";
 
 const UserContext = createContext({
-  updateUser: async () => { },
-  createWorkout: async () => { },
-  afficherWokoutDetails: async () => { },
-  supprimerEntrainement: async () => { },
-  afficherExperience: async () => { },
-  ajouterWorkoutFini: async () => { },
-  afficherWorkoutFini: async () => { },
-  creerDailyQuest: async () => { },
-  afficherDailyQuest: async () => { },
-  ajouterDailyQuestFini: async () => { },
-  afficherDailyQuestFini: async () => { },
-  ajouterExperience: async () => { },
-  partirTimer: async () => { },
-  ajouterWorkoutTendance: async () => { },
-  afficherDateEntrainementTendance: async () => { },
-  supprimerExerciceWorkout: async () => { },
-  ajouterExercicesAuWorkout: async () => { },
-  creerObjectif: async () => { },
-  afficherObjectifs: async () => { },
-  deleteObjectif: async () => { },
-  objectifCompleted: async () => { },
-  setRerolltoTrue: async () => { },
-  setRerolltoFalse: async () => { },
+  updateUser: async () => {},
+  createWorkout: async () => {},
+  afficherWokoutDetails: async () => {},
+  supprimerEntrainement: async () => {},
+  afficherExperience: async () => {},
+  ajouterWorkoutFini: async () => {},
+  afficherWorkoutFini: async () => {},
+  creerDailyQuest: async () => {},
+  afficherDailyQuest: async () => {},
+  ajouterDailyQuestFini: async () => {},
+  afficherDailyQuestFini: async () => {},
+  ajouterExperience: async () => {},
+  partirTimer: async () => {},
+  ajouterWorkoutTendance: async () => {},
+  afficherDateEntrainementTendance: async () => {},
+  supprimerExerciceWorkout: async () => {},
+  ajouterExercicesAuWorkout: async () => {},
+  creerObjectif: async () => {},
+  afficherObjectifs: async () => {},
+  deleteObjectif: async () => {},
+  objectifCompleted: async () => {},
+  setRerolltoTrue: async () => {},
+  setRerolltoFalse: async () => {},
+  rechercherUserNom: async () => {},
+  ajouterContact: async () => {},
+  afficherContacts: async () => {},
+  afficherContactSelonUuid: async () => {},
+  afficherWorkoutDetailsContact: async () => {},
   user: null,
   _v: 0,
 });
@@ -148,16 +153,13 @@ export function UserProvider({ children }) {
         workout: updatedWorkouts,
       });
 
-      const workoutDocRef = doc(db, "workouts", workoutId);
-      await deleteDoc(workoutDocRef);
-
       await afficherWokoutDetails();
     }
   };
-
   const afficherWokoutDetails = async () => {
     const uuid = user.uid;
     const workoutsRef = collection(db, "workouts");
+    const userRef = doc(db, "users", uuid);
     const userWorkoutsQuery = query(workoutsRef, where("user", "==", uuid));
 
     const querySnapshot = await getDocs(userWorkoutsQuery);
@@ -167,7 +169,19 @@ export function UserProvider({ children }) {
       workouts.push({ id: doc.id, ...doc.data() });
     });
 
-    return workouts;
+    const userDocSnap = await getDoc(userRef);
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data();
+      const userWorkoutIds = userData.workout.map((item) => item.id);
+
+      const filteredWorkouts = workouts.filter((workout) =>
+        userWorkoutIds.includes(workout.id)
+      );
+
+      return filteredWorkouts;
+    } else {
+      return [];
+    }
   };
 
   const afficherExperience = (callback) => {
@@ -319,7 +333,6 @@ export function UserProvider({ children }) {
     onSnapshot(userDocRef, (doc) => {
       setUserInfos(doc.data());
     });
-
 
     return dailyQuests[0];
   };
@@ -553,6 +566,132 @@ export function UserProvider({ children }) {
     });
   };
 
+  const rechercherUserNom = async (searchTerm) => {
+    try {
+      const usersdb = collection(db, "users");
+      const nom = query(
+        usersdb,
+        where("email", ">=", searchTerm.trim().toLowerCase()),
+        where("email", "<", searchTerm.trim().toLowerCase() + "\uf8ff")
+      );
+      const querySnapshot = await getDocs(nom);
+      const users = querySnapshot.docs.map((doc) => doc.data());
+      console.log(users, searchTerm.trim().toLowerCase());
+
+      return users;
+    } catch (error) {
+      console.error("Error searching users:", error);
+      throw error;
+    }
+  };
+
+  const afficherContactSelonUuid = async (uuid) => {
+    try {
+      const userDocRef = doc(db, "users", uuid);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        return userDocSnapshot.data();
+      } else {
+        console.error("Erreur");
+      }
+    } catch (error) {
+      console.error("Erreur", error);
+      throw error;
+    }
+  };
+
+  const ajouterContact = async (contact) => {
+    try {
+      const uuid = user.uid;
+      const userDocRef = doc(db, "users", uuid);
+      const userDocSnapshot = await getDoc(userDocRef);
+
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        const contacts = userData.contacts || [];
+
+        const contactExists = contacts.some(
+          (existingContact) => existingContact.uuid === contact.uuid
+        );
+
+        if (!contactExists) {
+          const updatedContacts = [...contacts, contact];
+          await updateDoc(userDocRef, { contacts: updatedContacts });
+        } else {
+          console.warn("Le contact existe déjà dans la liste.");
+        }
+      } else {
+        console.error("Erreur");
+      }
+    } catch (error) {
+      console.error("Error");
+    }
+  };
+
+  const afficherContacts = async () => {
+    try {
+      const uuid = user.uid;
+      const userDocRef = doc(db, "users", uuid);
+      const userDocSnapshot = await getDoc(userDocRef);
+      const updatedContacts = [];
+
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        const contacts = userData.contacts || [];
+
+        for (const contact of contacts) {
+          const contactDocRef = doc(db, "users", contact.uuid);
+          const contactDocSnapshot = await getDoc(contactDocRef);
+
+          if (contactDocSnapshot.exists()) {
+            updatedContacts.push(contactDocSnapshot.data());
+          }
+        }
+      } else {
+        console.error("Erreur");
+      }
+
+      return updatedContacts;
+    } catch (error) {
+      console.error("Erreur", error);
+      throw error;
+    }
+  };
+
+  const afficherWorkoutDetailsContact = async (uuid) => {
+    try {
+      const workoutsRef = collection(db, "workouts");
+      const userWorkoutsQuery = query(workoutsRef, where("user", "==", uuid));
+
+      const querySnapshot = await getDocs(userWorkoutsQuery);
+      const workouts = [];
+
+      querySnapshot.forEach((doc) => {
+        workouts.push({ id: doc.id, ...doc.data() });
+      });
+
+      const userRef = doc(db, "users", uuid);
+      const userDocSnap = await getDoc(userRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        const userWorkoutIds = userData.workout.map((item) => item.id);
+
+        const filteredWorkouts = workouts.filter((workout) =>
+          userWorkoutIds.includes(workout.id)
+        );
+
+        return filteredWorkouts;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error("Erreur", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const getDocRef = async () => {
       const uuid = user.uid;
@@ -579,7 +718,24 @@ export function UserProvider({ children }) {
             userCompletedDailyQuest: false,
             reroll: false,
             objectifs: [],
-          }); setUserInfos({ email: user.email, uuid: user.uid, name: user.displayName, workout: [], experience: 0, history: [], dailyQuestCompleted: [], entrainementsTendance: [], cooldown: 0, lastDailyQuestTime: 0, userCompletedDailyQuest: false, reroll: false, objectifs: [] });
+            contacts: [],
+          });
+          setUserInfos({
+            email: user.email,
+            uuid: user.uid,
+            name: user.displayName,
+            workout: [],
+            experience: 0,
+            history: [],
+            dailyQuestCompleted: [],
+            entrainementsTendance: [],
+            cooldown: 0,
+            lastDailyQuestTime: 0,
+            userCompletedDailyQuest: false,
+            reroll: false,
+            objectifs: [],
+            contacts: [],
+          });
         } catch (error) {
           console.error("Error creating user document:", error);
         }
@@ -617,6 +773,11 @@ export function UserProvider({ children }) {
         objectifCompleted,
         setRerolltoTrue,
         setRerolltoFalse,
+        rechercherUserNom,
+        ajouterContact,
+        afficherContacts,
+        afficherContactSelonUuid,
+        afficherWorkoutDetailsContact,
       }}
     >
       {children}
