@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Palmares = () => {
   const { user, afficherTopUser } = useUser();
   const [topUsers, setTopUsers] = useState([]);
+  const [positionUser, setPositionUser] = useState([]);
 
   useEffect(() => {
     const initializeTopUsers = async () => {
@@ -21,16 +23,24 @@ const Palmares = () => {
   }, [afficherTopUser, user]);
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-12 justify-center items-center p-4">
       <div>
-        <h1>Palmarès</h1>
         {topUsers.map((user, index) => (
-          <div key={index}>
-            <Link to={`/contact/${user.uuid}`} className="flex">
-              <h2>{user.name}</h2>
-              <p>{user.experience}</p>
+          <motion.div
+            key={index}
+            whileHover={{ backgroundColor: "#fff", color: "black" }}
+            style={{
+              color:"white",
+            }}
+          >
+            <Link to={`/contact/${user.uuid}`} className="flex gap-12 items-center p-4">
+              <div className="flex items-center gap-4">
+                <p>{index + 1}.</p>
+                <p className="font-titre text-2xl">{user.name}</p>
+              </div>
+              <p className="ml-auto font-bold">exp.{user.experience}</p>
             </Link>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

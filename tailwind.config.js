@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'titre': "ClashDisplay",
+        'titre': "UniSans",
       },
      
         colors: {

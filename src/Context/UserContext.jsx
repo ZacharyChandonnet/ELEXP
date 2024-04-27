@@ -699,14 +699,18 @@ export function UserProvider({ children }) {
       const nom = query(usersdb, orderBy("experience", "desc"));
       const querySnapshot = await getDocs(nom);
       const users = querySnapshot.docs.map((doc) => doc.data());
+      users.splice(10);
+
       console.log(users);
 
       return users;
     } catch (error) {
-      console.error("Error searching users:", error);
+      console.error("Erreur", error);
       throw error;
     }
   };
+
+
 
   useEffect(() => {
     const getDocRef = async () => {

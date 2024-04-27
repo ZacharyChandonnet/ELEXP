@@ -104,7 +104,7 @@ const Header = () => {
                   onClick={() => setContact(!contact)}
                   className="mx-2 my-2"
                 >
-                  Palmarès
+                  Classement
                 </button>
                 <button className="mx-2 my-2" onClick={logout}>
                   Déconnexion
@@ -134,7 +134,7 @@ const Header = () => {
                 onClick={() => setContact(!contact)}
                 className="mx-2 my-2 mr-auto"
               >
-                Palmarès
+                Classement
               </button>
               <button className="mx-2 my-2" onClick={logout}>
                 Déconnexion
@@ -156,9 +156,9 @@ const Header = () => {
             <p className="cursor-pointer absolute top-0 right-0 text-white z-50 p-12">
               <IoMdClose size={40} onClick={() => setContact(!contact)} />
             </p>
-            <div className="grid grid-cols-1 justify-center items-center">
+            <div className="grid grid-cols-1 justify-center items-center w-9/12">
               <p className="text-white font-titre text-center lg:text-5xl uppercase border-b-2 border-white pb-4">
-                PALMARÈS
+                CLASSEMENT
               </p>
               <Contact />
             </div>

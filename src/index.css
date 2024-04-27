@@ -5,8 +5,8 @@
 
 @font-face 
 {
-    font-family: 'ClashDisplay';
-    src: url('./assets//fonts/ClashDisplay-Bold.ttf');
+    font-family: 'UniSans';
+    src: url('./assets//fonts/ClashDisplay-Bold.ttf') ;
     font-weight: bold;
 }
 
