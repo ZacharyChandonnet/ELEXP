@@ -49,7 +49,7 @@ const Accueil = () => {
 
   return (
     <motion.section
-      className="grid grid-cols-1 gap-12"
+      className="grid grid-cols-1 gap-12 "
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -64,7 +64,7 @@ const Accueil = () => {
 
       <motion.div className="bottom" variants={bottomVariants}>
         <figure
-          className="bg-image"
+          className="bg-image overflow-hidden"
           style={{
             backgroundImage: "url('landing.jpg')",
             ...style,

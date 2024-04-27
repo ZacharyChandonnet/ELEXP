@@ -49,6 +49,7 @@ const UserContext = createContext({
   afficherContacts: async () => {},
   afficherContactSelonUuid: async () => {},
   afficherWorkoutDetailsContact: async () => {},
+  afficherTopUser: async () => {},
   user: null,
   _v: 0,
 });
@@ -692,6 +693,21 @@ export function UserProvider({ children }) {
     }
   };
 
+  const afficherTopUser = async () => {
+    try {
+      const usersdb = collection(db, "users");
+      const nom = query(usersdb, orderBy("experience", "desc"));
+      const querySnapshot = await getDocs(nom);
+      const users = querySnapshot.docs.map((doc) => doc.data());
+      console.log(users);
+
+      return users;
+    } catch (error) {
+      console.error("Error searching users:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const getDocRef = async () => {
       const uuid = user.uid;
@@ -778,6 +794,7 @@ export function UserProvider({ children }) {
         afficherContacts,
         afficherContactSelonUuid,
         afficherWorkoutDetailsContact,
+        afficherTopUser,
       }}
     >
       {children}

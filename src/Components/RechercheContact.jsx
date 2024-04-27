@@ -1,4 +1,5 @@
 import AjouterContact from "./AjouterContact";
+import {Link} from "react-router-dom";
 
 const RechercheContact = ({ searchResults }) => {
   return (
@@ -6,8 +7,8 @@ const RechercheContact = ({ searchResults }) => {
       <ul className="my-6">
         {searchResults.map((user) => (
           <li className="text-white" key={user.email}>
-            {user.name}
-            <AjouterContact contact={user} />
+            <Link to={`/contact/${user.uuid}`}> {user.name} </Link>
+            {/* <AjouterContact contact={user} /> */}
           </li>
         ))}
       </ul>

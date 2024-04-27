@@ -162,12 +162,6 @@ const DailyQuest = () => {
                     </p>
                   )}
 
-                  <p className="text-white italic text-sm  opacity-50"
-
-                  >
-                    *Tu as le droit à {user.reroll} re-roll par jour (refresh la
-                    page)
-                  </p>
                   <p
                     className={
                       user.userCompletedDailyQuest ? "hidden" : "text-green-500 p-6 text-sm italic "

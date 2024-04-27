@@ -57,17 +57,18 @@ const Createworkout = () => {
     },
   };
 
-  const choisirExercices = (muscleGroup, nomExerice) => { 
+  const choisirExercices = (muscleGroup, nomExerice) => {
     const updatedSelectedExercises = { ...selectedExercises };
 
-    const isSelected = updatedSelectedExercises[muscleGroup] && updatedSelectedExercises[muscleGroup].includes(nomExerice);
+    const isSelected =
+      updatedSelectedExercises[muscleGroup] &&
+      updatedSelectedExercises[muscleGroup].includes(nomExerice);
 
     if (isSelected) {
       updatedSelectedExercises[muscleGroup] = updatedSelectedExercises[
         muscleGroup
       ].filter((exercise) => exercise !== nomExerice);
-    }
-    else {
+    } else {
       updatedSelectedExercises[muscleGroup] = (
         updatedSelectedExercises[muscleGroup] || []
       ).concat(nomExerice);
@@ -132,15 +133,15 @@ const Createworkout = () => {
                       {exercises.map((exercise, index) => (
                         <div
                           key={exercise.id}
-                          className={`flex items-center cursor-pointer p-2 listeExercices ${
+                          className={`flex items-center cursor-pointer p-2 listeExercices${
                             experience <
                             (exerciseThresholds[muscleGroup]?.[exercise.name] ||
                               0)
-                              ? "filter opacity-50"
+                              ? ""
                               : selectedExercises[muscleGroup]?.includes(
                                   exercise.name
                                 )
-                              ? "bg-white text-dark"
+                              ? " bg-white text-dark"
                               : ""
                           }`}
                           onClick={() =>
@@ -148,7 +149,18 @@ const Createworkout = () => {
                           }
                         >
                           <div className="flex items-center">
-                            <p>{exercise.name}</p>
+                            <p>
+                              {experience <
+                              (exerciseThresholds[muscleGroup]?.[
+                                exercise.name
+                              ] || 0) ? (
+                                <span className="filter blur-sm">
+                                  {exercise.name}
+                                </span>
+                              ) : (
+                                exercise.name
+                              )}
+                            </p>
                             <p
                               className="ml-2 text-red-500"
                               style={{
@@ -161,7 +173,7 @@ const Createworkout = () => {
                                     : "block",
                               }}
                             >
-                              {exerciseThresholds[muscleGroup]?.[exercise.name]}
+                              {exerciseThresholds[muscleGroup]?.[exercise.name]} exp nécessaire
                             </p>
                           </div>
                           <input

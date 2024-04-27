@@ -46,14 +46,13 @@ const Tendances = () => {
     });
   }, [user]);
 
-
   // JE SUIS OBLIGÉ DE FAIRE UN 2E RETURN ICI SINON J'ARRIVE PAS AVEC LES PROPS POUR FAIRE JOUER LES VIDEOS SUR LE HOVER PAR RAPPORT À L'INDEX
   // SI JE FAIS UNE NOUVELLE COMPOSANTE, JE PERDS LE HOVER OU BIEN SI JE HOVER UNE VIDEO ELLES JOUENT TOUTES EN MEME TEMPS
   const renderTendanceItem = (tendance, index) => {
     const requiredExperience = tendanceThresholds[index] || 0;
     const videos = [video1F, video2F, video3F];
 
-    return ( 
+    return (
       <motion.div
         key={tendance.id}
         className="tendance-item mb-4"
@@ -82,7 +81,7 @@ const Tendances = () => {
             style={{ position: "relative", overflow: "hidden" }}
           >
             {user && user.experience < requiredExperience && (
-              <div className="experience-indicator absolute top-0 right-0 mt-2 mr-2 text-md text-bold text-red-500 uppercase">
+              <div className="experience-indicator absolute top-0 right-0 mt-2 mr-2 text-xl text-bold text-red-500 uppercase z-50 ">
                 Experience minimale requise: {requiredExperience}
               </div>
             )}
@@ -93,15 +92,40 @@ const Tendances = () => {
               muted
               playsInline
               src={videos[index]}
+              style={{
+                filter:
+                  !isAbleToAccess ||
+                  (user && user.experience < requiredExperience)
+                    ? "blur(5px) opacity(50%)"
+                    : "none",
+              }}
             ></video>
             <div className="flex flex-col-reverse justify-between h-60 pb-6">
               <div className="flex justify-between items-end">
-                <h5 className="uppercase font-titre text-4xl z-10 relative">
+                <h5
+                  className="uppercase font-titre text-4xl z-10 relative"
+                  style={{
+                    filter:
+                      !isAbleToAccess ||
+                      (user && user.experience < requiredExperience)
+                        ? "blur(5px) opacity(50%)"
+                        : "none",
+                  }}
+                >
                   {tendance.title}
                 </h5>
-                <div className="btn btn-primary text-4xl z-10 relative">
+                {/* <motion.div
+                  className="btn btn-primary text-4xl z-10 relative"
+                  whileHover={
+                    !isAbleToAccess ||
+                    (user && user.experience < requiredExperience)
+                      ? {}
+                      : { rotate: 90 }
+                  }
+                  transition={{ duration: 0.5 }}
+                >
                   <FaArrowRightLong />
-                </div>
+                </motion.div> */}
               </div>
             </div>
           </div>
@@ -116,9 +140,7 @@ const Tendances = () => {
         title="Le fitness devrait être accessible à tout le monde."
         paragraph="Découvrez les tendances du moment pour vous aider à rester en forme."
       />
-      <h2 className="font-titre uppercase pt-12 pb-4">
-        Programmes tendances
-      </h2>
+      <h2 className="font-titre uppercase pt-12 pb-4">Programmes tendances</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <div className="lg:col-span-2 lg:flex">
           {TendanceData.slice(0, 2).map((tendance, index) => (
@@ -179,9 +201,12 @@ const Tendances = () => {
       </div>
 
       <div className="bg-dark h-96 mt-12 mb-12  flex justify-center items-center relative">
-      <img src="/LogoB.svg" alt="landing" className="w-full h-full object-cover absolute top-0 left-0 "
-        style={{ opacity: 0.1 }}  
-       />
+        <img
+          src="/LogoB.svg"
+          alt="landing"
+          className="w-full h-full object-cover absolute top-0 left-0 "
+          style={{ opacity: 0.1 }}
+        />
         <h2 className="font-titre uppercase pt-12 pb-4 text-center text-white text-3xl lg:text-9xl">
           TON CORPS <br /> TON TEMPLE
         </h2>
