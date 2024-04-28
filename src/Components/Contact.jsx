@@ -5,9 +5,17 @@ import Palmares from "./Palmares";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "./CSS/Contact.css";
+import { FaTrash } from "react-icons/fa6";
 
 const Contact = () => {
-  const { user, rechercherUserNom, afficherContacts } = useUser();
+  const {
+    user,
+    rechercherUserNom,
+    afficherContacts,
+    retirerContact,
+    setContact,
+    contact,
+  } = useUser();
   const [userNom, setUserNom] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [contacts, setContacts] = useState([]);
@@ -30,6 +38,17 @@ const Contact = () => {
       }, 200);
     } else {
       setUserNom([]);
+    }
+  };
+
+  const handleRetirerContact = async (contact) => {
+    try {
+      await retirerContact(contact);
+      setContacts((prevContacts) =>
+        prevContacts.filter((c) => c.email !== contact.email)
+      );
+    } catch (error) {
+      console.error("Error removing contact:", error);
     }
   };
 
@@ -59,7 +78,6 @@ const Contact = () => {
             value={searchTerm}
             onChange={handleChange}
             className="input-search bg-none text-white p-2 w-full italic "
-            autoFocus
           />
           <p className="text-white text-sm p-2">
             Voici les résultats pour : {searchTerm}
@@ -79,15 +97,18 @@ const Contact = () => {
                   transition={{ duration: 0.5 }}
                   key={index}
                 >
-                  <Link to={`/contact/${contact.uuid}`}>
-                    <div className="flex justify-center items-center p-8">
+                  <div className="flex justify-center items-center p-8">
+                    <Link to={`/contact/${contact.uuid}`} onClick={() => setContact(!contact)}>
                       <p className="mr-auto font-titre">{contact.name}</p>
-                      <p className="text-lg font-bold">
-                        {" "}
-                        exp.{contact.experience}
-                      </p>
-                    </div>
-                  </Link>
+                    </Link>
+                    <p className="text-lg font-bold  ml-auto flex items-center gap-4">
+                      exp.{contact.experience}
+                      <FaTrash
+                        className="cursor-pointer"
+                        onClick={() => handleRetirerContact(contact)}
+                      />
+                    </p>
+                  </div>
                 </motion.div>
               ))}
             </div>

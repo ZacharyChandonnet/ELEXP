@@ -94,6 +94,17 @@ const DetailsTendance = () => {
   return (
     <div className="relative">
       <Heading title={tendance.title} paragraph={tendance.description} />
+
+      <p className="text-green-600  font bold italic pt-4 text-center">
+        *Cet entrainement vaut 40 exp
+      </p>
+
+      {cooldownRemaining > 0 && (
+        <p className="text-red-500 italic font-bold text-sm py-4">
+          *Temps de récupération avant le prochain workout :{" "}
+          {formatCooldown(cooldownRemaining)}
+        </p>
+      )}
       <div>
         <div className="detail-container cursor-pointer">
           <AnimatePresence>
@@ -133,11 +144,6 @@ const DetailsTendance = () => {
         </div>
       </div>
 
-      <p className="text-red-500 italic font-bold text-sm py-4">
-        *Temps de récupération avant le prochain workout :{" "}
-        {formatCooldown(cooldownRemaining)}
-      </p>
-
       <motion.button
         whileHover={{
           scale: 1.05,
@@ -176,7 +182,7 @@ const DetailsTendance = () => {
       )}
 
       {notification && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification
             message={
               "Votre workout a bien été ajouté !" + 40 + " points d'expérience"

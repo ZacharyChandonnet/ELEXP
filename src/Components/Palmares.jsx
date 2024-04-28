@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Palmares = () => {
-  const { user, afficherTopUser } = useUser();
+  const { user, afficherTopUser, setContact, contact } = useUser();
   const [topUsers, setTopUsers] = useState([]);
   const [positionUser, setPositionUser] = useState([]);
 
@@ -33,7 +33,7 @@ const Palmares = () => {
               color:"white",
             }}
           >
-            <Link to={`/contact/${user.uuid}`} className="flex gap-12 items-center p-4">
+            <Link to={`/contact/${user.uuid}`} className="flex gap-12 items-center p-4" onClick={() => setContact(!contact)}>
               <div className="flex items-center gap-4">
                 <p>{index + 1}.</p>
                 <p className="font-titre text-2xl">{user.name}</p>

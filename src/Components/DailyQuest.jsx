@@ -186,7 +186,7 @@ const DailyQuest = () => {
 
 
       {notification && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification
             message={
               "Votre défi du jour a bien été terminé !" +

@@ -81,13 +81,17 @@ const Createworkout = () => {
   };
 
   const handleCreateWorkout = () => {
+    if (workoutName.trim() === "" || Object.keys(selectedExercises).length === 0) {
+      console.log("Veuillez choisir un nom d'entraînement et sélectionner au moins un exercice.");
+      return; 
+    }
     createWorkout(workoutName, Object.values(selectedExercises).flat());
     setNotification(true);
-
+  
     setTimeout(() => {
       setNotification(false);
     }, 7000);
-
+  
     setWorkoutName("");
   };
 
@@ -230,7 +234,7 @@ const Createworkout = () => {
       )}
 
       {notification && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Votre entraînement a bien été créé !"} />
         </div>
       )}

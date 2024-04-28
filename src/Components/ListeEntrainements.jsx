@@ -20,6 +20,7 @@ const ListeEntrainements = () => {
     user,
     supprimerExerciceWorkout,
     ajouterExercicesAuWorkout,
+    ajouterWorkoutFini,
   } = useUser();
 
   const [workouts, setWorkouts] = useState([]);
@@ -31,6 +32,56 @@ const ListeEntrainements = () => {
   const [notificationDelete, setNotificationDelete] = useState(false);
   const [notificationAjout, setNotificationAjout] = useState(false);
   const [openCategories, setOpenCategories] = useState({});
+  const [notificationWorkout, setNotificationWorkout] = useState(false);
+  const [cooldownRemaining, setCooldownRemaining] = useState(0);
+
+  const handleWorkoutCompleted = (id) => {
+    if (cooldownRemaining === 0) {
+      ajouterWorkoutFini(id);
+
+      setNotificationWorkout(true);
+
+      setTimeout(() => {
+        setNotificationWorkout(false);
+      }, 7000);
+    }
+  };
+
+  useEffect(() => {
+    if (user && user.lastWorkoutTime) {
+      const lastWorkoutTime = user.lastWorkoutTime;
+      const date = new Date(lastWorkoutTime);
+      const hours = date.getHours();
+      const minutes = "0" + date.getMinutes();
+      const seconds = "0" + date.getSeconds();
+      const formattedTime =
+        hours + ":" + minutes.substr(-2) + ":" + seconds.substr(-2);
+      setConvertTime(formattedTime);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user && user.cooldown) {
+      const currentTime = new Date().getTime();
+      const lastWorkoutTime = user.cooldown;
+      const cooldownTime = 8 * 60 * 60 * 1000;
+      const remainingTime = cooldownTime - (currentTime - lastWorkoutTime);
+      if (remainingTime > 0) {
+        setCooldownRemaining(remainingTime);
+        const intervalId = setInterval(() => {
+          setCooldownRemaining((prevRemaining) => {
+            if (prevRemaining - 1000 >= 0) {
+              return prevRemaining - 1000;
+            } else {
+              clearInterval(intervalId);
+              return 0;
+            }
+          });
+        }, 1000);
+        return () => clearInterval(intervalId);
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -61,14 +112,14 @@ const ListeEntrainements = () => {
       "Soulevé de terre": 425,
       "Presse à cuisses": 150,
       "Sauts en boîte": 200,
-      "Fentes": 75,
+      Fentes: 75,
     },
     Dos: {
       "Tirage bûcheron": 210,
       "Haussement d’épaules": 45,
     },
     Pec: {
-      "Dips": 230,
+      Dips: 230,
       "Développé couché": 95,
       "Développé décliné": 130,
     },
@@ -82,7 +133,7 @@ const ListeEntrainements = () => {
       "Curl incliné": 145,
     },
     Triceps: {
-      "Dips": 230,
+      Dips: 230,
       "Barre au front": 310,
     },
   };
@@ -107,12 +158,15 @@ const ListeEntrainements = () => {
     const isSelected = exercicesSelectionnes.includes(exercise);
     if (isSelected) {
       setExercicesSelectionnes(
-        exercicesSelectionnes.filter((ex) => ex !== exercise) 
+        exercicesSelectionnes.filter((ex) => ex !== exercise)
       );
     } else {
       setExercicesSelectionnes([...exercicesSelectionnes, exercise]);
     }
   };
+
+  // MÊME CHOSE ICI, J'AI PAS LE CHOIX DE LE FAIRE DANS CETTE COMPOSANTE SINON CA NE FONCTIONNE PAS
+  // J'AI ESSAYÉ DE LE FAIRE AVEC UNE NOUVELLE COMPOSANTE MAIS CA NE FONCTIONNE PAS
 
   const handleAddExercise = async (workoutId) => {
     const exercises = exercicesSelectionnes.map((exercise) => exercise.name);
@@ -129,10 +183,10 @@ const ListeEntrainements = () => {
     }, 7000);
   };
 
-  const listeExercices = () => { 
+  const listeExercices = () => {
     const categories = Object.keys(ChoixExercices.exercices);
     const toggleCategory = (category) => {
-      setOpenCategories((prevOpenCategories) => ({ 
+      setOpenCategories((prevOpenCategories) => ({
         ...prevOpenCategories,
         [category]: !prevOpenCategories[category],
       }));
@@ -145,16 +199,22 @@ const ListeEntrainements = () => {
         exit={{ opacity: 0 }}
         className="listePopup"
       >
-        <span className="close text-white p-4 cursor-pointer" onClick={toggleAjouterPopup}>
+        <span
+          className="close text-white p-4 cursor-pointer"
+          onClick={toggleAjouterPopup}
+        >
           <FaTimes />
         </span>
         <h2 className="font-titre uppercase text-white text-center text-xl">
           Liste des exercices
-        </h2> 
+        </h2>
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 justify-center items-center mx-auto p-4">
           {categories.map((category) => (
             <div key={category}>
-              <h3 className="cursor-pointer" onClick={() => toggleCategory(category)}>
+              <h3
+                className="cursor-pointer"
+                onClick={() => toggleCategory(category)}
+              >
                 {category} {openCategories[category] ? "▼" : "►"}
               </h3>
               {openCategories[category] && (
@@ -163,10 +223,8 @@ const ListeEntrainements = () => {
                     <li key={exercise.id} className="grid grid-cols-2">
                       {exercise.name}
                       {experience >=
-                        (exerciseThresholds[category]?.[exercise.name] || 0) ? (
-                        <button
-                          onClick={() => choisirExercice(exercise)}
-                        >
+                      (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                        <button onClick={() => choisirExercice(exercise)}>
                           {exercicesSelectionnes.includes(exercise) ? (
                             <FaCheck />
                           ) : (
@@ -186,10 +244,11 @@ const ListeEntrainements = () => {
             </div>
           ))}
         </div>
-        <button onClick={() => handleAddExercise(ajouter.workoutId)} className="border-2 border-white p-2 ml-4">
-          <p>
-            Ajouter
-          </p>
+        <button
+          onClick={() => handleAddExercise(ajouter.workoutId)}
+          className="border-2 border-white p-2 ml-4"
+        >
+          <p>Ajouter</p>
         </button>
       </motion.div>
     );
@@ -204,6 +263,12 @@ const ListeEntrainements = () => {
       <DailyQuest />
 
       <h2 className="font-titre uppercase">Mes entrainements</h2>
+      {cooldownRemaining > 0 && (
+        <p className="text-red-500 font-bold italic text-sm p-2">
+          Temps de récupération restant avant d'ajouter un autre entrainement:{" "}
+          {formatCooldown(cooldownRemaining)}
+        </p>
+      )}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {workouts && workouts.length === 0 ? (
           <p>Vous n'avez pas encore d'entrainements</p>
@@ -227,6 +292,15 @@ const ListeEntrainements = () => {
                     )}
                   </li>
                 ))}
+                <p className="text-green-500 text-sm font bold italic pt-4">
+                  *Cet entrainement vaut {workout.exercices.length * 10} exp
+                </p>
+                <button
+                  onClick={() => handleWorkoutCompleted(workout.id)}
+                  className="border-2 border-white p-2 mt-2"
+                >
+                  <p className="text-sm">Terminer</p>
+                </button>
               </ul>
 
               <div className="absolute top-0 right-0 pt-4 pr-4">
@@ -260,19 +334,25 @@ const ListeEntrainements = () => {
       <Createworkout />
 
       {notification && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Votre entrainement a bien été supprimé"} />
         </div>
       )}
 
+      {notificationWorkout && (
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+          <Notification message={"Votre entrainement a bien été complété"} />
+        </div>
+      )}
+
       {notificationDelete && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Votre exercice a bien été supprimé"} />
         </div>
       )}
 
       {notificationAjout && (
-        <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vos exercices ont bien été ajoutés"} />
         </div>
       )}
@@ -284,6 +364,14 @@ const ListeEntrainements = () => {
       )}
     </section>
   );
+};
+
+const formatCooldown = (milliseconds) => {
+  const totalSeconds = Math.floor(milliseconds / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${hours}h ${minutes}m ${seconds}s`;
 };
 
 export default ListeEntrainements;

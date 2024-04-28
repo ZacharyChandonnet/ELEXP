@@ -172,7 +172,7 @@ const Tendances = () => {
           ].map((advantage, index) => (
             <div
               key={index}
-              className="border-b-2 border-dark pb-2 cursor-pointer"
+              className="border-b-2 border-dark pb-2"
               onMouseEnter={() => handleHover(index)}
               onMouseLeave={() => handleHover(null)}
             >

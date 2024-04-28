@@ -9,11 +9,11 @@ import { IoMdClose } from "react-icons/io";
 import Contact from "./Contact";
 
 const Header = () => {
-  const { user } = useUser();
+  const { user, setContact, contact } = useUser();
   const { logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [contact, setContact] = useState(false);
+  
 
   const handleClick = () => {
     setIsClicked(!isClicked);

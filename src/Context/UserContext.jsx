@@ -50,6 +50,7 @@ const UserContext = createContext({
   afficherContactSelonUuid: async () => {},
   afficherWorkoutDetailsContact: async () => {},
   afficherTopUser: async () => {},
+  retirerContact: async () => {},
   user: null,
   _v: 0,
 });
@@ -66,6 +67,7 @@ export function UserProvider({ children }) {
   const { user } = useAuth();
   const [userInfos, setUserInfos] = useState(null);
   const [lastWorkoutTime, setLastWorkoutTime] = useState(null);
+  const [contact, setContact] = useState(false);
 
   const genererId = () => {
     return new Date().getTime().toString();
@@ -699,7 +701,7 @@ export function UserProvider({ children }) {
       const nom = query(usersdb, orderBy("experience", "desc"));
       const querySnapshot = await getDocs(nom);
       const users = querySnapshot.docs.map((doc) => doc.data());
-      users.splice(10);
+      users.splice(5);
 
       console.log(users);
 
@@ -710,7 +712,26 @@ export function UserProvider({ children }) {
     }
   };
 
+  const retirerContact = async (contact) => {
+    try {
+      const uuid = user.uid;
+      const userDocRef = doc(db, "users", uuid);
+      const userDocSnapshot = await getDoc(userDocRef);
 
+      if (userDocSnapshot.exists()) {
+        const userData = userDocSnapshot.data();
+        const contacts = userData.contacts || [];
+        const updatedContacts = contacts.filter(
+          (existingContact) => existingContact.email !== contact.email
+        );
+        await updateDoc(userDocRef, { contacts: updatedContacts });
+      } else {
+        console.error("User document not found");
+      }
+    } catch (error) {
+      console.error("Error removing contact:", error);
+    }
+  };
 
   useEffect(() => {
     const getDocRef = async () => {
@@ -799,6 +820,9 @@ export function UserProvider({ children }) {
         afficherContactSelonUuid,
         afficherWorkoutDetailsContact,
         afficherTopUser,
+        retirerContact,
+        setContact,
+        contact,
       }}
     >
       {children}

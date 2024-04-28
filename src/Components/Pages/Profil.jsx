@@ -288,9 +288,12 @@ const Profil = () => {
                   </h2>
                   <button
                     onClick={() => handleWorkoutCompleted(workout.id)}
-                    className="ml-auto lg:text-2xl"
+                    className="ml-auto flex gap-4 items-center "
                   >
-                    <IoMdAdd />
+                    <p className="text-sm">Ajouter ce workout</p>{" "}
+                    <p className="lg:text-2xl">
+                      <IoMdAdd />
+                    </p>
                   </button>
                 </li>
               </motion.li>
@@ -298,8 +301,8 @@ const Profil = () => {
 
             {cooldownRemaining > 0 && (
               <p className="text-red-500 font-bold italic text-sm p-2">
-                Temps de repos restant avant d'ajouter un autre entrainement:{" "}
-                {formatCooldown(cooldownRemaining)}
+                Temps de récupération restant avant d'ajouter un autre
+                entrainement: {formatCooldown(cooldownRemaining)}
               </p>
             )}
           </ul>
@@ -577,13 +580,13 @@ const Profil = () => {
         </div>
 
         {notificationAdd && (
-          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification message={"Votre objectif a été ajouté avec succès"} />
           </div>
         )}
 
         {notificationDelete && (
-          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification
               message={"Votre objectif a été supprimé avec succès"}
             />
@@ -591,7 +594,7 @@ const Profil = () => {
         )}
 
         {notificationCompleted && (
-          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification
               message={"Votre objectif a été complété avec succès"}
             />
@@ -599,7 +602,7 @@ const Profil = () => {
         )}
 
         {notificationWorkout && (
-          <div className="fixed bottom-0 right-0 p-4 bg-dark text-white z-50 mb-4 mr-4">
+          <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification message={"Votre workout a bien été ajouté !"} />
           </div>
         )}
