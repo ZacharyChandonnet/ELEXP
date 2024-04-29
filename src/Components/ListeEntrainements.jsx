@@ -295,12 +295,18 @@ const ListeEntrainements = () => {
                 <p className="text-green-500 text-sm font bold italic pt-4">
                   *Cet entrainement vaut {workout.exercices.length * 10} exp
                 </p>
-                <button
+                <motion.button
                   onClick={() => handleWorkoutCompleted(workout.id)}
                   className="border-2 border-white p-2 mt-2"
+                  whileHover={{
+                    backgroundColor: "white",
+                    color: "black",
+                    scale: 1.05,
+                    transition: { duration: 0.25 },
+                  }}
                 >
                   <p className="text-sm">Terminer</p>
-                </button>
+                </motion.button>
               </ul>
 
               <div className="absolute top-0 right-0 pt-4 pr-4">

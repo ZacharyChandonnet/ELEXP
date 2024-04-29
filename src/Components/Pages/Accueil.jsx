@@ -49,7 +49,7 @@ const Accueil = () => {
 
   return (
     <motion.section
-      className="grid grid-cols-1 gap-12 "
+      className="grid grid-cols-1 gap-12"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -70,6 +70,8 @@ const Accueil = () => {
             ...style,
             backgroundPosition: "center",
             backgroundSize: "cover",
+            height: "40vh",
+            overflow: "hidden",
           }}
         >
           <h1 className="text-center font-titre text-3xl lg:text-9xl text-white">
