@@ -27,8 +27,6 @@ const Contact = () => {
   const [listeMessages, setListeMessages] = useState([]);
   const [lesMessages, setLesMessages] = useState([]);
 
-
-
   const handleSearch = async () => {
     try {
       const results = await rechercherUserNom(searchTerm);
@@ -37,7 +35,6 @@ const Contact = () => {
       console.error("Error searching users:", error);
     }
   };
-
 
   const handleChange = (e) => {
     const term = e.target.value;
@@ -51,28 +48,29 @@ const Contact = () => {
     }
   };
 
-  const handleAfficherMessage = async () => {
-    try {
-      const messages = await afficherMessage();
-      setLesMessages(messages || []);
-      console.log("Messages:", messages);
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
+  useEffect(() => {
+    const initializeMessages = async () => {
+      try {
+        const messages = await afficherMessage();
+        setLesMessages(messages || []);
+      } catch (error) {
+        console.error("Erreur de message:", error);
+      }
+    };
 
+    initializeMessages();
+  }, [afficherMessage, user]);
 
   const handleCreerGroupeChat = async (contact) => {
     setChat(!chat);
     setContact(contact);
-    handleAfficherMessage();
+
     try {
       await creerGroupeChat(contact);
     } catch (error) {
       console.error("Error creating chat group:", error);
     }
   };
-
 
   const handleAjouterMessage = async (message) => {
     try {
@@ -81,9 +79,7 @@ const Contact = () => {
     } catch (error) {
       console.error("Error adding message:", error);
     }
-
-  }
-
+  };
 
   const handleRetirerContact = async (contact) => {
     try {
@@ -95,8 +91,6 @@ const Contact = () => {
       console.error("Error removing contact:", error);
     }
   };
-
-
 
   useEffect(() => {
     const initializeContacts = async () => {
@@ -111,6 +105,22 @@ const Contact = () => {
     initializeContacts();
   }, [afficherContacts, user]);
 
+  const fetchNewMessages = async () => {
+    try {
+      const messages = await afficherMessage();
+      setLesMessages(messages || []);
+    } catch (error) {
+      console.error("Erreur de message:", error);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetchNewMessages();
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [afficherMessage]);
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -145,7 +155,10 @@ const Contact = () => {
                   key={index}
                 >
                   <div className="flex justify-center items-center p-8">
-                    <Link to={`/contact/${contact.uuid}`} onClick={() => setContact(!contact)}>
+                    <Link
+                      to={`/contact/${contact.uuid}`}
+                      onClick={() => setContact(!contact)}
+                    >
                       <p className="mr-auto font-titre">{contact.name}</p>
                     </Link>
                     <p className="text-lg font-bold  ml-auto flex items-center gap-4">
@@ -154,7 +167,10 @@ const Contact = () => {
                         className="cursor-pointer"
                         onClick={() => handleRetirerContact(contact)}
                       />
-                      <p onClick={() => handleCreerGroupeChat(contact)} className="cursor-pointer">
+                      <p
+                        onClick={() => handleCreerGroupeChat(contact)}
+                        className="cursor-pointer"
+                      >
                         +
                       </p>
                     </p>
@@ -169,15 +185,13 @@ const Contact = () => {
       </div>
 
       {chat && (
-
         <div className="bg-white">
-
           {lesMessages.map((message, index) => (
             <div className="bg-white" key={index}>
               <p className="text-dark text-lg font-titre p-4">
-                {message.uuid}
+                {message.messager}
               </p>
-              <p className="text-dark text-lg font-titre p-4">
+              <p className="text-dark text-lg  p-4">
                 {message.message}
               </p>
             </div>
@@ -197,10 +211,6 @@ const Contact = () => {
             Ajouter
           </button>
         </div>
-
-
-
-
       )}
     </div>
   );

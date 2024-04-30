@@ -21,39 +21,39 @@ import {
 } from "firebase/firestore";
 
 const UserContext = createContext({
-  updateUser: async () => { },
-  createWorkout: async () => { },
-  afficherWokoutDetails: async () => { },
-  supprimerEntrainement: async () => { },
-  afficherExperience: async () => { },
-  ajouterWorkoutFini: async () => { },
-  afficherWorkoutFini: async () => { },
-  creerDailyQuest: async () => { },
-  afficherDailyQuest: async () => { },
-  ajouterDailyQuestFini: async () => { },
-  afficherDailyQuestFini: async () => { },
-  ajouterExperience: async () => { },
-  partirTimer: async () => { },
-  ajouterWorkoutTendance: async () => { },
-  afficherDateEntrainementTendance: async () => { },
-  supprimerExerciceWorkout: async () => { },
-  ajouterExercicesAuWorkout: async () => { },
-  creerObjectif: async () => { },
-  afficherObjectifs: async () => { },
-  deleteObjectif: async () => { },
-  objectifCompleted: async () => { },
-  setRerolltoTrue: async () => { },
-  setRerolltoFalse: async () => { },
-  rechercherUserNom: async () => { },
-  ajouterContact: async () => { },
-  afficherContacts: async () => { },
-  afficherContactSelonUuid: async () => { },
-  afficherWorkoutDetailsContact: async () => { },
-  afficherTopUser: async () => { },
-  retirerContact: async () => { },
-  creerGroupeChat: async () => { },
-  ajouterMessage: async () => { },
-  afficherMessage: async () => { },
+  updateUser: async () => {},
+  createWorkout: async () => {},
+  afficherWokoutDetails: async () => {},
+  supprimerEntrainement: async () => {},
+  afficherExperience: async () => {},
+  ajouterWorkoutFini: async () => {},
+  afficherWorkoutFini: async () => {},
+  creerDailyQuest: async () => {},
+  afficherDailyQuest: async () => {},
+  ajouterDailyQuestFini: async () => {},
+  afficherDailyQuestFini: async () => {},
+  ajouterExperience: async () => {},
+  partirTimer: async () => {},
+  ajouterWorkoutTendance: async () => {},
+  afficherDateEntrainementTendance: async () => {},
+  supprimerExerciceWorkout: async () => {},
+  ajouterExercicesAuWorkout: async () => {},
+  creerObjectif: async () => {},
+  afficherObjectifs: async () => {},
+  deleteObjectif: async () => {},
+  objectifCompleted: async () => {},
+  setRerolltoTrue: async () => {},
+  setRerolltoFalse: async () => {},
+  rechercherUserNom: async () => {},
+  ajouterContact: async () => {},
+  afficherContacts: async () => {},
+  afficherContactSelonUuid: async () => {},
+  afficherWorkoutDetailsContact: async () => {},
+  afficherTopUser: async () => {},
+  retirerContact: async () => {},
+  creerGroupeChat: async () => {},
+  ajouterMessage: async () => {},
+  afficherMessage: async () => {},
   user: null,
   _v: 0,
 });
@@ -764,46 +764,45 @@ export function UserProvider({ children }) {
     const chatId = uuid + contact.uuid;
     const chatIdReverse = contact.uuid + uuid;
     const usersChatRef = doc(db, "usersChat", chatId);
-
+  
     const usersChatSnap = await getDoc(usersChatRef);
-
+  
     if (usersChatSnap.exists()) {
       const messages = usersChatSnap.data().messages;
-
+  
       messages.push({
         message: message,
-        uuid: uuid,
+        messager: await getUserNameByUuid(uuid), 
       });
-
+  
       await updateDoc(usersChatRef, {
         messages: messages,
       });
-
+  
       const messagesSnap = await getDoc(usersChatRef);
       return messagesSnap.data().messages;
-
-
     } else if (usersChatSnap.exists() === false) {
       const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
       const usersChatReverseSnap = await getDoc(usersChatReverseRef);
-
+  
       if (usersChatReverseSnap.exists()) {
         const messages = usersChatReverseSnap.data().messages;
-
+  
         messages.push({
           message: message,
-          uuid: uuid,
+          messager: await getUserNameByUuid(uuid), 
         });
-
+  
         await updateDoc(usersChatReverseRef, {
           messages: messages,
         });
-
+  
         const messagesSnap = await getDoc(usersChatReverseRef);
         return messagesSnap.data().messages;
       }
     }
   };
+  
 
   const afficherMessage = async () => {
     const uuid = user.uid;
@@ -812,20 +811,32 @@ export function UserProvider({ children }) {
     const usersChatRef = doc(db, "usersChat", chatId);
 
     const usersChatSnap = await getDoc(usersChatRef);
-    const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
 
     if (usersChatSnap.exists()) {
-      const messages = usersChatSnap.data().messages;
-      return messages;
-    } else if (usersChatSnap.exists() === false) {
+      return usersChatSnap.data().messages;
+    } else {
+      const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
       const usersChatReverseSnap = await getDoc(usersChatReverseRef);
 
       if (usersChatReverseSnap.exists()) {
-        const messages = usersChatReverseSnap.data().messages;
-        return messages;
+        return usersChatReverseSnap.data().messages;
       }
     }
+ 
+
+   
   };
+
+  const getUserNameByUuid = async (uuid) => {
+    const userDocRef = doc(db, "users", uuid);
+    const userDocSnapshot = await getDoc(userDocRef);
+    if (userDocSnapshot.exists()) {
+      return userDocSnapshot.data().name;
+    } else {
+      return "Utilisateur inconnu";
+    }
+  };
+  
 
   useEffect(() => {
     const getDocRef = async () => {
