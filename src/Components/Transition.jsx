@@ -22,7 +22,7 @@ const Transition = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.5, delay: 0.1, ease: "easeInOut" }}
             >
-              <img src="/LogoB.svg" alt="Logo" className="logo" />
+              <img src="/LogoD.svg" alt="Logo" className="logo" />
             </motion.div>
           </span>
         </div>

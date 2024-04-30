@@ -93,6 +93,7 @@ const Createworkout = () => {
     }, 7000);
   
     setWorkoutName("");
+    setSelectedExercises({});
   };
 
   return (

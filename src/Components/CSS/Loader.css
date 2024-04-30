@@ -1,6 +1,6 @@
 .preloader{
     height: 100vh;
-    background-color: #0D0D0D;
+    background-color: white;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,3 +17,10 @@
     height: 500px;
 }
 
+
+h1.outline {
+    color: #0D0D0D;
+    background-color: #0D0D0D;
+    text-shadow: -1px -1px 0 #ffff, 1px -1px 0 #ffff, -1px 1px 0 #ffff, 1px 1px 0 #ffff;
+  
+}

@@ -1,6 +1,10 @@
 import Heading from "../Heading";
 import "../CSS/Entrainement.css";
 import { motion } from "framer-motion";
+import { LiaEye } from "react-icons/lia";
+import { GiBiceps } from "react-icons/gi";
+import { LuDumbbell } from "react-icons/lu";
+import "../CSS/Propos.css";
 
 const Propos = () => {
   return (
@@ -25,7 +29,7 @@ const Propos = () => {
             <img src="/push1_image.webp" alt="Entrainement" />
           </figure>
           <div className="mt-auto ">
-            <h2 className="font-titre text-2xl lg:text-9xl uppercase ">ENTRAINE TOI</h2>
+            <h2 className="font-titre text-2xl lg:text-9xl uppercase ">ENTRAINE <span className="lg:text-white">TOI</span></h2>
           </div>
         </div>
       </motion.div>
@@ -37,7 +41,7 @@ const Propos = () => {
       >
         <div>
           <h2 className="font-titre text-2xl lg:text-9xl uppercase lg:text-center  ">
-            GAGNE DE L'EXPÉRIENCE
+            GAGNE DE L'EXPÉR<span className="lg:text-white">IENCE</span>
           </h2>
         </div>
       </motion.div>
@@ -51,7 +55,7 @@ const Propos = () => {
           <div className="mb-auto ">
             <h2 className="font-titre text-2xl lg:text-9xl uppercase">
               {" "}
-              DÉVELOPPE TOI
+              <span className="lg:text-white">DÉV</span>ELOPPE TOI
             </h2>
           </div>
           <figure
@@ -75,9 +79,10 @@ const Propos = () => {
           alt="Entrainement"
           className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10 hidden md:block"
           style={{
-            width: "22%",
-            marginBottom: "2.5%",
+            width: "28%",
+            marginBottom: "6.5%",
             filter: "blur(2.5px)",
+            marginRight: "-17%",
           }}
         />
 
@@ -87,27 +92,80 @@ const Propos = () => {
           className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10 hidden md:block"
           style={{
             width: "25%",
-            marginTop: "15%",
+            marginTop: "-7%",
             filter: "blur(5.5px)",
+            marginLeft: "8%",
           }}
         />
       </motion.div>
 
-      <div className="text-center font-bold bg-dark text-white my-12 py-12">
-        <p className=" italic pt-4 w-2/3 mx-auto">
-          " Notre mission est d'offrir un service de qualité à nos clients. Nous
-          voulons les aider à atteindre leurs objectifs de remise en forme et de
-          bien-être. Nous voulons les aider à se sentir bien dans leur peau et à
-          être en bonne santé. "
-        </p>
+      <div className="grid grid-cols-1 font-bold my-12 py-12">
+        <motion.div
+          whileHover={{
+            color: "white",
+            backgroundColor: "black",
+            scale: 1.05,
+            transition: { duration: 0.25 },
 
-        <p className=" italic pt-4 w-2/3 mx-auto">
-          " Notre vision est de motiver nos clients à adopter un mode de vie
-          sain en leur proposant un système d'expérience unique sous fourme de
-          jeu. En gagnant de l'expérience, les clients pourront débloquer des
-          entraînements et des exercices plus avancés afin d'assurer une
-          progression constante. "
-        </p>
+          }}
+          className="right border-t-2 border-dark py-6">
+          <div>
+            <GiBiceps className="mx-auto " />
+          </div>
+          <div className="p-8">
+            <p className=" italic pt-4 w-2/3 mx-auto">
+              " Notre mission est d'offrir un service de qualité à nos clients. Nous
+              voulons les aider à atteindre leurs objectifs de remise en forme et de
+              bien-être. Nous voulons les aider à se sentir bien dans leur peau et à
+              être en bonne santé. "
+            </p>
+          </div>
+        </motion.div>
+        <motion.div
+          whileHover={{
+            color: "white",
+            backgroundColor: "black",
+            scale: 1.05,
+            transition: { duration: 0.25 },
+
+          }}
+          className="left pt-6 border-t-2 border-dark">
+          <div>
+            <LiaEye className="mx-auto " />
+          </div>
+
+          <div className="p-8">
+            <p className=" italic pt-4 w-2/3 mx-auto">
+              " Notre vision est de motiver nos clients à adopter un mode de vie
+              sain en leur proposant un système d'expérience unique sous fourme de
+              jeu. En gagnant de l'expérience, les clients pourront débloquer des
+              entraînements et des exercices plus avancés afin d'assurer une
+              progression constante. "
+            </p>
+          </div>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            color: "white",
+            backgroundColor: "black",
+            scale: 1.05,
+            transition: { duration: 0.25 },
+
+          }}
+          className="right pt-6 border-t-2 border-dark">
+          <div>
+            <LuDumbbell className="mx-auto " />
+          </div>
+          <div className="p-8 ">
+            <p className=" italic pt-4 w-2/3 mx-auto">
+              " Ce que nous offrons à nos clients, c'est des programmes d'entraînement selon les tendances d'aujourd'hui, des défis quotidiens
+              afin de les motiver à se dépasser, la possibilité de créér ses entraînements personnalisés, un historique de ses performances et un tableau
+              de bord pour suivre ses objectifs. "
+            </p>
+          </div>
+        </motion.div>
+
       </div>
     </div>
   );

@@ -22,68 +22,57 @@ const Connexion = () => {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0,},
-    visible: {
-      opacity: 1,
-      transition: { delay: 2, duration: 1 },
-    },
-  };
 
- 
 
   return (
-    <motion.section
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
-      <div
-        className="flex items-center login"
-        style={{ position: "relative", overflow: "hidden", height: "100vh" }}
-      >
-        <div
-          className="grid grid-cols-2 gap-12 bg-dark h-64 items-center p-4 lg:w-2/3 relative z-10 "
-          style={{ position: "relative" }}
-        >
-          <h1 className="font-titre lg:text-4xl text-white z-10 relative">
-            Veuillez vous connecter <br /> afin d'accéder à nos services
-          </h1>
-          <button onClick={signInWithGoogle} className="z-10 relative">
-            {" "}
-            <span className="text-5xl">
-              <FcGoogle />
-            </span>{" "}
-          </button>
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            height: "80%",
-            width: "100%",
-            zIndex: 1,
-            marginTop: "5%",
-          }}
-        >
-          <video
-            autoPlay
-            loop
-            muted
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              position: "absolute",
-            }}
+    <div className="grid grid-cols-2 h-screen">
+      <div className="bg-dark relative">
+        <video autoPlay loop muted
+          speed="0.5"
+          className="h-screen w-full object-cover opacity-50">
+          <source src={video} type="video/mp4" />
+        </video>
+
+        <div className="absolute top-1/2 left-0 transform  -translate-y-1/2">
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={signInWithGoogle}
+            className="bg-white text-dark font-titre text-2xl px-4 py-2 rounded-lg flex items-center gap-2"
           >
-            <source src={video} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+            <FcGoogle size={30} />
+            <span>Connexion avec Google</span>
+          </motion.button>
         </div>
+
       </div>
-    </motion.section>
+      <div>
+        <div className="font-titre italic lg:text-6xl uppercase bg-dark text-white righto h-screen flex flex-col justify-center items-center gap-12 relative"
+        >
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="outline">entraîne toi</motion.h1>
+          <motion.h1
+            initial={{ opacity: 0,}}
+            animate={{ opacity: 1,}}
+            transition={{ duration: 1.5, delay: 2 }}
+          >gagne en expérience</motion.h1>
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            className="outline">gagne du contenu</motion.h1>
+        </div>
+
+        <figure className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/6 w-1/2 opacity-20 overflow-hidden h-1/2">
+          <img src="/LogoB.svg" alt="Logo" className="logo" />
+        </figure>
+
+      </div>
+
+    </div>
   );
 };
 

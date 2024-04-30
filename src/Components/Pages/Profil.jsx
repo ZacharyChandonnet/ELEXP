@@ -8,7 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 import Notification from "../Notification";
 import { motion, AnimatePresence, useScroll } from "framer-motion";
 import "../CSS/Profil.css";
-import Heading from "../Heading";
+import BarrerExperience from "../BarreExperience";
 
 const Profil = () => {
   const {
@@ -256,6 +256,14 @@ const Profil = () => {
         </div>
       </motion.div>
 
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+      >
+       <BarrerExperience currentRank={currentRank} nextRank={nextRank} nextRankExp={nextRankExp} progressPercent={progressPercent} currentExperience={currentExperience} />
+      </motion.div>
+
       <div className="pt-12">
         <h3 className="font-titre uppercase">Mes workouts</h3>
 
@@ -308,40 +316,7 @@ const Profil = () => {
           </ul>
         </motion.div>
       </div>
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1 }}
-      >
-        <div className="my-12">
-          <div className="flex gap-4 items-center font-titre">
-            <p>
-              {currentRank}
-              <br />
-              exp.{currentExperience}
-            </p>
-            <div style={{ width: "100%", border: "1px solid black" }}>
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${progressPercent}%` }}
-                transition={{ delay: 0.5, duration: 1 }}
-              >
-                <div
-                  style={{
-                    width: `${progressPercent}%`,
-                    backgroundColor: "black",
-                    height: "1.5rem",
-                  }}
-                ></div>
-              </motion.div>
-            </div>
-            <p>{nextRank}</p>
-          </div>
-          <p className="text-center font-bold italic">
-            {nextRankExp - currentExperience}XP restants
-          </p>
-        </div>
-      </motion.div>
+  
 
       <motion.div
         initial={{ opacity: 0 }}

@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import Heading from "../Heading";
 import ListeEntrainements from "../ListeEntrainements";
 import "../CSS/Entrainement.css";
-import { motion, AnimatePresence, useScroll } from "framer-motion";
+import { motion, AnimatePresence} from "framer-motion";
 
 const Entrainements = () => {
   const [showWorkouts, setShowWorkouts] = useState(false);
   const [showX2, setShowX2] = useState(false);
-  const { scrollYProgress } = useScroll();
   const handleX2AnimationComplete = () => {
     setShowWorkouts(true);
   };
@@ -25,8 +24,8 @@ const Entrainements = () => {
 
       <motion.div
         className="X-1"
-        initial={{ opacity: 0, y: "-100vh" }}
-        animate={{ opacity: 1, y: 0, transition: { duration: 1 } }}
+        initial={{ opacity: 0, x: "-200" }}
+        animate={{ opacity: 1, x: 0, transition: { duration: 1 } }}
         onAnimationComplete={() => setShowX2(true)}
       >
         <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">

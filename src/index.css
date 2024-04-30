@@ -10,7 +10,7 @@
     font-weight: bold;
 }
 
-html{
+.layout{
     margin: 0 auto;
     width: calc(100vw - 4rem);
     font-family: 'Roboto', sans-serif;
@@ -19,7 +19,17 @@ html{
   
   @media screen and (min-width: 1024px){
   
-    html{
+    .layout{
       width: calc(100vw - 12rem);
     }
+  }
+
+  html{
+    scroll-behavior: smooth;
+    
+ 
+  }
+
+  h1,h2,h3,h4,h5,h6{
+    word-spacing: .25rem;
   }

@@ -13,7 +13,7 @@ const Header = () => {
   const { logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -116,7 +116,7 @@ const Header = () => {
       </div>
       <div className="cursor-pointer" onClick={handleClick}>
         <motion.p whileHover={{ scale: 1.025, opacity: 0.5 }}
-         className="hidden md:flex">
+          className="hidden md:flex">
           {user?.name} exp.{user?.experience}
         </motion.p>
 
@@ -157,9 +157,9 @@ const Header = () => {
               <IoMdClose size={40} onClick={() => setContact(!contact)} />
             </p>
             <div className="grid grid-cols-1 justify-center items-center w-9/12">
-              <p className="text-white font-titre text-center lg:text-5xl uppercase border-b-2 border-white pb-4">
-                CLASSEMENT
-              </p>
+                <p className="text-white font-titre text-center lg:text-5xl uppercase border-b-2 border-white pb-4">
+                  CLASSEMENT
+                </p>
               <Contact />
             </div>
           </motion.div>

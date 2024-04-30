@@ -60,7 +60,8 @@ const DailyQuest = () => {
   const setReroll = async () => {
     if (!user.reroll) {
       setRerolltoTrue();
-      window.location.reload();
+      const dq = await afficherDailyQuest();
+      setDailyQuest(dq);
     }
   };
 
@@ -122,7 +123,7 @@ const DailyQuest = () => {
                   {dailyQuest?.name?.title}
                 </p>
                 <div className="pl-2  flex flex-col gap-2">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col  gap-2">
                     <p
                       className={
                         user.userCompletedDailyQuest ? "text-dark" : "text-white"
@@ -133,16 +134,19 @@ const DailyQuest = () => {
 
 
                     {!user.userCompletedDailyQuest && (
-                      <button
+                      <motion.button
+                      whileHover={{ scale: 1.05, backgroundColor: "white", color: "black"}}
+                      transition={{ duration: 0.25 }}
                         className={
-                          user.userCompletedDailyQuest ? "text-dark" : "text-white"
+                          user.userCompletedDailyQuest ? "text-dark" : "text-white border-2 border-white w-28"
                         }
                         onClick={ajouterDaily}
                       >
-                        <p className="p-2 text-xl">
+                        <div className="p-2 text-xl flex items-center gap-2">
+                          <p className="text-sm">Terminer</p>
                           <FaCheck />
-                        </p>
-                      </button>
+                        </div>
+                      </motion.button>
                     )}
 
                   </div>
@@ -191,7 +195,7 @@ const DailyQuest = () => {
             message={
               "Votre défi du jour a bien été terminé !" +
               dailyQuest?.name?.experience +
-              " points d'expérience"
+              "exp"
             }
             redirection="/profil"
           />

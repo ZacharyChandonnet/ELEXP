@@ -185,7 +185,7 @@ const DetailsTendance = () => {
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification
             message={
-              "Votre workout a bien été ajouté !" + 40 + " points d'expérience"
+              "Votre workout a bien été ajouté !" + 40 + "exp"
             }
             redirection="/profil"
           />
