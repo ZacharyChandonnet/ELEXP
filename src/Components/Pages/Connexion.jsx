@@ -38,7 +38,7 @@ const Connexion = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={signInWithGoogle}
-            className="bg-white text-dark font-titre text-2xl px-4 py-2 rounded-lg flex items-center gap-2"
+            className="bg-white text-dark font-titre text-2xl px-4 py-2  flex items-center gap-2"
           >
             <FcGoogle size={30} />
             <span>Connexion avec Google</span>
@@ -63,7 +63,7 @@ const Connexion = () => {
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 3 }}
-            className="outline">gagne du contenu</motion.h1>
+            className="outline">débloque du contenu</motion.h1>
         </div>
 
         <figure className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/6 w-1/2 opacity-20 overflow-hidden h-1/2">

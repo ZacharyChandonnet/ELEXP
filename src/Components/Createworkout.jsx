@@ -229,7 +229,9 @@ const Createworkout = () => {
             disabled={!isAbleToCreate}
             className="bg-dark text-white p-2 mt-4 cursor-pointer lg:w-1/6 "
           >
-            <p>Créer l'entraînement</p>
+            
+            <p>
+              <a href="#entrainements">Créer l'entraînement</a></p>
           </motion.button>
         </div>
       )}

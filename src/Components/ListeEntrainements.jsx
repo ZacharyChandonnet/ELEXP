@@ -262,7 +262,7 @@ const ListeEntrainements = () => {
     <section>
       <DailyQuest />
 
-      <h2 className="font-titre uppercase">Mes entrainements</h2>
+      <h2 id="entrainements" className="font-titre uppercase">Mes entrainements</h2>
       {cooldownRemaining > 0 && (
         <p className="text-red-500 font-bold italic text-sm p-2">
           Temps de récupération restant avant d'ajouter un autre entrainement:{" "}

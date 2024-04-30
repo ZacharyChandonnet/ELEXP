@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "../Context/UserContext";
 import RechercheContact from "./RechercheContact";
 import Palmares from "./Palmares";
-import { motion } from "framer-motion";
+import { m, motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "./CSS/Contact.css";
 import { FaTrash } from "react-icons/fa6";
@@ -15,10 +15,19 @@ const Contact = () => {
     retirerContact,
     setContact,
     contact,
+    creerGroupeChat,
+    ajouterMessage,
+    afficherMessage,
   } = useUser();
   const [userNom, setUserNom] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [contacts, setContacts] = useState([]);
+  const [chat, setChat] = useState(false);
+  const [message, setMessage] = useState("");
+  const [listeMessages, setListeMessages] = useState([]);
+  const [lesMessages, setLesMessages] = useState([]);
+
+
 
   const handleSearch = async () => {
     try {
@@ -28,6 +37,7 @@ const Contact = () => {
       console.error("Error searching users:", error);
     }
   };
+
 
   const handleChange = (e) => {
     const term = e.target.value;
@@ -41,6 +51,40 @@ const Contact = () => {
     }
   };
 
+  const handleAfficherMessage = async () => {
+    try {
+      const messages = await afficherMessage();
+      setLesMessages(messages || []);
+      console.log("Messages:", messages);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  };
+
+
+  const handleCreerGroupeChat = async (contact) => {
+    setChat(!chat);
+    setContact(contact);
+    handleAfficherMessage();
+    try {
+      await creerGroupeChat(contact);
+    } catch (error) {
+      console.error("Error creating chat group:", error);
+    }
+  };
+
+
+  const handleAjouterMessage = async (message) => {
+    try {
+      await ajouterMessage(message);
+      setListeMessages((prevMessages) => [...prevMessages, message]);
+    } catch (error) {
+      console.error("Error adding message:", error);
+    }
+
+  }
+
+
   const handleRetirerContact = async (contact) => {
     try {
       await retirerContact(contact);
@@ -51,6 +95,8 @@ const Contact = () => {
       console.error("Error removing contact:", error);
     }
   };
+
+
 
   useEffect(() => {
     const initializeContacts = async () => {
@@ -64,6 +110,7 @@ const Contact = () => {
 
     initializeContacts();
   }, [afficherContacts, user]);
+
 
   return (
     <div className="grid grid-cols-1 gap-4">
@@ -89,7 +136,7 @@ const Contact = () => {
             Mes contacts
           </p>
           {contacts.length > 0 ? (
-            <div className="overflow-y-auto h-64">
+            <div className="">
               {contacts.map((contact, index) => (
                 <motion.div
                   className="text-dark text-lg"
@@ -107,6 +154,9 @@ const Contact = () => {
                         className="cursor-pointer"
                         onClick={() => handleRetirerContact(contact)}
                       />
+                      <p onClick={() => handleCreerGroupeChat(contact)} className="cursor-pointer">
+                        +
+                      </p>
                     </p>
                   </div>
                 </motion.div>
@@ -117,6 +167,41 @@ const Contact = () => {
           )}
         </div>
       </div>
+
+      {chat && (
+
+        <div className="bg-white">
+
+          {lesMessages.map((message, index) => (
+            <div className="bg-white" key={index}>
+              <p className="text-dark text-lg font-titre p-4">
+                {message.uuid}
+              </p>
+              <p className="text-dark text-lg font-titre p-4">
+                {message.message}
+              </p>
+            </div>
+          ))}
+
+          <input
+            type="text"
+            placeholder="Ajouter un message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="input-search bg-none text-white p-2 w-full italic "
+          />
+          <button
+            className="bg-blue-500 text-white p-2 w-full"
+            onClick={() => handleAjouterMessage(message)}
+          >
+            Ajouter
+          </button>
+        </div>
+
+
+
+
+      )}
     </div>
   );
 };

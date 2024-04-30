@@ -126,7 +126,7 @@ const Header = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex flex-col absolute top-12 right-0 bg-dark text-white   m-12">
+            <div className="flex flex-col absolute top-12 right-0 bg-dark text-white mt-12 mr-12 z-40">
               <Link to="/profil" className="mx-2 my-2">
                 Profil
               </Link>
