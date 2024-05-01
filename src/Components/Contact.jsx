@@ -187,7 +187,7 @@ const Contact = () => {
               </div>
             ))}
 
-            <div className="message absolute bottom-0 w-full mb-24">
+            <div className="message absolute bottom-0 w-1/2 lg:w-full mb-12 lg:mb-24">
               <input
                 type="text"
                 placeholder="Ajouter un message"

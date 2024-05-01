@@ -72,7 +72,8 @@ const Header = () => {
         />
       </div>
 
-      <div onClick={handleMenu} className="md:hidden">
+      <div onClick={handleMenu}
+        className="md:hidden">
         <div
           className="relative z-50"
           style={{ color: isMenuOpen ? "white" : "black" }}
