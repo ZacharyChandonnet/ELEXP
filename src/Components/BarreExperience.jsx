@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const BarrerExperience = ({currentRank, nextRank, nextRankExp, progressPercent, currentExperience}) => {
+const BarrerExperience = ({allRanks, currentRank, nextRank, nextRankExp, progressPercent, currentExperience}) => {
     return (
         <div className="my-12">
             <div className="flex gap-4 items-center font-titre">

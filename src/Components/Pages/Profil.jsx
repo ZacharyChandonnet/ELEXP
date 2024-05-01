@@ -42,6 +42,7 @@ const Profil = () => {
   const [nextRankExp, setNextRankExp] = useState(0);
   const [progressPercent, setProgressPercent] = useState(0);
   const [nextRank, setNextRank] = useState("");
+  const [allRanks, setAllRanks] = useState([]);
 
   useEffect(() => {
     const unsubscribe = afficherExperience((experience) => {
@@ -127,6 +128,7 @@ const Profil = () => {
     }
   }, [user]);
 
+
   useEffect(() => {
     const fetchDateEntrainementTendance = async () => {
       const dates = await afficherDateEntrainementTendance();
@@ -142,8 +144,12 @@ const Profil = () => {
       Avancé: 200,
       Expert: 350,
       Maître: 500,
-      Immortel: 1000,
+      Sage: 2000,
+      Immortel: 500000,
     };
+
+    setAllRanks(ranks);
+    console.log(allRanks);
 
     let rank = "Débutant";
     let nextRank = "";
@@ -153,6 +159,10 @@ const Profil = () => {
       } else {
         nextRank = key;
         break;
+      }
+
+      if (key === "Immortel") {
+        nextRank = "Immortel";
       }
     }
     setCurrentRank(rank);
@@ -261,7 +271,7 @@ const Profil = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-       <BarrerExperience currentRank={currentRank} nextRank={nextRank} nextRankExp={nextRankExp} progressPercent={progressPercent} currentExperience={currentExperience} />
+       <BarrerExperience allRanks={allRanks} currentRank={currentRank} nextRank={nextRank} nextRankExp={nextRankExp} progressPercent={progressPercent} currentExperience={currentExperience} />
       </motion.div>
 
       <div className="pt-12">
