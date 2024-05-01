@@ -55,6 +55,7 @@ const UserContext = createContext({
   ajouterMessage: async () => {},
   afficherMessage: async () => {},
   afficherPosition: async () => {},
+  modifierNomEntrainement: async () => {},
   user: null,
   _v: 0,
 });
@@ -144,6 +145,14 @@ export function UserProvider({ children }) {
 
     return updatedExercises;
   };
+
+  const modifierNomEntrainement = async (workoutId, workoutName) => {
+    const workoutDocRef = doc(db, "workouts", workoutId);
+    await updateDoc(workoutDocRef, {
+      name: workoutName,
+    });
+  };
+
 
   const supprimerEntrainement = async (workoutId) => {
     const uuid = user.uid;
@@ -987,6 +996,7 @@ export function UserProvider({ children }) {
         setLesMessages,
         lesMessages,
         afficherPosition,
+        modifierNomEntrainement,
       }}
     >
       {children}

@@ -12,6 +12,7 @@ import { FaTimes } from "react-icons/fa";
 import Notification from "./Notification";
 import "./CSS/ListeEntrainement.css";
 import { motion } from "framer-motion";
+import { MdModeEdit } from "react-icons/md";
 
 const ListeEntrainements = () => {
   const {
@@ -21,6 +22,7 @@ const ListeEntrainements = () => {
     supprimerExerciceWorkout,
     ajouterExercicesAuWorkout,
     ajouterWorkoutFini,
+    modifierNomEntrainement,
   } = useUser();
 
   const [workouts, setWorkouts] = useState([]);
@@ -34,6 +36,7 @@ const ListeEntrainements = () => {
   const [openCategories, setOpenCategories] = useState({});
   const [notificationWorkout, setNotificationWorkout] = useState(false);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
+  const [modifierNom, setModifierNom] = useState(false);
 
   const handleWorkoutCompleted = (id) => {
     if (cooldownRemaining === 0) {
@@ -45,6 +48,13 @@ const ListeEntrainements = () => {
         setNotificationWorkout(false);
       }, 7000);
     }
+  };
+
+  const handleModifierNom = async (id, name) => {
+    await modifierNomEntrainement(id, name);
+    const updatedWorkouts = await afficherWokoutDetails();
+    setWorkouts(updatedWorkouts);
+    setModifier(false);
   };
 
   useEffect(() => {
@@ -289,7 +299,37 @@ const ListeEntrainements = () => {
         ) : (
           workouts.map((workout) => (
             <div key={workout.id} className="bg-dark text-white relative p-4">
-              <h3 className="font-titre text-xl">{workout.name}</h3>
+              <h3 className="font-titre text-xl">{workout.name}
+              {openSettingsId === workout.id && (
+                <button
+                  onClick={() => setModifierNom(!modifierNom)}
+                  className="text-white text-lg pl-2"
+                >
+                  <MdModeEdit />
+                </button>
+              )}
+
+              {modifierNom && openSettingsId === workout.id && (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={workout.name}
+                    onChange={(e) =>
+                      handleModifierNom(workout.id, e.target.value)
+                    }
+                  />
+                  <button
+                    onClick={() => setModifierNom(!modifierNom)}
+                    className="text-white text-lg"
+                  >
+                    <FaCheck />
+                  </button>
+
+                </div>
+              
+              )}
+
+              </h3>
               <ul>
                 {workout.exercices.map((exercise, index) => (
                   <li key={index} className="flex gap-2 items-center">
