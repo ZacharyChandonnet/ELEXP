@@ -54,6 +54,7 @@ const UserContext = createContext({
   creerGroupeChat: async () => {},
   ajouterMessage: async () => {},
   afficherMessage: async () => {},
+  afficherPosition: async () => {},
   user: null,
   _v: 0,
 });
@@ -829,6 +830,24 @@ export function UserProvider({ children }) {
     }
   };
 
+  const afficherPosition = async () => {
+    const uuid = user.uid;
+    const usersdb = collection(db, "users");
+    const nom = query(usersdb, orderBy("experience", "desc"));
+    const querySnapshot = await getDocs(nom);
+
+    const users = querySnapshot.docs.map((doc) => doc.data());
+    const userPosition = users.findIndex((user) => user.uuid === uuid) + 1;
+
+    if (userPosition === 1) {
+      return userPosition + "er sur " + users.length + " utilisateurs.";
+    }else{
+      return userPosition + "ème sur " + users.length + " utilisateurs.";
+    }
+
+    return `${userPosition} sur ${users.length} utilisateurs.`;
+  };
+
   
   useEffect(() => {
     const listenToMessages = async () => {
@@ -967,6 +986,7 @@ export function UserProvider({ children }) {
         afficherMessage,
         setLesMessages,
         lesMessages,
+        afficherPosition,
       }}
     >
       {children}

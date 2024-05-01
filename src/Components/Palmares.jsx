@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Palmares = () => {
-  const { user, afficherTopUser, setContact, contact } = useUser();
+  const { user, afficherTopUser, setContact, contact, afficherPosition } = useUser();
   const [topUsers, setTopUsers] = useState([]);
-  const [positionUser, setPositionUser] = useState([]);
+  const [position, setPosition] = useState(0);
+
 
   useEffect(() => {
     const initializeTopUsers = async () => {
@@ -22,6 +23,17 @@ const Palmares = () => {
     initializeTopUsers();
   }, [afficherTopUser, user]);
 
+
+  useEffect(() => {
+    if (user) {
+      afficherPosition().then((res) => {
+        setPosition(res);
+      });
+
+    }
+
+  }, [user]);
+
   return (
     <div className="grid grid-cols-1 gap-12 justify-center items-center p-4">
       <div>
@@ -30,7 +42,7 @@ const Palmares = () => {
             key={index}
             whileHover={{ backgroundColor: "#fff", color: "black" }}
             style={{
-              color:"white",
+              color: "white",
             }}
           >
             <Link to={`/contact/${user.uuid}`} className="flex gap-12 items-center p-4" onClick={() => setContact(!contact)}>
@@ -42,6 +54,7 @@ const Palmares = () => {
             </Link>
           </motion.div>
         ))}
+        <p className="text-white text-sm italic"> <span className="font-bold font-titre uppercase">{user.name}</span> est {position}</p>
       </div>
     </div>
   );

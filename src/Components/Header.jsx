@@ -1,7 +1,7 @@
 import Navbar from "./Navbar";
 import { useUser } from "../Context/UserContext";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../Context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -13,6 +13,7 @@ const Header = () => {
   const { logout } = useAuth();
   const [isClicked, setIsClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [position, setPosition] = useState(0);
 
 
   const handleClick = () => {
@@ -157,9 +158,9 @@ const Header = () => {
               <IoMdClose size={40} onClick={() => setContact(!contact)} />
             </p>
             <div className="grid grid-cols-1 justify-center items-center w-9/12">
-                <p className="text-white font-titre text-center lg:text-5xl uppercase border-b-2 border-white pb-4">
-                  CLASSEMENT
-                </p>
+              <p className="text-white font-titre text-center lg:text-5xl uppercase border-b-2 border-white pb-4">
+                CLASSEMENT
+              </p>
               <Contact />
             </div>
           </motion.div>

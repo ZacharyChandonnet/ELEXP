@@ -1,11 +1,10 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import { useAuth } from "../Context/AuthContext";
 import { useEffect, useState } from "react";
 import "./CSS/Layout.css";
 import React from "react";
-import { gsap } from "gsap";
 import Notification from "./Notification";
 import { useUser } from "../Context/UserContext";
 
@@ -15,6 +14,18 @@ const Layout = () => {
   const [notificationPullup, setNotificationPullup] = useState(false);
   const [notificationPushup, setNotificationPushup] = useState(false);
   const [notificationLegs, setNotificationLegs] = useState(false);
+  const [propos, setPropos] = useState(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/accueil") {
+      setPropos(true);
+    } else {
+      setPropos(false);
+    }
+  }, [location]);
+
 
   useEffect(() => {
     if (user) {
@@ -75,21 +86,21 @@ const Layout = () => {
         <Outlet />
       </main>
       <div>
-        <Footer />
+        {!propos && <Footer />}
       </div>
 
       {notificationWorkout && (
         <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vous pouvez créer un entraînement !"}
-          redirection="/entrainements"
+            redirection="/entrainements"
           />
         </div>
       )}
 
       {notificationPullup && (
         <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-          <Notification message={"Vous avez débloqué le pogramme Push !"} 
-          redirection="/programmes"
+          <Notification message={"Vous avez débloqué le pogramme Push !"}
+            redirection="/programmes"
           />
         </div>
       )}
@@ -97,7 +108,7 @@ const Layout = () => {
       {notificationPushup && (
         <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vous avez débloqué le programme Pull !"}
-          redirection="/programmes"
+            redirection="/programmes"
           />
         </div>
       )}
@@ -105,7 +116,7 @@ const Layout = () => {
       {notificationLegs && (
         <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vous avez débloqué le programme Legs !"}
-          redirection="/programmes"
+            redirection="/programmes"
           />
         </div>
       )}

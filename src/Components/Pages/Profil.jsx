@@ -458,7 +458,7 @@ const Profil = () => {
 
         <button
           onClick={() => setAjouterObjectif(!ajouterObjectif)}
-          className=" text-lg lg:text-3xl absolute right-0 top-0 p-4 bg-dark text-white z-50 mb-4 mr-4"
+          className=" text-lg lg:text-3xl absolute right-0 top-0 p-4 bg-dark text-white z-20 mb-4 mr-4"
         >
           <IoMdAdd />
         </button>

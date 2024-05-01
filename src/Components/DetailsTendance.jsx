@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import TendanceData from "../Data/TendanceData";
 import Heading from "./Heading";
 import { useUser } from "../Context/UserContext";
@@ -12,6 +12,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 const DetailsTendance = () => {
   const { id } = useParams();
   const tendance = TendanceData[id - 1];
+  const location = useLocation();
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
@@ -23,6 +24,28 @@ const DetailsTendance = () => {
   const ajouterWorkout = () => {
     ajouterWorkoutTendance(tendance.id);
   };
+
+  const tendanceThresholds = [30, 80, 120];
+
+  useEffect(() => {
+    if (location.pathname === "/programmes/3") {
+      if (user && user.experience < tendanceThresholds[2]) {
+        window.location.href = "/programmes";
+      }
+    }
+    if (location.pathname === "/programmes/2") {
+      if (user && user.experience < tendanceThresholds[1]) {
+        window.location.href = "/programmes";
+      }
+    }
+    if (location.pathname === "/programmes/1") {
+      if (user && user.experience < tendanceThresholds[0]) {
+        window.location.href = "/programmes";
+      }
+    }
+  }, [user]);
+
+
 
   useEffect(() => {
     if (user && user.cooldown) {
@@ -171,7 +194,7 @@ const DetailsTendance = () => {
           <div className="popup-content">
             <img src={popupImage} alt="Popup Image" />
             <button
-              className="text-white text-3xl"
+              className="text-white text-3xl bg-dark"
               onClick={() => setShowPopup(false)}
             >
               {" "}

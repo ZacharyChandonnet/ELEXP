@@ -1,0 +1,11 @@
+.top{
+    display: grid;
+    grid-template-columns: 30% 70%;
+    align-items: center;
+}
+
+.top ul{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
