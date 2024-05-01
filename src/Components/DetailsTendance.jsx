@@ -96,12 +96,12 @@ const DetailsTendance = () => {
       <Heading title={tendance.title} paragraph={tendance.description} />
 
       <p className="text-green-600  font bold italic pt-4 text-center">
-        *Cet entrainement vaut 40 exp
+        *Cet entraînement vaut 40 exp
       </p>
 
       {cooldownRemaining > 0 && (
         <p className="text-red-500 italic font-bold text-sm py-4">
-          *Temps de récupération avant le prochain workout :{" "}
+          *Temps de récupération avant le prochain entraînement :{" "}
           {formatCooldown(cooldownRemaining)}
         </p>
       )}
@@ -154,7 +154,7 @@ const DetailsTendance = () => {
         className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12 cursor-pointer flex justify-center items-center mt-8"
         onClick={addWorkout}
       >
-        J'ai complété ce workout
+        J'ai complété cet entraînement
       </motion.button>
 
       <Link to="/programmes" className="absolute top-0 left-0 p-4">

@@ -127,7 +127,7 @@ const ContactDetails = () => {
         transition={{ duration: 1 }}
         className="bg-dark text-white py-8 px-4">
         <div className="flex border-b-2 border-white py-4 px-2">
-          <p>Entrainements terminés: </p>
+          <p>Entraînements terminés: </p>
           <p className="ml-auto font-bold font-lg">{contact?.history.length}</p>
         </div>
         <div className="flex border-b-2 border-white py-4 px-2">

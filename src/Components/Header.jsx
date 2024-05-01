@@ -54,7 +54,7 @@ const Header = () => {
             },
             {
               url: "/entrainements",
-              name: "Entrainements",
+              name: "Entraînements",
               title: "Entrainements",
             },
             {
@@ -116,8 +116,8 @@ const Header = () => {
       </div>
       <div className="cursor-pointer" onClick={handleClick}>
         <motion.p whileHover={{ scale: 1.025, opacity: 0.5 }}
-          className="hidden md:flex">
-          {user?.name} exp.{user?.experience}
+          className="hidden md:flex gap-2">
+          {user?.name} <span className="font-bold"> exp.{user?.experience}</span>
         </motion.p>
 
         {isClicked && (

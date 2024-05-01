@@ -81,7 +81,7 @@ const Layout = () => {
       {notificationWorkout && (
         <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vous pouvez créer un entraînement !"}
-          redirection="/programmes"
+          redirection="/entrainements"
           />
         </div>
       )}

@@ -243,7 +243,7 @@ const Profil = () => {
             </h2>
             <p>
               Bienvenue sur ton profil, ici tu peux voir ta progression, tes
-              objectifs et tes workouts terminés.
+              objectifs et tes entraînements terminés.
             </p>
           </div>
           <figure className="">
@@ -265,7 +265,7 @@ const Profil = () => {
       </motion.div>
 
       <div className="pt-12">
-        <h3 className="font-titre uppercase">Mes workouts</h3>
+        <h3 className="font-titre uppercase">Mes entraînements</h3>
 
         <motion.div
           initial={{ opacity: 0, x: -100 }}
@@ -298,7 +298,7 @@ const Profil = () => {
                     onClick={() => handleWorkoutCompleted(workout.id)}
                     className="ml-auto flex gap-4 items-center "
                   >
-                    <p className="text-sm">Ajouter ce workout</p>{" "}
+                    <p className="text-sm">J'ai complété cet entraînement</p>{" "}
                     <p className="lg:text-2xl">
                       <IoMdAdd />
                     </p>
@@ -327,10 +327,10 @@ const Profil = () => {
         <ul className="grid grid-cols-1 gap-4 p-2 bg-dark">
           <div className="p-4">
             <h2 className="font-titre uppercase text-white ">
-              Mes workouts terminés
+              Mes entraînements terminés
             </h2>
             {history.length === 0 && (
-              <p className="text-white text-sm italic">Aucun workout terminé</p>
+              <p className="text-white text-sm italic">Aucun entraînement terminé</p>
             )}
             {history.map((workout, index) => (
               <Link to={`/entrainements`}>
@@ -362,7 +362,7 @@ const Profil = () => {
             </h2>
 
             {tendances.length === 0 && (
-              <p className="text-white text-sm italic">Aucun workout terminé</p>
+              <p className="text-white text-sm italic">Aucun entraînement terminé</p>
             )}
 
             {tendances &&
@@ -578,7 +578,7 @@ const Profil = () => {
 
         {notificationWorkout && (
           <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-            <Notification message={"Votre workout a bien été ajouté !"} />
+            <Notification message={"Votre entraînement a bien été ajouté !"} />
           </div>
         )}
       </div>

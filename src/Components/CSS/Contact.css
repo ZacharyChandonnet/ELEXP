@@ -3,3 +3,15 @@ input{
     background: none;
     border-bottom: 1px solid #fff;
 }
+
+.message{
+    display: grid;
+    grid-template-columns: 90% 10%;
+}
+
+.fenetre{
+    max-height: 80%;
+    scrollbar-width: thin;
+    scrollbar-color: #fff #0D0D0D;
+    overflow-y: auto;
+}

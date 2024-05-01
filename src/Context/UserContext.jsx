@@ -71,6 +71,7 @@ export function UserProvider({ children }) {
   const [userInfos, setUserInfos] = useState(null);
   const [lastWorkoutTime, setLastWorkoutTime] = useState(null);
   const [contact, setContact] = useState(false);
+  const [lesMessages, setLesMessages] = useState([]);
 
   const genererId = () => {
     return new Date().getTime().toString();
@@ -442,6 +443,7 @@ export function UserProvider({ children }) {
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
     const userDocSnap = await getDoc(userDocRef);
+    const [message, setMessage] = useState("");
 
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
@@ -780,6 +782,7 @@ export function UserProvider({ children }) {
       });
   
       const messagesSnap = await getDoc(usersChatRef);
+      afficherMessage();
       return messagesSnap.data().messages;
     } else if (usersChatSnap.exists() === false) {
       const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
@@ -800,6 +803,8 @@ export function UserProvider({ children }) {
         const messagesSnap = await getDoc(usersChatReverseRef);
         return messagesSnap.data().messages;
       }
+
+      afficherMessage();
     }
   };
   
@@ -822,10 +827,39 @@ export function UserProvider({ children }) {
         return usersChatReverseSnap.data().messages;
       }
     }
- 
-
-   
   };
+
+  
+  useEffect(() => {
+    const listenToMessages = async () => {
+      const uuid = user.uid;
+      const chatId = uuid + contact.uuid;
+      const chatIdReverse = contact.uuid + uuid;
+      const usersChatRef = doc(db, "usersChat", chatId);
+      const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
+
+      const unsubscribe = onSnapshot(usersChatRef, (doc) => {
+        if (doc.exists()) {
+          const messages = doc.data().messages;
+          setLesMessages(messages);
+        }
+      });
+
+      const unsubscribeReverse = onSnapshot(usersChatReverseRef, (doc) => {
+        if (doc.exists()) {
+          const messages = doc.data().messages;
+          setLesMessages(messages);
+        }
+      });
+
+      return () => {
+        unsubscribe();
+        unsubscribeReverse();
+      };
+    };
+
+    listenToMessages();
+  }, [contact]); 
 
   const getUserNameByUuid = async (uuid) => {
     const userDocRef = doc(db, "users", uuid);
@@ -931,6 +965,8 @@ export function UserProvider({ children }) {
         creerGroupeChat,
         ajouterMessage,
         afficherMessage,
+        setLesMessages,
+        lesMessages,
       }}
     >
       {children}
