@@ -200,31 +200,38 @@ const ListeEntrainements = () => {
         className="listePopup"
       >
         <span
-          className="close text-white p-4 cursor-pointer"
+          className="close text-white  cursor-pointer absolute top-0 right-0 p-4"
           onClick={toggleAjouterPopup}
         >
-          <FaTimes />
+          <FaTimes 
+          size={25}/>
         </span>
-        <h2 className="font-titre uppercase text-white text-center text-xl">
+        <h2 className="font-titre uppercase text-white text-center text-xl pt-8">
           Liste des exercices
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-4 justify-center items-center mx-auto p-4">
           {categories.map((category) => (
             <div key={category}>
               <h3
-                className="cursor-pointer"
+                className="cursor-pointer font-titre uppercase lg:text-lg"
                 onClick={() => toggleCategory(category)}
               >
                 {category} {openCategories[category] ? "▼" : "►"}
               </h3>
               {openCategories[category] && (
-                <ul className="overflow-y-scroll lg:overflow-y-hidden">
+                <ul className="overflow-y-scroll lg:overflow-y-hidden mt-2 px-4">
                   {ChoixExercices.exercices[category].map((exercise) => (
-                    <li key={exercise.id} className="grid grid-cols-2">
+                    <motion.li 
+                    whileHover={{ backgroundColor: "white", color: "black", scale: 1.01 }}
+                    transition={{ duration: 0.25 }}
+                    key={exercise.id} className="grid grid-cols-2 cursor-pointer"
+                    onClick={() => choisirExercice(exercise)}
+                    >
+                     
                       {exercise.name}
                       {experience >=
                       (exerciseThresholds[category]?.[exercise.name] || 0) ? (
-                        <button onClick={() => choisirExercice(exercise)}>
+                        <button>
                           {exercicesSelectionnes.includes(exercise) ? (
                             <FaCheck />
                           ) : (
@@ -237,19 +244,25 @@ const ListeEntrainements = () => {
                           {exerciseThresholds[category]?.[exercise.name]}
                         </span>
                       )}
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               )}
             </div>
           ))}
         </div>
-        <button
+        <motion.button
           onClick={() => handleAddExercise(ajouter.workoutId)}
-          className="border-2 border-white p-2 ml-4"
+          className="border-2 border-white p-2  mx-auto flex items-center justify-center w-1/6"
+          whileHover={{
+            backgroundColor: "white",
+            color: "black",
+            scale: 1.05,
+            transition: { duration: 0.25 },
+          }}
         >
           <p>Ajouter</p>
-        </button>
+        </motion.button>
       </motion.div>
     );
   };
@@ -259,7 +272,8 @@ const ListeEntrainements = () => {
   };
 
   return (
-    <section>
+    <section 
+    >
       <DailyQuest />
 
       <h2 id="entrainements" className="font-titre uppercase">Mes entrainements</h2>
@@ -305,7 +319,7 @@ const ListeEntrainements = () => {
                     transition: { duration: 0.25 },
                   }}
                 >
-                  <p className="text-sm">Terminer</p>
+                  <p className="text-sm flex items-center gap-2">Terminer <FaCheck /></p>
                 </motion.button>
               </ul>
 

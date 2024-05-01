@@ -18,7 +18,7 @@ const Layout = () => {
 
   useEffect(() => {
     if (user) {
-      if (user.experience >= 40 && user.experience <= 60) {
+      if (user.experience >= 40 && user.experience <= 50) {
         setNotificationWorkout(true);
       }
 

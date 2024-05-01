@@ -443,7 +443,7 @@ export function UserProvider({ children }) {
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
     const userDocSnap = await getDoc(userDocRef);
-    const [message, setMessage] = useState("");
+    
 
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();

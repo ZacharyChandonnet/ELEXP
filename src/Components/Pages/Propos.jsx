@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { LiaEye } from "react-icons/lia";
 import { GiBiceps } from "react-icons/gi";
 import { LuDumbbell } from "react-icons/lu";
+import { GiPodiumWinner } from "react-icons/gi";
 import "../CSS/Propos.css";
 
 const Propos = () => {
@@ -19,7 +20,7 @@ const Propos = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-        <div className="lg:flex justify-center pt-12 ">
+        <div className="lg:flex justify-center ">
           <figure
             style={{
               maxWidth: "500px",
@@ -64,7 +65,7 @@ const Propos = () => {
             }}
             className="mr-12"
           >
-            <img src="/legs1_image.webp" alt="Entrainement" />
+            <img src="/legs1_image.webp" alt="Entrainement" className="ml-12" />
           </figure>
         </div>
       </motion.div>
@@ -80,7 +81,7 @@ const Propos = () => {
           className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10 hidden md:block"
           style={{
             width: "28%",
-            marginBottom: "6.5%",
+            marginBottom: "14%",
             filter: "blur(2.5px)",
             marginRight: "-17%",
           }}
@@ -92,7 +93,7 @@ const Propos = () => {
           className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10 hidden md:block"
           style={{
             width: "25%",
-            marginTop: "-7%",
+            marginTop: "-15%",
             filter: "blur(5.5px)",
             marginLeft: "8%",
           }}
@@ -161,9 +162,31 @@ const Propos = () => {
             <p className=" italic pt-4 w-2/3 mx-auto">
               " Ce que nous offrons à nos clients, c'est des programmes d'entraînement selon les tendances d'aujourd'hui, des défis quotidiens
               afin de les motiver à se dépasser, la possibilité de créér ses entraînements personnalisés, un historique de ses performances et un tableau
-              de bord pour suivre ses objectifs. "
+              de bord pour suivre ses objectifs."
             </p>
           </div>
+
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            color: "white",
+            backgroundColor: "black",
+            scale: 1.05,
+            transition: { duration: 0.25 },
+
+          }}
+          className="left pt-6 border-t-2 border-dark">
+          <div>
+            <GiPodiumWinner className="mx-auto " />
+          </div>
+          <div className="p-8 ">
+            <p className=" italic pt-4 w-2/3 mx-auto">
+              " Envie de vous dépasser et de vous améliorer? Consultez notre système de classement pour voir où vous vous situez par rapport aux autres!
+              Vous pourrez aussi ajouter des contacts pour suivre leur progression et discuter avec eux afin de demander des conseils ou de les motiver."
+            </p>
+          </div>
+
         </motion.div>
 
       </div>
