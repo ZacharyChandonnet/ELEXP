@@ -36,7 +36,7 @@ const BarrerExperience = ({ allRanks, currentRank, nextRank, nextRankExp, progre
             <p className="text-center font-bold italic">
                 {nextRankExp - currentExperience}XP restants
             </p>
-            <div className=" flex text-sm gap-12 justify-center items-center text-gray-500 font-bold pt-4 italic">
+            <div className=" lg:flex text-sm lg:gap-12 justify-center items-center text-gray-500 font-bold pt-4 italic grid grid-cols-1">
                 <p>
                     Débutant : exp.{allRanks.Débutant} </p>
                 <p>
