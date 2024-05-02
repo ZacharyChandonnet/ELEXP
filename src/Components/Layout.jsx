@@ -91,7 +91,7 @@ const Layout = () => {
       </div>
 
       {notificationWorkout && (
-        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Tu peux créer un entraînement !"}
             redirection="/entrainements"
           />
@@ -99,7 +99,7 @@ const Layout = () => {
       )}
 
       {notificationPullup && (
-        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Tu as débloqué le pogramme Push !"}
             redirection="/programmes"
           />
@@ -107,7 +107,7 @@ const Layout = () => {
       )}
 
       {notificationPushup && (
-        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Tu as débloqué le programme Pull !"}
             redirection="/programmes"
           />
@@ -115,7 +115,7 @@ const Layout = () => {
       )}
 
       {notificationLegs && (
-        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 left-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Tu as débloqué le programme Legs !"}
             redirection="/programmes"
           />

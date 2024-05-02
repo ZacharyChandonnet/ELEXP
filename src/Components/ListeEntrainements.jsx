@@ -427,31 +427,31 @@ const ListeEntrainements = () => {
       <Createworkout />
 
       {notification && (
-        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Ton entrainement a bien été supprimé"} />
         </div>
       )}
 
       {notificationWorkout && (
-        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Ton entrainement a bien été complété"} />
         </div>
       )}
 
       {notificationDelete && (
-        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Ton exercice a bien été supprimé"} />
         </div>
       )}
 
       {notificationAjout && (
-        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Vos exercices ont bien été ajoutés"} />
         </div>
       )}
 
       {notifError && (
-        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
           <Notification message={"Erreur: Maximum de 7 exercices par entraînement"} />
         </div>
       )}
