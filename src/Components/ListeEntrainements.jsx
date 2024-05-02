@@ -37,6 +37,7 @@ const ListeEntrainements = () => {
   const [notificationWorkout, setNotificationWorkout] = useState(false);
   const [cooldownRemaining, setCooldownRemaining] = useState(0);
   const [modifierNom, setModifierNom] = useState(false);
+  const [notifError, setNotifError] = useState(false);
 
   const handleWorkoutCompleted = (id) => {
     if (cooldownRemaining === 0) {
@@ -186,10 +187,15 @@ const ListeEntrainements = () => {
     setAjouter({ visible: false, workoutId: null });
     setExercicesSelectionnes([]);
 
-    setNotificationAjout(true);
-
+    if(workouts.find((workout) => workout.id === workoutId).exercices.length + exercises.length <= 7){
+      setNotificationAjout(true);
+    }else{
+      setNotifError(true);
+    }
+    
     setTimeout(() => {
       setNotificationAjout(false);
+      setNotifError(false);
     }, 7000);
   };
 
@@ -396,12 +402,14 @@ const ListeEntrainements = () => {
 
                 {openSettingsId === workout.id && (
                   <div className="grid grid-cols-2 gap-2">
-                    <button
-                      onClick={() => toggleAjouterPopup(workout.id)}
-                      className="cursor-pointer text-lg text-green-500"
-                    >
-                      <IoMdAdd />
-                    </button>
+                    {workout.exercices.length <= 6 && (
+                      <button
+                        onClick={() => toggleAjouterPopup(workout.id)}
+                        className="cursor-pointer text-lg text-green-500"
+                      >
+                        <IoMdAdd />
+                      </button>
+                    )}
                     <button
                       className="text-red-500 text-lg"
                       onClick={() => handleDeleteWorkout(workout.id)}
@@ -439,6 +447,12 @@ const ListeEntrainements = () => {
       {notificationAjout && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification message={"Vos exercices ont bien été ajoutés"} />
+        </div>
+      )}
+
+      {notifError && (
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+          <Notification message={"Erreur: Maximum de 7 exercices par entraînement"} />
         </div>
       )}
 

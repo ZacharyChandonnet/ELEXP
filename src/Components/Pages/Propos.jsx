@@ -225,7 +225,7 @@ const Propos = () => {
             color: "white",
             border: "2px solid white",
           }}
-          className="bg-white text-dark w-1/2 lg:w-1/6 mx-auto py-2 px-4 ">
+          className="bg-white text-dark w-1/2 lg:w-1/6 mx-auto py-2 px-4 font-titre">
           <a href="/entrainements">
             Commencer maintenant
           </a>

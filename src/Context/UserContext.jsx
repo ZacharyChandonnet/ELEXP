@@ -21,41 +21,41 @@ import {
 } from "firebase/firestore";
 
 const UserContext = createContext({
-  updateUser: async () => {},
-  createWorkout: async () => {},
-  afficherWokoutDetails: async () => {},
-  supprimerEntrainement: async () => {},
-  afficherExperience: async () => {},
-  ajouterWorkoutFini: async () => {},
-  afficherWorkoutFini: async () => {},
-  creerDailyQuest: async () => {},
-  afficherDailyQuest: async () => {},
-  ajouterDailyQuestFini: async () => {},
-  afficherDailyQuestFini: async () => {},
-  ajouterExperience: async () => {},
-  partirTimer: async () => {},
-  ajouterWorkoutTendance: async () => {},
-  afficherDateEntrainementTendance: async () => {},
-  supprimerExerciceWorkout: async () => {},
-  ajouterExercicesAuWorkout: async () => {},
-  creerObjectif: async () => {},
-  afficherObjectifs: async () => {},
-  deleteObjectif: async () => {},
-  objectifCompleted: async () => {},
-  setRerolltoTrue: async () => {},
-  setRerolltoFalse: async () => {},
-  rechercherUserNom: async () => {},
-  ajouterContact: async () => {},
-  afficherContacts: async () => {},
-  afficherContactSelonUuid: async () => {},
-  afficherWorkoutDetailsContact: async () => {},
-  afficherTopUser: async () => {},
-  retirerContact: async () => {},
-  creerGroupeChat: async () => {},
-  ajouterMessage: async () => {},
-  afficherMessage: async () => {},
-  afficherPosition: async () => {},
-  modifierNomEntrainement: async () => {},
+  updateUser: async () => { },
+  createWorkout: async () => { },
+  afficherWokoutDetails: async () => { },
+  supprimerEntrainement: async () => { },
+  afficherExperience: async () => { },
+  ajouterWorkoutFini: async () => { },
+  afficherWorkoutFini: async () => { },
+  creerDailyQuest: async () => { },
+  afficherDailyQuest: async () => { },
+  ajouterDailyQuestFini: async () => { },
+  afficherDailyQuestFini: async () => { },
+  ajouterExperience: async () => { },
+  partirTimer: async () => { },
+  ajouterWorkoutTendance: async () => { },
+  afficherDateEntrainementTendance: async () => { },
+  supprimerExerciceWorkout: async () => { },
+  ajouterExercicesAuWorkout: async () => { },
+  creerObjectif: async () => { },
+  afficherObjectifs: async () => { },
+  deleteObjectif: async () => { },
+  objectifCompleted: async () => { },
+  setRerolltoTrue: async () => { },
+  setRerolltoFalse: async () => { },
+  rechercherUserNom: async () => { },
+  ajouterContact: async () => { },
+  afficherContacts: async () => { },
+  afficherContactSelonUuid: async () => { },
+  afficherWorkoutDetailsContact: async () => { },
+  afficherTopUser: async () => { },
+  retirerContact: async () => { },
+  creerGroupeChat: async () => { },
+  ajouterMessage: async () => { },
+  afficherMessage: async () => { },
+  afficherPosition: async () => { },
+  modifierNomEntrainement: async () => { },
   user: null,
   _v: 0,
 });
@@ -96,16 +96,21 @@ export function UserProvider({ children }) {
     );
 
     const workoutDocRef = doc(db, "workouts", workoutId);
-    await setDoc(workoutDocRef, {
-      uuid: workoutId,
-      name: workoutName,
-      user: uuid,
-      exercices: selectedExercises,
-    });
+    if (selectedExercises.length > 7) {
+      console.error("Limite de 7 exercices par entraînement.");
+      return;
+    } else {
+      await setDoc(workoutDocRef, {
+        uuid: workoutId,
+        name: workoutName,
+        user: uuid,
+        exercices: selectedExercises,
+      });
 
-    onSnapshot(useDocRef, (doc) => {
-      setUserInfos(doc.data());
-    });
+      onSnapshot(useDocRef, (doc) => {
+        setUserInfos(doc.data());
+      });
+    }
   };
 
   const supprimerExerciceWorkout = async (workoutId, exerciseName) => {
@@ -135,10 +140,16 @@ export function UserProvider({ children }) {
       const workoutData = workoutDocSnap.data();
       const updatedExercises = [...workoutData.exercices, ...selectedExercises];
 
-      await updateDoc(workoutDocRef, {
-        exercices: updatedExercises,
-      });
-      return updatedExercises;
+      if (updatedExercises.length > 7) {
+        console.error("Limite de 7 exercices par entraînement.");
+        return;
+      } else {
+        await updateDoc(workoutDocRef, {
+          exercices: updatedExercises,
+        });
+        return updatedExercises;
+      }
+
     } else {
       console.error("L'entrainement n'existe pas.");
     }
@@ -453,7 +464,7 @@ export function UserProvider({ children }) {
     const uuid = user.uid;
     const userDocRef = doc(db, "users", uuid);
     const userDocSnap = await getDoc(userDocRef);
-    
+
 
     if (userDocSnap.exists()) {
       const userData = userDocSnap.data();
@@ -776,40 +787,40 @@ export function UserProvider({ children }) {
     const chatId = uuid + contact.uuid;
     const chatIdReverse = contact.uuid + uuid;
     const usersChatRef = doc(db, "usersChat", chatId);
-  
+
     const usersChatSnap = await getDoc(usersChatRef);
-  
+
     if (usersChatSnap.exists()) {
       const messages = usersChatSnap.data().messages;
-  
+
       messages.push({
         message: message,
-        messager: await getUserNameByUuid(uuid), 
+        messager: await getUserNameByUuid(uuid),
       });
-  
+
       await updateDoc(usersChatRef, {
         messages: messages,
       });
-  
+
       const messagesSnap = await getDoc(usersChatRef);
       afficherMessage();
       return messagesSnap.data().messages;
     } else if (usersChatSnap.exists() === false) {
       const usersChatReverseRef = doc(db, "usersChat", chatIdReverse);
       const usersChatReverseSnap = await getDoc(usersChatReverseRef);
-  
+
       if (usersChatReverseSnap.exists()) {
         const messages = usersChatReverseSnap.data().messages;
-  
+
         messages.push({
           message: message,
-          messager: await getUserNameByUuid(uuid), 
+          messager: await getUserNameByUuid(uuid),
         });
-  
+
         await updateDoc(usersChatReverseRef, {
           messages: messages,
         });
-  
+
         const messagesSnap = await getDoc(usersChatReverseRef);
         return messagesSnap.data().messages;
       }
@@ -817,7 +828,7 @@ export function UserProvider({ children }) {
       afficherMessage();
     }
   };
-  
+
 
   const afficherMessage = async () => {
     const uuid = user.uid;
@@ -850,14 +861,14 @@ export function UserProvider({ children }) {
 
     if (userPosition === 1) {
       return userPosition + "er sur " + users.length + " utilisateurs.";
-    }else{
+    } else {
       return userPosition + "ème sur " + users.length + " utilisateurs.";
     }
 
     return `${userPosition} sur ${users.length} utilisateurs.`;
   };
 
-  
+
   useEffect(() => {
     const listenToMessages = async () => {
       const uuid = user.uid;
@@ -887,7 +898,7 @@ export function UserProvider({ children }) {
     };
 
     listenToMessages();
-  }, [contact]); 
+  }, [contact]);
 
   const getUserNameByUuid = async (uuid) => {
     const userDocRef = doc(db, "users", uuid);
@@ -898,7 +909,7 @@ export function UserProvider({ children }) {
       return "Utilisateur inconnu";
     }
   };
-  
+
 
   useEffect(() => {
     const getDocRef = async () => {

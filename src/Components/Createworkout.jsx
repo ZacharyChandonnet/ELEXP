@@ -14,6 +14,7 @@ const Createworkout = () => {
   const [isAbleToCreate, setIsAbleToCreate] = useState(false);
   const { createWorkout, user } = useUser();
   const [notification, setNotification] = useState(false);
+  const [notificationExercices, setNotificationExercices] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -86,10 +87,15 @@ const Createworkout = () => {
       return; 
     }
     createWorkout(workoutName, Object.values(selectedExercises).flat());
-    setNotification(true);
+    if (Object.values(selectedExercises).flat().length <= 7) {
+      setNotification(true);
+    }else{
+      setNotificationExercices(true);
+    }
   
     setTimeout(() => {
       setNotification(false);
+      setNotificationExercices(false);
     }, 7000);
   
     setWorkoutName("");
@@ -209,7 +215,7 @@ const Createworkout = () => {
       </div>
 
       {experience >= 40 && (
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center mt-8">
           <input
             type="text"
             placeholder="Nom de l'entraînement"
@@ -241,6 +247,13 @@ const Createworkout = () => {
           <Notification message={"Ton entraînement a bien été créé !"} />
         </div>
       )}
+
+      {notificationExercices && (
+        <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
+          <Notification message={"Erreur: Maximum de 7 exercices par entraînement"} />
+        </div>
+      )}
+
     </div>
   );
 };
