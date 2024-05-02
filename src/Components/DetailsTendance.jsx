@@ -174,7 +174,7 @@ const DetailsTendance = () => {
           color: "white",
           border: "2px solid black",
         }}
-        className="text-center border-2 border-dark p-4 w-1/6 mx-auto mb-12 cursor-pointer flex justify-center items-center mt-8"
+        className="text-center border-2 border-dark p-4 w-1/2 lg:w-1/6 mx-auto mb-12 cursor-pointer flex justify-center items-center mt-8"
         onClick={addWorkout}
       >
         J'ai complété cet entraînement
