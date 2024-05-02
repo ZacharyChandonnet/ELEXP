@@ -25,11 +25,11 @@ const Connexion = () => {
 
 
   return (
-    <div className="grid grid-cols-2 h-screen">
+    <div className="grid grid-cols-1 lg:grid-cols-2 h-screen">
       <div className="bg-dark relative">
         <video autoPlay loop muted
           speed="0.5"
-          className="h-screen w-full object-cover opacity-50">
+          className="lg:h-screen w-full object-cover opacity-50">
           <source src={video} type="video/mp4" />
         </video>
 
@@ -47,7 +47,7 @@ const Connexion = () => {
 
       </div>
       <div>
-        <div className="font-titre italic lg:text-6xl uppercase bg-dark text-white righto h-screen flex flex-col justify-center items-center gap-12 relative"
+        <div className="font-titre italic lg:text-6xl uppercase bg-dark text-white h-screen flex flex-col pt-12 lg:pt-0 lg:justify-center items-center gap-12 relative"
         >
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
