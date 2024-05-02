@@ -34,6 +34,11 @@ const Footer = () => {
                                 name: "Programmes",
                                 title: "Programmes",
                             },
+                            {
+                                url: "/faq",
+                                name: "FAQ",
+                                title: "FAQ",
+                            }
                         ]}
                     />
                     <div className="text-right flex flex-col gap-4">

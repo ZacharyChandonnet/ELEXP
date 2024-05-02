@@ -15,6 +15,7 @@ import Propos from "./Components/Pages/Propos";
 import DetailsTendance from "./Components/DetailsTendance";
 import { motion, useScroll } from "framer-motion";
 import ContactDetails from "./Components/ContactDetails";
+import Faq from "./Components/Pages/Faq";
 
 
 
@@ -66,6 +67,10 @@ function App() {
         {
           path: "Contact/:uuid",
           element: <ContactDetails />,
+        },
+        {
+          path: "Faq",
+          element: <Faq />,
         },
         {
           path: "",

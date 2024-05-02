@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoMdClose } from "react-icons/io";
 import Contact from "./Contact";
+import { FaUserAlt } from "react-icons/fa";
 
 const Header = () => {
   const { user, setContact, contact } = useUser();
@@ -14,7 +15,6 @@ const Header = () => {
   const [isClicked, setIsClicked] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [position, setPosition] = useState(0);
-
 
   const handleClick = () => {
     setIsClicked(!isClicked);
@@ -63,17 +63,16 @@ const Header = () => {
               name: "Programmes",
               title: "Programmes",
             },
-            // {
-            //   url: "/forum",
-            //   name: "Forum",
-            //   title: "Forum",
-            // },
+            {
+              url: "/faq",
+              name: "Faq",
+              title: "faq",
+            },
           ]}
         />
       </div>
 
-      <div onClick={handleMenu}
-        className="md:hidden">
+      <div onClick={handleMenu} className="md:hidden">
         <div
           className="relative z-50"
           style={{ color: isMenuOpen ? "white" : "black" }}
@@ -99,6 +98,11 @@ const Header = () => {
                 <Link to="/programmes" className="mx-2 my-2">
                   Programmes
                 </Link>
+
+                <Link to="/faq" className="mx-2 my-2">
+                  Faq
+                </Link>
+
                 <Link to="/profil" className="mx-2 my-2">
                   Profil
                 </Link>
@@ -116,10 +120,20 @@ const Header = () => {
           </motion.div>
         )}
       </div>
-      <div className="cursor-pointer" onClick={handleClick}>
-        <motion.p whileHover={{ scale: 1.025, opacity: 0.5 }}
-          className="hidden md:flex gap-2">
-          {user?.name} <span className="font-bold"> exp.{user?.experience}</span>
+      <div
+        className="cursor-pointer flex items-center gap-2"
+        onClick={handleClick}
+      >
+        <motion.p
+          whileHover={{ scale: 1.025, opacity: 0.5 }}
+          className="hidden md:flex gap-2 item-center"
+        >
+          <p>{user?.name}</p> <p className="font-bold"> exp.{user?.experience}</p>
+          <p style={{
+            paddingTop: ".2rem",
+          }}> 
+            <FaUserAlt size={15} />
+          </p>
         </motion.p>
 
         {isClicked && (

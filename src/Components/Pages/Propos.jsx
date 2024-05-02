@@ -7,8 +7,11 @@ import { LuDumbbell } from "react-icons/lu";
 import { GiPodiumWinner } from "react-icons/gi";
 import "../CSS/Propos.css";
 import { Link } from "react-router-dom";
+import { useUser } from "../../Context/UserContext";
 
 const Propos = () => {
+
+  const {setContact, contact} = useUser();
 
   const marqueeVariants = {
     animate: {
@@ -131,7 +134,7 @@ const Propos = () => {
           </div>
           <div className="p-8">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Notre mission est d'offrir un service de qualité à nos clients. Nous
+              " Notre mission est d'offrir un service de qualité à nos utilisateurs. Nous
               voulons les aider à atteindre leurs objectifs de remise en forme et de
               bien-être. Nous voulons les aider à se sentir bien dans leur peau et à
               être en bonne santé. "
@@ -153,9 +156,9 @@ const Propos = () => {
 
           <div className="p-8">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Notre vision est de motiver nos clients à adopter un mode de vie
+              " Notre vision est de motiver nos utilisateurs à adopter un mode de vie
               sain en leur proposant un système d'expérience unique sous fourme de
-              jeu. En gagnant de l'expérience, les clients pourront débloquer des
+              jeu. En gagnant de l'expérience, les utilisateurs pourront débloquer des
               entraînements et des exercices plus avancés afin d'assurer une
               progression constante. "
             </p>
@@ -176,9 +179,9 @@ const Propos = () => {
           </div>
           <div className="p-8 ">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Ce que nous offrons à nos clients, c'est des programmes d'entraînement selon les tendances d'aujourd'hui, des défis quotidiens
-              afin de les motiver à se dépasser, la possibilité de créér ses entraînements personnalisés, un historique de ses performances et un tableau
-              de bord pour suivre ses objectifs."
+              " Ce que nous offrons à nos utilisateurs, c'est des <a href="/programmes"><span className="text-green-500 cursor-pointer">programmes d'entraînement</span></a>  selon les tendances d'aujourd'hui, des défis quotidiens
+              afin de les motiver à se dépasser, la possibilité de <a href="/entrainements"><span className="text-green-500 cursor-pointer"> créér ses entraînements personnalisés</span></a> , un <a href="/profil"><span className="text-green-500 cursor-pointer">historique</span></a>  de ses performances et un <a href="/profil"><span className="text-green-500 cursor-pointer">tableau
+              de bord</span></a>  pour suivre ses objectifs."
             </p>
           </div>
 
@@ -198,7 +201,7 @@ const Propos = () => {
           </div>
           <div className="p-8 ">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Envie de te dépasser et de t'améliorer? Consultez notre système de classement pour voir où que tu te situes par rapport aux autres utilisateurs.
+              " Envie de te dépasser et de t'améliorer? Consulte notre système de <span className="cursor-pointer text-green-500"  onClick={() => setContact(!contact)}>classement</span> pour voir où que tu te situes par rapport aux autres utilisateurs.
               Tu pourras aussi ajouter des contacts pour suivre leur progression et discuter avec eux afin de demander des conseils ou de les motiver."
             </p>
           </div>
