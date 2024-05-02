@@ -37,10 +37,7 @@ const Footer = () => {
                         ]}
                     />
                     <div className="text-right flex flex-col gap-4">
-                        <Link
-                            to="/profil" className="onHover pt-4">
-                            Profil
-                        </Link>
+                        <a href="/profil" className="onHover pt-4">Profil</a>
 
 
                         <button

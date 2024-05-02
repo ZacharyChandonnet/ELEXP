@@ -271,7 +271,7 @@ const Profil = () => {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1 }}
       >
-       <BarrerExperience allRanks={allRanks} currentRank={currentRank} nextRank={nextRank} nextRankExp={nextRankExp} progressPercent={progressPercent} currentExperience={currentExperience} />
+        <BarrerExperience allRanks={allRanks} currentRank={currentRank} nextRank={nextRank} nextRankExp={nextRankExp} progressPercent={progressPercent} currentExperience={currentExperience} />
       </motion.div>
 
       <div className="pt-12">
@@ -326,7 +326,7 @@ const Profil = () => {
           </ul>
         </motion.div>
       </div>
-  
+
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -338,6 +338,7 @@ const Profil = () => {
           <div className="p-4">
             <h2 className="font-titre uppercase text-white ">
               Mes entraînements terminés
+              ( {history.length} )
             </h2>
             {history.length === 0 && (
               <p className="text-white text-sm italic">Aucun entraînement terminé</p>
@@ -368,7 +369,7 @@ const Profil = () => {
 
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">
-              Mes programmes terminés
+              Mes programmes terminés ( {tendances.length} )
             </h2>
 
             {tendances.length === 0 && (
@@ -403,7 +404,7 @@ const Profil = () => {
 
           <div className="p-4">
             <h2 className="font-titre uppercase text-white">
-              Mon dernier défi du jour
+              Mon dernier défi du jour ( {dailyQuestsCompleted.length} )
             </h2>
             {dailyQuestsCompleted.length === 0 && (
               <p className="text-white text-sm italic">Aucun défi terminé</p>
@@ -566,14 +567,14 @@ const Profil = () => {
 
         {notificationAdd && (
           <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-            <Notification message={"Votre objectif a été ajouté avec succès"} />
+            <Notification message={"Ton objectif a été ajouté avec succès"} />
           </div>
         )}
 
         {notificationDelete && (
           <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification
-              message={"Votre objectif a été supprimé avec succès"}
+              message={"Ton objectif a été supprimé avec succès"}
             />
           </div>
         )}
@@ -581,14 +582,14 @@ const Profil = () => {
         {notificationCompleted && (
           <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
             <Notification
-              message={"Votre objectif a été complété avec succès"}
+              message={"Ton objectif a été complété avec succès"}
             />
           </div>
         )}
 
         {notificationWorkout && (
           <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-            <Notification message={"Votre entraînement a bien été ajouté !"} />
+            <Notification message={"Ton entraînement a bien été ajouté !"} />
           </div>
         )}
       </div>

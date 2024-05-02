@@ -213,8 +213,8 @@ const ListeEntrainements = () => {
           className="close text-white  cursor-pointer absolute top-0 right-0 p-4"
           onClick={toggleAjouterPopup}
         >
-          <FaTimes 
-          size={25}/>
+          <FaTimes
+            size={25} />
         </span>
         <h2 className="font-titre uppercase text-white text-center text-xl pt-8">
           Liste des exercices
@@ -231,16 +231,16 @@ const ListeEntrainements = () => {
               {openCategories[category] && (
                 <ul className="overflow-y-scroll lg:overflow-y-hidden mt-2 px-4">
                   {ChoixExercices.exercices[category].map((exercise) => (
-                    <motion.li 
-                    whileHover={{ backgroundColor: "white", color: "black", scale: 1.01 }}
-                    transition={{ duration: 0.25 }}
-                    key={exercise.id} className="grid grid-cols-2 cursor-pointer"
-                    onClick={() => choisirExercice(exercise)}
+                    <motion.li
+                      whileHover={{ backgroundColor: "white", color: "black", scale: 1.01 }}
+                      transition={{ duration: 0.25 }}
+                      key={exercise.id} className="grid grid-cols-2 cursor-pointer"
+                      onClick={() => choisirExercice(exercise)}
                     >
-                     
+
                       {exercise.name}
                       {experience >=
-                      (exerciseThresholds[category]?.[exercise.name] || 0) ? (
+                        (exerciseThresholds[category]?.[exercise.name] || 0) ? (
                         <button>
                           {exercicesSelectionnes.includes(exercise) ? (
                             <FaCheck />
@@ -281,12 +281,37 @@ const ListeEntrainements = () => {
     setOpenSettingsId(openSettingsId === workoutId ? null : workoutId);
   };
 
+
+  useEffect(() => {
+    const pageBlur = document.querySelectorAll(".pageBlur");
+    if (ajouter.visible) {
+      document.body.style.overflow = "hidden";
+
+      pageBlur.forEach((element) => {
+        element.style.filter = "blur(5px)";
+        element.style.transition = "filter 0.5s";
+        element.style.opacity = "0.45";
+      });
+   
+
+    } else {
+      document.body.style.overflow = "unset";
+
+      pageBlur.forEach((element) => {
+        element.style.filter = "none";
+        element.style.transition = "filter 0.5s";
+        element.style.opacity = "1";
+      });
+     
+    }
+  }, [ajouter.visible]);
+
   return (
-    <section 
+    <section
     >
       <DailyQuest />
 
-      <h2 id="entrainements" className="font-titre uppercase">Mes entrainements</h2>
+      <h2 id="entrainements" className="font-titre uppercase pageBlur">Mes entrainements</h2>
       {cooldownRemaining > 0 && (
         <p className="text-red-500 font-bold italic text-sm p-2">
           Temps de récupération restant avant d'ajouter un autre entrainement:{" "}
@@ -295,39 +320,39 @@ const ListeEntrainements = () => {
       )}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {workouts && workouts.length === 0 ? (
-          <p>Vous n'avez pas encore d'entrainements</p>
+          <p>Tu n'as pas encore d'entrainements</p>
         ) : (
           workouts.map((workout) => (
             <div key={workout.id} className="bg-dark text-white relative p-4">
               <h3 className="font-titre text-xl">{workout.name}
-              {openSettingsId === workout.id && (
-                <button
-                  onClick={() => setModifierNom(!modifierNom)}
-                  className="text-white text-lg pl-2"
-                >
-                  <MdModeEdit />
-                </button>
-              )}
-
-              {modifierNom && openSettingsId === workout.id && (
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={workout.name}
-                    onChange={(e) =>
-                      handleModifierNom(workout.id, e.target.value)
-                    }
-                  />
+                {openSettingsId === workout.id && (
                   <button
                     onClick={() => setModifierNom(!modifierNom)}
-                    className="text-white text-lg"
+                    className="text-white text-lg pl-2"
                   >
-                    <FaCheck />
+                    <MdModeEdit />
                   </button>
+                )}
 
-                </div>
-              
-              )}
+                {modifierNom && openSettingsId === workout.id && (
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={workout.name}
+                      onChange={(e) =>
+                        handleModifierNom(workout.id, e.target.value)
+                      }
+                    />
+                    <button
+                      onClick={() => setModifierNom(!modifierNom)}
+                      className="text-white text-lg"
+                    >
+                      <FaCheck />
+                    </button>
+
+                  </div>
+
+                )}
 
               </h3>
               <ul>
@@ -395,19 +420,19 @@ const ListeEntrainements = () => {
 
       {notification && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-          <Notification message={"Votre entrainement a bien été supprimé"} />
+          <Notification message={"Ton entrainement a bien été supprimé"} />
         </div>
       )}
 
       {notificationWorkout && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-          <Notification message={"Votre entrainement a bien été complété"} />
+          <Notification message={"Ton entrainement a bien été complété"} />
         </div>
       )}
 
       {notificationDelete && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-          <Notification message={"Votre exercice a bien été supprimé"} />
+          <Notification message={"Ton exercice a bien été supprimé"} />
         </div>
       )}
 

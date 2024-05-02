@@ -89,7 +89,7 @@ const DailyQuest = () => {
   }, [user]);
 
   return (
-    <section className="pt-12 pb-12">
+    <section className="pt-12 pb-12 pageBlur">
 
       {user && !user.reroll && (
         
@@ -193,7 +193,7 @@ const DailyQuest = () => {
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
           <Notification
             message={
-              "Votre défi du jour a bien été terminé !" +
+              "Ton défi du jour a bien été terminé !" +
               dailyQuest?.name?.experience +
               "exp"
             }

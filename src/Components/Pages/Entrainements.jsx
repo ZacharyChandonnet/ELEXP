@@ -6,20 +6,21 @@ import { motion } from "framer-motion";
 
 const Entrainements = () => {
 
-
   return (
-    <section>
+    <section
+    >
+
       <Heading
         title="Booste tes performances en enregistrant tes entraînements "
         paragraph="Ajoute tes entraînements afin de suivre ta progression et de te motiver à atteindre tes objectifs."
       />
-    
 
-      <motion.div 
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1 }}
-      className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
+
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+        className="grid grid-cols-1 lg:grid-cols-2 pt-12 pageBlur">
         <div className="bg-dark text-white grid grid-cols-1 items-center p-6 pt-16 pb-16  lg:p-12 lg:pt-36 lg:pb-36 reverse-clip order-2 lg:order-1">
           <div className="lg:pl-16">
             <h2 className="font-titre text-white text-lg lg:text-3xl">
@@ -42,7 +43,7 @@ const Entrainements = () => {
 
       <ListeEntrainements />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 pt-12 pageBlur">
         <div >
           <img src="/legs3_image.webp" alt="Entrainement" className="clip" />
         </div>

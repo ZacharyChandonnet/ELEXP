@@ -97,13 +97,13 @@ const Createworkout = () => {
   };
 
   return (
-    <div className="pt-12 pb-12">
+    <div className="pt-12 pb-12 pageBlur">
       <h2 className="font-titre uppercase pb-4">Créer un entraînement</h2>
       <span
         className="text-red-500 italic pb-4 font-bold"
         style={{ display: experience >= 40 ? "none" : "block" }}
       >
-        Vous avez {experience} expérience, vous avez besoin de 40 pour créer un
+        Tu as {experience} expérience, tu as besoin de 40 pour créer un
         entraînement.
       </span>
       <div
@@ -238,7 +238,7 @@ const Createworkout = () => {
 
       {notification && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/5">
-          <Notification message={"Votre entraînement a bien été créé !"} />
+          <Notification message={"Ton entraînement a bien été créé !"} />
         </div>
       )}
     </div>

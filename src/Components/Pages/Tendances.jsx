@@ -138,7 +138,7 @@ const Tendances = () => {
     <div>
       <Heading
         title="Le fitness devrait être accessible à tout le monde."
-        paragraph="Découvrez les tendances du moment pour vous aider à rester en forme."
+        paragraph="Découvrez les tendances du moment pour t'aider à rester en forme."
       />
       <h2 className="font-titre uppercase pt-12 pb-4">Programmes tendances</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
@@ -190,8 +190,8 @@ const Tendances = () => {
                     {index === 0
                       ? "L'exercice physique régulier peut aider à réduire l'anxiété, la dépression et le stress."
                       : index === 1
-                      ? "L'exercice physique régulier peut vous aider à rester en forme et à réduire le risque de maladies chroniques."
-                      : "L'exercice physique régulier peut vous aider à vous endormir plus rapidement et à améliorer la qualité de votre sommeil."}
+                      ? "L'exercice physique régulier peut t'aider à rester en forme et à réduire le risque de maladies chroniques."
+                      : "L'exercice physique régulier peut t'aider à t'endormir plus rapidement et à améliorer la qualité de ton sommeil."}
                   </p>
                 </motion.div>
               )}

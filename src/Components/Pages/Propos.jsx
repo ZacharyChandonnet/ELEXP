@@ -6,8 +6,24 @@ import { GiBiceps } from "react-icons/gi";
 import { LuDumbbell } from "react-icons/lu";
 import { GiPodiumWinner } from "react-icons/gi";
 import "../CSS/Propos.css";
+import { Link } from "react-router-dom";
 
 const Propos = () => {
+
+  const marqueeVariants = {
+    animate: {
+      x: [0, -1000],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          duration: 20,
+        },
+      },
+    },
+  };
+
   return (
     <div className="relative">
       <Heading
@@ -81,7 +97,7 @@ const Propos = () => {
           className="absolute bottom-1/2 right-0  transform -translate-x-1/2 -translate-y-1/2 -mb-8 -z-10 hidden md:block"
           style={{
             width: "28%",
-            marginBottom: "14%",
+            marginBottom: "24%",
             filter: "blur(2.5px)",
             marginRight: "-17%",
           }}
@@ -93,7 +109,7 @@ const Propos = () => {
           className="absolute top-1/2 left-0  transform -translate-x-1/2 -translate-y-1/2  ml-44 -z-10 hidden md:block"
           style={{
             width: "25%",
-            marginTop: "-15%",
+            marginTop: "-25%",
             filter: "blur(5.5px)",
             marginLeft: "8%",
           }}
@@ -182,13 +198,38 @@ const Propos = () => {
           </div>
           <div className="p-8 ">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Envie de vous dépasser et de vous améliorer? Consultez notre système de classement pour voir où vous vous situez par rapport aux autres!
-              Vous pourrez aussi ajouter des contacts pour suivre leur progression et discuter avec eux afin de demander des conseils ou de les motiver."
+              " Envie de te dépasser et de t'améliorer? Consultez notre système de classement pour voir où que tu te situes par rapport aux autres utilisateurs.
+              Tu pourras aussi ajouter des contacts pour suivre leur progression et discuter avec eux afin de demander des conseils ou de les motiver."
             </p>
           </div>
 
         </motion.div>
 
+      </div>
+
+      <div className="py-24  bg-dark grid grid-cols-1 justify-center items-center gap-6 relative marquee"
+      >
+        <motion.h2
+          variants={marqueeVariants}
+          animate="animate"
+          className=" text-white uppercase font-titre lg:text-5xl text-center track">
+          prêt à atteindre tes objectifs? ⠀⠀ prêt à atteindre tes objectifs? ⠀ ⠀prêt à atteindre tes objectifs? ⠀⠀ prêt à atteindre tes objectifs? ⠀ ⠀prêt à atteindre tes objectifs?
+        </motion.h2>
+      </div>
+      <div className="bg-dark text-white text-center pb-12">
+        <motion.button
+          whileHover={{
+            scale: 1.05,
+            transition: { duration: 0.15 },
+            backgroundColor: "#0D0D0D",
+            color: "white",
+            border: "2px solid white",
+          }}
+          className="bg-white text-dark w-1/2 lg:w-1/6 mx-auto py-2 px-4 ">
+          <a href="/entrainements">
+            Commencer maintenant
+          </a>
+        </motion.button>
       </div>
     </div>
   );
