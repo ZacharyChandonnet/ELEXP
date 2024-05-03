@@ -50,9 +50,9 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             Il faut généralement quelques semaines pour commencer à voir des
-            résultats de votre programme d'entrainement. Cependant, les
-            résultats peuvent varier en fonction de votre niveau de condition
-            physique et de vos objectifs.
+            résultats de ton programme d'entrainement. Cependant, les
+            résultats peuvent varier en fonction de ton niveau de condition
+            physique et de tes objectifs.
           </p>
         </motion.div>
 
@@ -93,7 +93,7 @@ const Faq = () => {
           <p className="px-4 py-2">
             Pour rester motivé pour s'entrainer régulièrement, il est important
             de fixer des objectifs réalistes et de trouver un programme
-            d'entrainement qui vous convient. Il peut également être utile de
+            d'entrainement qui te convient. Il peut également être utile de
             trouver un partenaire d'entrainement ou de rejoindre un groupe
             d'entrainement.
           </p>
@@ -114,8 +114,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement par intervalles est un excellent moyen d'améliorer
-            l'endurance et de brûler des calories. Il peut également vous aider
-            à améliorer votre vitesse et votre force.
+            l'endurance et de brûler des calories. Il peut également t'aider
+            à améliorer ta vitesse et ta force.
           </p>
         </motion.div>
 
@@ -134,8 +134,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en circuit est un excellent moyen d'améliorer la
-            force et l'endurance. Il peut également vous aider à brûler des
-            calories et à améliorer votre condition physique générale.
+            force et l'endurance. Il peut également t'aider à brûler des
+            calories et à améliorer ta condition physique générale.
           </p>
         </motion.div>
 
@@ -154,8 +154,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en force est un excellent moyen de renforcer les
-            muscles et les os. Il peut également vous aider à brûler des
-            calories et à améliorer votre métabolisme.
+            muscles et les os. Il peut également t'aider à brûler des
+            calories et à améliorer ton métabolisme.
           </p>
         </motion.div>
 
@@ -174,8 +174,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en endurance est un excellent moyen d'améliorer
-            l'endurance et la santé cardiovasculaire. Il peut également vous
-            aider à brûler des calories et à améliorer votre condition physique
+            l'endurance et la santé cardiovasculaire. Il peut également 
+            t'aider à brûler des calories et à améliorer ta condition physique
             générale.
           </p>
         </motion.div>
@@ -195,8 +195,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en hypertrophie est un excellent moyen de développer
-            la masse musculaire. Il peut également vous aider à brûler des
-            calories et à améliorer votre force et votre endurance.
+            la masse musculaire. Il peut également t'aider à brûler des
+            calories et à améliorer ta force et ta endurance.
           </p>
         </motion.div>
 
@@ -215,7 +215,7 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en flexibilité est un excellent moyen d'améliorer la
-            mobilité et de prévenir les blessures. Il peut également vous aider
+            mobilité et de prévenir les blessures. Il peut également t'aider
             à soulager la tension musculaire et à améliorer la circulation
             sanguine.
           </p>
@@ -236,8 +236,8 @@ const Faq = () => {
           </h2>
           <p className="px-4 py-2">
             L'entrainement en groupe peut être motivant et amusant. Il peut
-            également vous aider à rester responsable et à rester sur la bonne
-            voie avec vos objectifs de fitness.
+            également t'aider à rester responsable et à rester sur la bonne
+            voie avec tes objectifs de fitness.
           </p>
         </motion.div>
       </motion.div>
