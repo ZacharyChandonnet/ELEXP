@@ -138,7 +138,7 @@ const Tendances = () => {
     <div>
       <Heading
         title="Le fitness devrait être accessible à tout le monde."
-        paragraph="Découvrez les tendances du moment pour t'aider à rester en forme."
+        paragraph="Découvrez nos programmes au goût du jour afin de vous aider à atteindre vos objectifs."
       />
       <h2 className="font-titre uppercase pt-12 pb-4">Programmes tendances</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">

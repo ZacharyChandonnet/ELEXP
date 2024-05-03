@@ -2,10 +2,12 @@ import "./CSS/Footer.css";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
+import { useUser } from "../Context/UserContext";
 
 const Footer = () => {
 
     const { logout } = useAuth();
+    const {setContact, contact} = useUser();
 
     return (
         <footer
@@ -43,6 +45,9 @@ const Footer = () => {
                     />
                     <div className="text-right flex flex-col gap-4">
                         <a href="/profil" className="onHover pt-4">Profil</a>
+
+                        <button onClick={() => setContact(!contact)} className="onHover">Classement</button>
+
 
 
                         <button
