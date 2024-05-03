@@ -110,47 +110,6 @@ const Faq = () => {
           className="faq bg-dark p-8"
         >
           <h2 className="font-titre lg:text-2xl uppercase">
-            Est-ce mauvais de s'entrainer jeune?
-          </h2>
-          <p className="px-4 py-2">
-            Il n'est pas mauvais de s'entrainer jeune, mais il est important de
-            respecter les limites de son corps. Il est recommandé de consulter
-            un professionnel de la santé avant de commencer un programme
-            d'entrainement.
-          </p>
-        </motion.div>
-
-        <motion.div
-          whileHover={{
-            scale: 1.05,
-            backgroundColor: "white",
-            color: "black",
-            border: "2px solid black",
-            transition: { duration: 0.15 },
-          }}
-          className="faq bg-dark p-8"
-        >
-          <h2 className="font-titre lg:text-2xl uppercase">
-            Quels sont les avantages de l'entrainement en groupe?
-          </h2>
-          <p className="px-4 py-2">
-            L'entrainement en groupe peut être motivant et amusant. Il peut
-            également vous aider à rester responsable et à rester sur la bonne
-            voie avec vos objectifs de fitness.
-          </p>
-        </motion.div>
-
-        <motion.div
-          whileHover={{
-            scale: 1.05,
-            backgroundColor: "white",
-            color: "black",
-            border: "2px solid black",
-            transition: { duration: 0.15 },
-          }}
-          className="faq bg-dark p-8"
-        >
-          <h2 className="font-titre lg:text-2xl uppercase">
             Quels sont les avantages de l'entrainement par intervalles?
           </h2>
           <p className="px-4 py-2">
@@ -177,6 +136,108 @@ const Faq = () => {
             L'entrainement en circuit est un excellent moyen d'améliorer la
             force et l'endurance. Il peut également vous aider à brûler des
             calories et à améliorer votre condition physique générale.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "white",
+            color: "black",
+            border: "2px solid black",
+            transition: { duration: 0.15 },
+          }}
+          className="faq bg-dark p-8"
+        >
+          <h2 className="font-titre lg:text-2xl uppercase">
+            Quels sont les avantages de l'entrainement en force?
+          </h2>
+          <p className="px-4 py-2">
+            L'entrainement en force est un excellent moyen de renforcer les
+            muscles et les os. Il peut également vous aider à brûler des
+            calories et à améliorer votre métabolisme.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "white",
+            color: "black",
+            border: "2px solid black",
+            transition: { duration: 0.15 },
+          }}
+          className="faq bg-dark p-8"
+        >
+          <h2 className="font-titre lg:text-2xl uppercase">
+            Quels sont les avantages de l'entrainement en endurance?
+          </h2>
+          <p className="px-4 py-2">
+            L'entrainement en endurance est un excellent moyen d'améliorer
+            l'endurance et la santé cardiovasculaire. Il peut également vous
+            aider à brûler des calories et à améliorer votre condition physique
+            générale.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "white",
+            color: "black",
+            border: "2px solid black",
+            transition: { duration: 0.15 },
+          }}
+          className="faq bg-dark p-8"
+        >
+          <h2 className="font-titre lg:text-2xl uppercase">
+            Quels sont les avantages de l'entrainement en Hypertrophie?
+          </h2>
+          <p className="px-4 py-2">
+            L'entrainement en hypertrophie est un excellent moyen de développer
+            la masse musculaire. Il peut également vous aider à brûler des
+            calories et à améliorer votre force et votre endurance.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "white",
+            color: "black",
+            border: "2px solid black",
+            transition: { duration: 0.15 },
+          }}
+          className="faq bg-dark p-8"
+        >
+          <h2 className="font-titre lg:text-2xl uppercase">
+            Quels sont les avantages de l'entrainement en flexibilité?
+          </h2>
+          <p className="px-4 py-2">
+            L'entrainement en flexibilité est un excellent moyen d'améliorer la
+            mobilité et de prévenir les blessures. Il peut également vous aider
+            à soulager la tension musculaire et à améliorer la circulation
+            sanguine.
+          </p>
+        </motion.div>
+
+        <motion.div
+          whileHover={{
+            scale: 1.05,
+            backgroundColor: "white",
+            color: "black",
+            border: "2px solid black",
+            transition: { duration: 0.15 },
+          }}
+          className="faq bg-dark p-8"
+        >
+          <h2 className="font-titre lg:text-2xl uppercase">
+            Quels sont les avantages de l'entrainement en groupe?
+          </h2>
+          <p className="px-4 py-2">
+            L'entrainement en groupe peut être motivant et amusant. Il peut
+            également vous aider à rester responsable et à rester sur la bonne
+            voie avec vos objectifs de fitness.
           </p>
         </motion.div>
       </motion.div>
