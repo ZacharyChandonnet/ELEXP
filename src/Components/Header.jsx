@@ -65,7 +65,7 @@ const Header = () => {
             },
             {
               url: "/faq",
-              name: "FAQ",
+              name: "Faq",
               title: "faq",
             },
           ]}
