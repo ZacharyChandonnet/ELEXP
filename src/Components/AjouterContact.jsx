@@ -19,7 +19,7 @@ const AjouterContact = ({ contact }) => {
   return (
     <button onClick={() => handleAjouterContact(contact)}>
       <IoIosAdd
-        className="cursor-pointer text-white text-2xl"
+        className="cursor-pointer  text-2xl"
       />
     </button>
   );

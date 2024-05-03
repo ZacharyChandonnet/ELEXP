@@ -317,7 +317,7 @@ const ListeEntrainements = () => {
     >
       <DailyQuest />
 
-      <h2 id="entrainements" className="font-titre uppercase pageBlur">Mes entrainements</h2>
+      <h2 id="entrainements" className="font-titre uppercase pageBlur">Mes entraînements</h2>
       {cooldownRemaining > 0 && (
         <p className="text-red-500 font-bold italic text-sm p-2">
           Temps de récupération restant avant d'ajouter un autre entrainement:{" "}
@@ -326,7 +326,7 @@ const ListeEntrainements = () => {
       )}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 ">
         {workouts && workouts.length === 0 ? (
-          <p>Tu n'as pas encore d'entrainements</p>
+          <p>Tu n'as pas encore d'entraînements</p>
         ) : (
           workouts.map((workout) => (
             <div key={workout.id} className="bg-dark text-white relative p-4">

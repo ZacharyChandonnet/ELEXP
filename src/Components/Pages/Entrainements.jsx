@@ -25,7 +25,7 @@ const Entrainements = () => {
           <div className="lg:pl-16">
             <h2 className="font-titre text-white text-lg lg:text-3xl">
               CRÉEZ ET PERSONNALISE <br />
-              TES ENTRAINEMENTS QUAND TU VEUX.
+              TES ENTRAÎNEMENTS QUAND TU VEUX.
             </h2>
 
             <p className="text-white lg:ml-6 italic pt-4 lg:w-2/3 lg:pl-8">
