@@ -179,7 +179,7 @@ const Propos = () => {
           </div>
           <div className="p-8 ">
             <p className=" italic pt-4 w-2/3 mx-auto">
-              " Ce que nous offrons à nos utilisateurs, c'est des <a href="/programmes"><span className="text-green-500 cursor-pointer">programmes d'entraînement</span></a>  selon les tendances d'aujourd'hui, des défis quotidiens
+              " Ce que nous offrons à nos utilisateurs, c'est des <a href="/programmes"><span className="text-green-500 cursor-pointer">programmes d'entraînement</span></a>  selon les tendances d'aujourd'hui, des <span className="text-green-500 cursor-pointer"><a href="/entrainements">défis quotidiens</a></span>
               afin de les motiver à se dépasser, la possibilité de <a href="/entrainements"><span className="text-green-500 cursor-pointer"> créér ses entraînements personnalisés</span></a> , un <a href="/profil"><span className="text-green-500 cursor-pointer">historique</span></a>  de ses performances et un <a href="/profil"><span className="text-green-500 cursor-pointer">tableau
               de bord</span></a>  pour suivre ses objectifs. Toujours incertain? Consulte notre <a href="/faq"><span className="text-green-500 cursor-pointer">FAQ</span></a> pour plus d'informations afin de t'aider à te donner une meilleure idée des possibilités qui s'offrent à toi."
             </p>
