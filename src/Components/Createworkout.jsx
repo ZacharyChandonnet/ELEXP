@@ -162,9 +162,13 @@ const Createworkout = () => {
                                   exercise.name
                                 )
                               ? " bg-white text-dark"
-                              : window.matchMedia("(max-width: 768px)").matches
-                              ? " bg-white text-dark"
-                              : " bg-dark text-white"
+                              : window.matchMedia("(max-width: 768px)")
+                                  .matches &&
+                                !selectedExercises[muscleGroup]?.includes(
+                                  exercise.name
+                                )
+                              ? " bg-dark text-white"
+                              : ""
                           }`}
                           onClick={() =>
                             choisirExercices(muscleGroup, exercise.name)
