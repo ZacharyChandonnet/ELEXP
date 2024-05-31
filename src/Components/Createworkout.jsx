@@ -163,8 +163,8 @@ const Createworkout = () => {
                                 )
                               ? " bg-white text-dark"
                               : window.matchMedia("(max-width: 768px)").matches
-                              ? " bg-dark text-white"
-                              : ""
+                              ? " bg-white text-dark"
+                              : " bg-dark text-white"
                           }`}
                           onClick={() =>
                             choisirExercices(muscleGroup, exercise.name)
