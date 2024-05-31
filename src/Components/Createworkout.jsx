@@ -162,6 +162,8 @@ const Createworkout = () => {
                                   exercise.name
                                 )
                               ? " bg-white text-dark"
+                              : window.matchMedia("(max-width: 768px)").matches
+                              ? " bg-dark text-white"
                               : ""
                           }`}
                           onClick={() =>
