@@ -82,22 +82,27 @@ const Createworkout = () => {
   };
 
   const handleCreateWorkout = () => {
-    if (workoutName.trim() === "" || Object.keys(selectedExercises).length === 0) {
-      console.log("Veuillez choisir un nom d'entraînement et sélectionner au moins un exercice.");
-      return; 
+    if (
+      workoutName.trim() === "" ||
+      Object.keys(selectedExercises).length === 0
+    ) {
+      console.log(
+        "Veuillez choisir un nom d'entraînement et sélectionner au moins un exercice."
+      );
+      return;
     }
     createWorkout(workoutName, Object.values(selectedExercises).flat());
     if (Object.values(selectedExercises).flat().length <= 7) {
       setNotification(true);
-    }else{
+    } else {
       setNotificationExercices(true);
     }
-  
+
     setTimeout(() => {
       setNotification(false);
       setNotificationExercices(false);
     }, 7000);
-  
+
     setWorkoutName("");
     setSelectedExercises({});
   };
@@ -129,9 +134,13 @@ const Createworkout = () => {
                 className="border-t-2 border-dark p-2 py-6 flex flex-col items-start cursor-pointer"
                 onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
                 onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
-                onClick={() => isAbleToCreate && togglePopup(muscleGroup)}
               >
-                <h3 className="text-4xl uppercase font-titre">{muscleGroup}</h3>
+                <h3
+                  onClick={() => isAbleToCreate && togglePopup(muscleGroup)}
+                  className="text-4xl uppercase font-titre"
+                >
+                  {muscleGroup}
+                </h3>
                 <AnimatePresence>
                   {openPopup === muscleGroup && (
                     <motion.div
@@ -184,7 +193,8 @@ const Createworkout = () => {
                                     : "block",
                               }}
                             >
-                              {exerciseThresholds[muscleGroup]?.[exercise.name]} exp nécessaire
+                              {exerciseThresholds[muscleGroup]?.[exercise.name]}{" "}
+                              exp nécessaire
                             </p>
                           </div>
                           <input
@@ -235,9 +245,9 @@ const Createworkout = () => {
             disabled={!isAbleToCreate}
             className="bg-dark text-white p-2 mt-4 cursor-pointer lg:w-1/6 "
           >
-            
             <p>
-              <a href="#entrainements">Créer l'entraînement</a></p>
+              <a href="#entrainements">Créer l'entraînement</a>
+            </p>
           </motion.button>
         </div>
       )}
@@ -250,10 +260,11 @@ const Createworkout = () => {
 
       {notificationExercices && (
         <div className="fixed top-0 right-0 p-4 bg-dark text-white z-50 mt-10 mr-4 w-1/2 lg:w-1/5">
-          <Notification message={"Erreur: Maximum de 7 exercices par entraînement"} />
+          <Notification
+            message={"Erreur: Maximum de 7 exercices par entraînement"}
+          />
         </div>
       )}
-
     </div>
   );
 };
