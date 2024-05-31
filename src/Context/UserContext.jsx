@@ -656,6 +656,11 @@ export function UserProvider({ children }) {
     } catch (error) {
       console.error("Error");
     }
+    const userDocRef = doc(db, "users", user.uid);
+    onSnapshot(userDocRef, (doc) => {
+      setUserInfos(doc.data());
+    });
+
   };
 
   const afficherContacts = async () => {
