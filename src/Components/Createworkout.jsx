@@ -129,7 +129,7 @@ const Createworkout = () => {
                 className="border-t-2 border-dark p-2 py-6 flex flex-col items-start cursor-pointer"
                 onMouseEnter={() => isAbleToCreate && togglePopup(muscleGroup)}
                 onMouseLeave={() => isAbleToCreate && togglePopup(muscleGroup)}
-                onTouchStart={() => isAbleToCreate && togglePopup(muscleGroup)}
+                onClick={() => isAbleToCreate && togglePopup(muscleGroup)}
               >
                 <h3 className="text-4xl uppercase font-titre">{muscleGroup}</h3>
                 <AnimatePresence>
