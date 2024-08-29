@@ -63,7 +63,7 @@ const Footer = () => {
             </div>
             <div className="bottom border-t-2 border-dark  flex items-center justify-between text-sm pb-4">
                 <p >
-                    Application réalisée par <a target="blank" href="https://chandodev.netlify.app"><span className="font-bold">Zachary Chandonnet</span></a>
+                    Application réalisée par <a target="blank" href="https://zacharychandonnet.netlify.app"><span className="font-bold">Zachary Chandonnet</span></a>
                 </p>
                 <p>
                     &copy;{new Date().getFullYear()} Tous droits réservés

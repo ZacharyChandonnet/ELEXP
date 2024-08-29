@@ -174,7 +174,7 @@ const Contact = () => {
         <div className="bg-dark absolute top-0 left-1/2 transform -translate-x-1/2 text-white h-screen w-full p-24 z-50 "
         >
           <h2 className="font-titre lg:text-3xl uppercase border-b-2 border-white w-1/2 p-2"> Conversation avec {contact.name}</h2>
-          <div className="fenetre overflow-y-scroll"
+          <div className="fenetre overflow-y-scroll "
          
           >
             {lesMessages.map((message, index) => (
